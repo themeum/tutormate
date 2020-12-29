@@ -1,0 +1,32 @@
+{
+	"name": "themeum/tutor-mate",
+	"description": "Companion plugin for Tutor Starter Theme.",
+	"keywords": [
+		"WordPress",
+		"Plugin",
+		"Tutor_Mate"
+	],
+	"license": "GPL-3.0",
+	"version": "1.0.0",
+	"authors": [
+		{
+			"name": "Themeum",
+			"email": "hello@themeum.com",
+			"homepage": "https://themeum.com"
+		}
+	],
+	"repositories": [
+		{
+		  "type": "vcs",
+		  "url":  "https://github.com/awesomemotive/WordPress-Importer.git"
+		}
+	],
+	"require": {
+        "awesomemotive/wp-content-importer-v2": "^3.0.3"
+    },
+	"autoload": {
+		"psr-4": {
+			"TUTORMATE\\": "inc/"
+		}
+	}
+}
