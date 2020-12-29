@@ -1,7 +1,7 @@
 export const dummyData = [
 	{
 		id: "demo1",
-		title: "Demo 1 - business",
+		title: "Demo 1",
 		category: ["business"],
 		available: ["gutenberg", "elementor"],
 		imgUrl: "http://placehold.it/350x250",
@@ -9,7 +9,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo2",
-		title: "Demo 2 - business, blog",
+		title: "Demo 2",
 		category: ["business", "blog"],
 		available: ["gutenberg"],
 		imgUrl: "http://placehold.it/350x250",
@@ -17,7 +17,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo3",
-		title: "Demo 3 - agency",
+		title: "Demo 3",
 		category: ["agency"],
 		available: ["gutenberg", "elementor"],
 		imgUrl: "http://placehold.it/350x250",
@@ -25,7 +25,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo4",
-		title: "Demo 4 - portfolio",
+		title: "Demo 4",
 		category: ["portfolio"],
 		available: ["gutenberg"],
 		imgUrl: "http://placehold.it/350x250",
@@ -33,7 +33,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo5",
-		title: "Demo 5 - blog",
+		title: "Demo 5",
 		category: ["blog"],
 		available: ["gutenberg", "elementor"],
 		imgUrl: "http://placehold.it/350x250",
@@ -41,7 +41,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo6",
-		title: "Demo 5 - portfolio, agency",
+		title: "Demo 5",
 		category: ["agency", "portfolio"],
 		available: ["elementor"],
 		imgUrl: "http://placehold.it/350x250",
@@ -49,7 +49,7 @@ export const dummyData = [
 	},
 	{
 		id: "demo7",
-		title: "Demo 7 - education, agency",
+		title: "Demo 7",
 		category: ["agency", "education"],
 		available: ["elementor"],
 		imgUrl: "http://placehold.it/350x250",

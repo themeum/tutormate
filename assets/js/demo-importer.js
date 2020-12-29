@@ -769,6 +769,7 @@ var useState = wp.element.useState;
 var allCategories = ["all"].concat(_toConsumableArray(new Set(_dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"].map(function (item) {
   return item.category;
 }).flat())));
+var importFiles = tutormate.import_files;
 
 function App() {
   var _useState = useState(_dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"]),
@@ -949,49 +950,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dummyData", function() { return dummyData; });
 var dummyData = [{
   id: "demo1",
-  title: "Demo 1 - business",
+  title: "Demo 1",
   category: ["business"],
   available: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["qubely", "elementor"]
 }, {
   id: "demo2",
-  title: "Demo 2 - business, blog",
+  title: "Demo 2",
   category: ["business", "blog"],
   available: ["gutenberg"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["qubely"]
 }, {
   id: "demo3",
-  title: "Demo 3 - agency",
+  title: "Demo 3",
   category: ["agency"],
   available: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["qubely", "elementor"]
 }, {
   id: "demo4",
-  title: "Demo 4 - portfolio",
+  title: "Demo 4",
   category: ["portfolio"],
   available: ["gutenberg"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["qubely"]
 }, {
   id: "demo5",
-  title: "Demo 5 - blog",
+  title: "Demo 5",
   category: ["blog"],
   available: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["qubely", "elementor"]
 }, {
   id: "demo6",
-  title: "Demo 5 - portfolio, agency",
+  title: "Demo 5",
   category: ["agency", "portfolio"],
   available: ["elementor"],
   imgUrl: "http://placehold.it/350x250",
   plugins: ["elementor"]
 }, {
   id: "demo7",
-  title: "Demo 7 - education, agency",
+  title: "Demo 7",
   category: ["agency", "education"],
   available: ["elementor"],
   imgUrl: "http://placehold.it/350x250",

@@ -133,11 +133,11 @@ class OneClickDemoImport {
 	 */
 	public function create_plugin_page() {
 		$this->plugin_page_setup = apply_filters( 'tutormate_plugin_page_setup', array(
-			'parent_slug' => 'themes.php',
-			'page_title'  => esc_html__( 'One Click Demo Import' , 'tutormate' ),
-			'menu_title'  => esc_html__( 'Import Demo Data' , 'tutormate' ),
+			'parent_slug' => 'tutorstarter',
+			'page_title'  => esc_html__( 'Tutor Starter Demo Import' , 'tutormate' ),
+			'menu_title'  => esc_html__( 'Demo Import' , 'tutormate' ),
 			'capability'  => 'import',
-			'menu_slug'   => 'pt-one-click-demo-import',
+			'menu_slug'   => 'tutorstarter-demo-import',
 		) );
 
 		$this->plugin_page = add_submenu_page(
@@ -202,7 +202,6 @@ class OneClickDemoImport {
 			wp_enqueue_style( 'tutormate-main-css', TUTORMATE_URL . 'assets/css/main.css', array() , TUTORMATE_VERSION );
 		}
 	}
-
 
 	/**
 	 * Main AJAX callback function for:

@@ -58,8 +58,6 @@ class DemoImport {
 	public function register() {
 		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
 		add_filter( 'tutormate_disable_pt_branding', '__return_true' );
-		add_filter( 'tutormate_plugin_intro_text', array( $this, 'change_text' ) );
-		add_filter( 'tutormate_plugin_page_setup', array( $this, 'change_plugin_page' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
         add_action( 'wp_ajax_selected_builder', array( $this, 'tutorstarter_selected_builder' ) );
         
@@ -207,37 +205,6 @@ class DemoImport {
 		}
 
 		return $demo_list;
-	}
-
-	/**
-	 * Change default intro texts
-	 *
-	 * @param string $default_text string to change.
-	 *
-	 * @return string
-	 */
-	public function change_text( $default_text ) {
-		$default_text .= '<div class="demo__intro-text"><h3>' . __( 'Welcome to Tutor Starter One Click Demo Import', 'tutorstarter' ) . '</h3></div>';
-		$default_text .= '<div id="test-page"></div>';
-
-		return $default_text;
-	}
-
-	/**
-	 * Change plugin page
-	 *
-	 * @param array $default_settings as arg.
-	 *
-	 * @return array $default_settings
-	 */
-	public function change_plugin_page( $default_settings ) {
-		$default_settings['parent_slug'] = 'tutorstarter';
-		$default_settings['page_title']  = esc_html__( 'Tutor Starter One Click Demo Import', 'tutorstarter' );
-		$default_settings['menu_title']  = esc_html__( 'Demo Import', 'tutorstarter' );
-		$default_settings['capability']  = 'import';
-		$default_settings['menu_slug']   = 'tutorstarter-demo-import';
-
-		return $default_settings;
 	}
 
 	/**
