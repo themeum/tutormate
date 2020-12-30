@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "* {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-sizing: border-box;\n}\n\n:root {\n\t--primary: #0071a1;\n\t--default: #464646;\n\t--lightgray: #cccccc;\n}\n\nbody {\n\tbackground: #f1f1f1;\n\tcolor: #000;\n\tposition: relative;\n}\n\nbutton {\n\tcursor: pointer;\n\toutline: none;\n}\n\n.demo-importer-ui .btn {\n\ttext-decoration: none;\n\tdisplay: inline-block;\n\ttext-transform: capitalize;\n\toutline: none;\n\tborder: 1px solid var(--lightgray);\n\tcolor: #464646;\n\tpadding: 6px 13px;\n\tborder-radius: 4px;\n\ttransition: 0.2s linear;\n}\n\n.demo-importer-ui .btn.primary-btn {\n\tbackground: var(--primary);\n\tborder: 1px solid var(--primary);\n\tcolor: #fff;\n}\n\n.demo-importer-ui .btn.primary-btn:hover,\n.demo-importer-ui .btn.primary-btn:focus {\n\topacity: 0.85;\n}\n\n.demo-importer-ui .btn.outline-btn {\n\tbackground: transparent;\n\tborder: 1px solid var(--primary);\n\tcolor: var(--primary);\n}\n\n.tutor-demo-importer img {\n\twidth: 100%;\n\theight: auto;\n\tobject-fit: cover;\n}\n\n.tutor-demo-importer {\n\twidth: 100%;\n\tpadding: 30px;\n\tposition: relative;\n}\n\n.tutor-demo-importer header h3 {\n\tmargin-bottom: 20px;\n}\n\n.nav-container {\n\tbackground: #fff;\n\tmargin-bottom: 30px;\n\tborder-radius: 3px;\n\tpadding: 13px 20px;\n\tdisplay: grid;\n\talign-items: center;\n\tgrid-template-columns: 1fr;\n}\n\n.nav-container .nav-filter {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tlist-style: none;\n\tmargin-bottom: 10px;\n}\n\n@media (min-width: 768px) {\n\t.nav-container {\n\t\tgrid-template-columns: 4fr 1fr;\n\t}\n\t.nav-container .nav-filter {\n\t\tmargin-bottom: 0;\n\t}\n\n\t.nav-container .nav-filter .filter-btn:not(:first-child) {\n\t\tmargin-left: 15px;\n\t}\n}\n\n.nav-container .nav-filter .filter-btn {\n\ttext-decoration: none;\n\tcolor: inherit;\n\tcursor: pointer;\n\tbackground: transparent;\n\toutline: none;\n\tborder: none;\n\tfont-size: 1em;\n\ttext-transform: capitalize;\n\tposition: relative;\n\tpadding: 0px 10px;\n}\n\n.nav-container .nav-filter .filter-btn:after {\n\tcontent: \"\";\n\tposition: absolute;\n\twidth: 100%;\n\theight: 3px;\n\tbottom: calc(0% - 19px);\n\tleft: 0;\n\tbackground: #303030;\n\topacity: 0;\n\ttransition: 0.2s linear;\n\ttransform: scaleX(0);\n}\n\n.nav-container .nav-filter .filter-btn:hover:after,\n.nav-container .nav-filter .filter-btn:focus:after {\n\topacity: 1;\n\ttransform: scaleX(1);\n}\n\n@media (max-width: 767px) {\n\t.nav-container .nav-filter .filter-btn:after {\n\t\tdisplay: none;\n\t}\n\n\t.nav-container .nav-filter,\n\t.nav-container .nav-filter .filter-btn {\n\t\tdisplay: block;\n\t}\n\t.nav-container .nav-filter .filter-btn {\n\t\tmargin-left: 0;\n\t\tpadding: 0;\n\t}\n\t.nav-container .nav-filter .filter-btn:not(:last-child) {\n\t\tmargin-bottom: 8px;\n\t}\n}\n\n.search-filter input[type=\"search\"] {\n\twidth: 100%;\n\theight: 30px;\n\tpadding: 5px;\n\tborder: 1px solid var(--lightgray);\n\tborder-radius: 3px;\n\toutline: none;\n\ttransition: 0.2s linear;\n}\n.search-filter input[type=\"search\"]:hover,\n.search-filter input[type=\"search\"]:focus {\n\tborder-color: var(--primary);\n}\n\n.search-filter input[type=\"search\"]:focus {\n\tbox-shadow: 0 0 0 1px rgb(0 113 161 / 60%);\n}\n\ninput[type=\"search\" i]::-webkit-search-cancel-button {\n\tcursor: pointer;\n}\n\n.list-container {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n\tdisplay: grid;\n\tgrid-column-gap: 30px;\n\tgrid-row-gap: 30px;\n\tanimation: fade 0.6s linear;\n}\n\n@media (min-width: 768px) {\n\t.list-container {\n\t\tgrid-template-columns: repeat(3, 1fr);\n\t}\n}\n\n@keyframes fade {\n\tfrom {\n\t\topacity: 0;\n\t}\n\tto {\n\t\topacity: 1;\n\t}\n}\n\n.single-item .thumbnail {\n\tborder-radius: 3px 3px 0 0;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n.single-item .thumbnail .overlay {\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 55%);\n\topacity: 0;\n\ttransition: opacity 0.3s linear;\n}\n\n.single-item:hover .overlay {\n\topacity: 1;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 20px;\n}\n\n.single-item .thumbnail .overlay-btn {\n\tcolor: #fff;\n\tbackground: rgb(0 0 0 / 53%);\n\tborder: 1px solid rgb(255 255 255 / 25%);\n}\n\n.single-item .thumbnail .overlay-btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 15px;\n}\n\n.single-item .actions {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 0 0 3px 3px;\n\tposition: relative;\n\tmargin-top: -3px;\n}\n\n.single-item .actions .import-btn {\n\tbackground: #0071a1;\n\tborder: 1px solid #0071a1;\n\tcolor: #fff;\n}\n\n.single-item .actions .import-btn:hover,\n.single-item .thumbnail .overlay-btn:hover {\n\topacity: 0.8;\n}\n\n.no-list-found {\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 3px;\n\tgrid-column: 2/3;\n}\n\n/* Modal popup */\n.modal-wrapper {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 80%);\n\tpadding: 30px;\n\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\n\tz-index: 0;\n\topacity: 0;\n}\n\n.modal-wrapper.active {\n\tz-index: 10;\n\topacity: 1;\n}\n\n.modal-content {\n\tbackground: #fff;\n\tmax-width: 450px;\n\tborder-radius: 5px;\n\n\tanimation: fade 0.4s linear;\n}\n\n.modal-wrapper.active .modal-content {\n\topacity: 1;\n\ttransform: translateY(0px);\n}\n\n/* Modal Content  */\n.modal-content > [class^=\"modal-\"] {\n\tpadding: 15px;\n}\n\n.modal-head {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n}\n\n.modal-content .close-btn {\n\tbackground: transparent;\n\tborder: none;\n\tfont-size: 2em;\n\tline-height: 0.6;\n\tfont-family: sans-serif;\n\tfont-weight: 300;\n\ttransform: rotate(45deg);\n}\n\n.modal-content .modal-body {\n\tborder-top: 1px solid #dadada;\n\tborder-bottom: 1px solid #dadada;\n\tpadding: 30px;\n\ttext-align: center;\n}\n\n.modal-content .modal-body p {\n\tline-height: 1.5;\n\tmargin-bottom: 5px;\n}\n\n.modal-content .modal-body strong {\n\tdisplay: block;\n\ttext-transform: capitalize;\n}\n\n.modal-content .modal-body strong:not(:last-child):after {\n\tcontent: \", \";\n}\n\n.modal-footer {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: flex-end;\n}\n\n.modal-footer .btn {\n\tpadding: 5px 10px;\n}\n.modal-footer .btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "* {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-sizing: border-box;\n}\n\n:root {\n\t--primary: #0071a1;\n\t--default: #464646;\n\t--lightgray: #cccccc;\n}\n\nbody {\n\tbackground: #f1f1f1;\n\tcolor: #000;\n\tposition: relative;\n}\n\nbutton {\n\tcursor: pointer;\n\toutline: none;\n}\n.demo-importer-ui {\n\twidth: 100%;\n\tpadding: 30px;\n\tposition: relative;\n}\n\n.demo-importer-ui .btn {\n\ttext-decoration: none;\n\tdisplay: inline-block;\n\ttext-transform: capitalize;\n\toutline: none;\n\tborder: 1px solid var(--lightgray);\n\tcolor: #464646;\n\tpadding: 6px 13px;\n\tborder-radius: 4px;\n\ttransition: 0.2s linear;\n}\n\n.demo-importer-ui .btn.primary-btn {\n\tbackground: var(--primary);\n\tborder: 1px solid var(--primary);\n\tcolor: #fff;\n}\n\n.demo-importer-ui .btn.primary-btn:hover,\n.demo-importer-ui .btn.primary-btn:focus {\n\topacity: 0.85;\n}\n\n.demo-importer-ui .btn.outline-btn {\n\tbackground: transparent;\n\tborder: 1px solid var(--primary);\n\tcolor: var(--primary);\n}\n\n.demo-importer-wrapper img {\n\twidth: 100%;\n\theight: auto;\n\tobject-fit: cover;\n}\n\n.demo-importer-wrapper header h3 {\n\tmargin-bottom: 20px;\n}\n\n.nav-container {\n\tbackground: #fff;\n\tmargin-bottom: 30px;\n\tborder-radius: 3px;\n\tpadding: 13px 20px;\n\tdisplay: grid;\n\talign-items: center;\n\tgrid-template-columns: 1fr;\n}\n\n.nav-container .nav-filter {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tlist-style: none;\n\tmargin-bottom: 10px;\n}\n\n@media (min-width: 768px) {\n\t.nav-container {\n\t\tgrid-template-columns: 4fr 1fr;\n\t}\n\t.nav-container .nav-filter {\n\t\tmargin-bottom: 0;\n\t}\n\n\t.nav-container .nav-filter .filter-btn:not(:first-child) {\n\t\tmargin-left: 15px;\n\t}\n\t.no-list-found {\n\t\tgrid-column: 2/3;\n\t}\n}\n\n.nav-container .nav-filter .filter-btn {\n\ttext-decoration: none;\n\tcolor: inherit;\n\tcursor: pointer;\n\tbackground: transparent;\n\toutline: none;\n\tborder: none;\n\tfont-size: 1em;\n\ttext-transform: capitalize;\n\tposition: relative;\n\tpadding: 0px 10px;\n}\n\n.nav-container .nav-filter .filter-btn:after {\n\tcontent: \"\";\n\tposition: absolute;\n\twidth: 100%;\n\theight: 3px;\n\tbottom: calc(0% - 19px);\n\tleft: 0;\n\tbackground: #303030;\n\topacity: 0;\n\ttransition: 0.2s linear;\n\ttransform: scaleX(0);\n}\n\n.nav-container .nav-filter .filter-btn:hover:after,\n.nav-container .nav-filter .filter-btn:focus:after {\n\topacity: 1;\n\ttransform: scaleX(1);\n}\n\n@media (max-width: 767px) {\n\t.nav-container .nav-filter .filter-btn:after {\n\t\tdisplay: none;\n\t}\n\n\t.nav-container .nav-filter,\n\t.nav-container .nav-filter .filter-btn {\n\t\tdisplay: block;\n\t}\n\t.nav-container .nav-filter .filter-btn {\n\t\tmargin-left: 0;\n\t\tpadding: 0;\n\t}\n\t.nav-container .nav-filter .filter-btn:not(:last-child) {\n\t\tmargin-bottom: 8px;\n\t}\n}\n\n.search-filter input[type=\"search\"] {\n\twidth: 100%;\n\theight: 30px;\n\tpadding: 5px;\n\tborder: 1px solid var(--lightgray);\n\tborder-radius: 3px;\n\toutline: none;\n\ttransition: 0.2s linear;\n}\n.search-filter input[type=\"search\"]:hover,\n.search-filter input[type=\"search\"]:focus {\n\tborder-color: var(--primary);\n}\n\n.search-filter input[type=\"search\"]:focus {\n\tbox-shadow: 0 0 0 1px rgb(0 113 161 / 60%);\n}\n\ninput[type=\"search\" i]::-webkit-search-cancel-button {\n\tcursor: pointer;\n}\n\n.list-container {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n\tdisplay: grid;\n\tgrid-column-gap: 30px;\n\tgrid-row-gap: 30px;\n\tanimation: fade 0.6s linear;\n}\n\n@media (min-width: 768px) {\n\t.list-container {\n\t\tgrid-template-columns: repeat(3, 1fr);\n\t}\n}\n\n@keyframes fade {\n\tfrom {\n\t\topacity: 0;\n\t}\n\tto {\n\t\topacity: 1;\n\t}\n}\n\n.single-item .thumbnail {\n\tborder-radius: 3px 3px 0 0;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n.single-item .thumbnail .overlay {\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 55%);\n\topacity: 0;\n\ttransition: opacity 0.3s linear;\n}\n\n.single-item:hover .overlay {\n\topacity: 1;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 20px;\n}\n\n.single-item .thumbnail .overlay-btn {\n\tcolor: #fff;\n\tbackground: rgb(0 0 0 / 53%);\n\tborder: 1px solid rgb(255 255 255 / 25%);\n}\n\n.single-item .thumbnail .overlay-btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 15px;\n}\n\n.single-item .thumbnail img{\n\twidth: 100%;\n\theight: auto;\n}\n\n.single-item .actions {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 0 0 3px 3px;\n\tposition: relative;\n\tmargin-top: -3px;\n}\n\n.single-item .actions .import-btn {\n\tbackground: #0071a1;\n\tborder: 1px solid #0071a1;\n\tcolor: #fff;\n}\n\n.single-item .actions .import-btn:hover,\n.single-item .thumbnail .overlay-btn:hover {\n\topacity: 0.8;\n}\n\n.no-list-found {\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 3px;\n}\n\n/* Modal popup */\n.modal-wrapper {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 80%);\n\tpadding: 30px;\n\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\n\tz-index: 0;\n\topacity: 0;\n}\n\n.modal-wrapper.active {\n\tz-index: 10;\n\topacity: 1;\n}\n\n.modal-content {\n\tbackground: #fff;\n\tmax-width: 450px;\n\tborder-radius: 5px;\n\n\tanimation: fade 0.4s linear;\n}\n\n.modal-wrapper.active .modal-content {\n\topacity: 1;\n\ttransform: translateY(0px);\n}\n\n/* Modal Content  */\n.modal-content > [class^=\"modal-\"] {\n\tpadding: 15px;\n}\n\n.modal-head {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n}\n\n.modal-content .close-btn {\n\tbackground: transparent;\n\tborder: none;\n\tfont-size: 2em;\n\tline-height: 0.6;\n\tfont-family: sans-serif;\n\tfont-weight: 300;\n\ttransform: rotate(45deg);\n}\n\n.modal-content .modal-body {\n\tborder-top: 1px solid #dadada;\n\tborder-bottom: 1px solid #dadada;\n\tpadding: 30px;\n\ttext-align: center;\n}\n\n.modal-content .modal-body p {\n\tline-height: 1.5;\n\tmargin-bottom: 5px;\n}\n\n.modal-content .modal-body strong {\n\tdisplay: block;\n\ttext-transform: capitalize;\n}\n\n.modal-content .modal-body strong:not(:last-child):after {\n\tcontent: \", \";\n}\n\n.modal-footer {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: flex-end;\n}\n\n.modal-footer .btn {\n\tpadding: 5px 10px;\n}\n.modal-footer .btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n/* ProgressBar */\n.progress-wrapper {\n\tmax-width: 350px;\n\ttext-align: center;\n\tfont-size: 14px;\n}\n\n.progress {\n\tbackground-color: #d8d8d8;\n\tborder-radius: 20px;\n\tmargin-bottom: 5px;\n\theight: 10px;\n\tposition: relative;\n\toverflow: hidden;\n\tbox-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);\n}\n\n.progress-status {\n\t--color-1: #03a9f4;\n\t--color-2: #da00ff;\n\t--color-3: #e91e63;\n\tbackground: linear-gradient(to right, var(--color-1), var(--color-2), var(--color-3));\n\tborder-radius: 20px;\n\tcolor: #fff;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 0;\n}", ""]);
 
 // exports
 
@@ -742,7 +742,8 @@ if(false) {}
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.css */ "./react/src/components/App.css");
 /* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_App_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _dummyData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dummyData */ "./react/src/components/dummyData.js");
+/* harmony import */ var _progressBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./progressBar */ "./react/src/components/progressBar.js");
+/* harmony import */ var _dummyData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dummyData */ "./react/src/components/dummyData.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -766,13 +767,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var useState = wp.element.useState;
 
 
-var allCategories = ["all"].concat(_toConsumableArray(new Set(_dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"].map(function (item) {
+
+var importFiles = tutormate.import_files;
+var allCategories = ["all"].concat(_toConsumableArray(new Set(_dummyData__WEBPACK_IMPORTED_MODULE_2__["dummyData"].map(function (item) {
   return item.category;
 }).flat())));
-var importFiles = tutormate.import_files;
 
 function App() {
-  var _useState = useState(_dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"]),
+  var _useState = useState(_dummyData__WEBPACK_IMPORTED_MODULE_2__["dummyData"]),
       _useState2 = _slicedToArray(_useState, 2),
       listItems = _useState2[0],
       setListItems = _useState2[1];
@@ -802,11 +804,11 @@ function App() {
 
   var filterItems = function filterItems(category) {
     if (category === "all") {
-      setListItems(_dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"]);
+      setListItems(_dummyData__WEBPACK_IMPORTED_MODULE_2__["dummyData"]);
       return;
     }
 
-    var newItems = _dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"].filter(function (item) {
+    var newItems = _dummyData__WEBPACK_IMPORTED_MODULE_2__["dummyData"].filter(function (item) {
       return item.category.includes(category);
     });
     setListItems(newItems);
@@ -814,7 +816,7 @@ function App() {
 
   var searchResult = function searchResult(e) {
     var inputValue = e.target.value.trim().toLowerCase();
-    var newItems = _dummyData__WEBPACK_IMPORTED_MODULE_1__["dummyData"].filter(function (item) {
+    var newItems = _dummyData__WEBPACK_IMPORTED_MODULE_2__["dummyData"].filter(function (item) {
       return item.title.toLowerCase().includes(inputValue);
     });
     setListItems(newItems);
@@ -905,7 +907,7 @@ function App() {
 
   return /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-ui"
-  }, /*#__PURE__*/React.createElement(PopupModal, {
+  }, /*#__PURE__*/React.createElement(_progressBar__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem
   }), /*#__PURE__*/React.createElement("div", {
     className: "tutor-demo-importer"
@@ -1001,6 +1003,70 @@ var dummyData = [{
 
 /***/ }),
 
+/***/ "./react/src/components/progressBar.js":
+/*!*********************************************!*\
+  !*** ./react/src/components/progressBar.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _wp$element = wp.element,
+    useEffect = _wp$element.useEffect,
+    useState = _wp$element.useState;
+
+var ProgressBar = function ProgressBar() {
+  var _useState = useState(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      value = _useState2[0],
+      setValue = _useState2[1];
+
+  useEffect(function () {
+    var interval = setInterval(function () {
+      setValue(function (oldValue) {
+        var newValue = oldValue + 1;
+
+        if (newValue === 100) {
+          clearInterval(interval);
+        }
+
+        return newValue;
+      });
+    }, 10);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "progress-wrapper",
+    style: {
+      marginBottom: "20px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress-status",
+    style: {
+      width: "".concat(value, "%"),
+      opacity: 1
+    }
+  })), value === 100 ? /*#__PURE__*/React.createElement("span", null, "Completed") : /*#__PURE__*/React.createElement("span", null, value, "%"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ProgressBar);
+
+/***/ }),
+
 /***/ "./react/src/demo-importer.js":
 /*!************************************!*\
   !*** ./react/src/demo-importer.js ***!
@@ -1024,7 +1090,7 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
 
 
 /***/ })

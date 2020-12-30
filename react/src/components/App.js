@@ -1,10 +1,12 @@
 const { useState } = wp.element;
+
 import "./App.css";
+import ProgressBar from './progressBar';
 import { dummyData } from "./dummyData";
 
+let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set(dummyData.map((item) => item.category).flat())];
 
-let importFiles = tutormate.import_files;
 
 function App() {
 	const [listItems, setListItems] = useState(dummyData);
@@ -98,14 +100,15 @@ function App() {
 						);
 					})
 				) : (
-					<li className="no-list-found">Nothing Found</li>
-				)}
+						<li className="no-list-found">Nothing Found</li>
+					)}
 			</ul>
 		);
 	};
 
 	return (
 		<div className="demo-importer-ui">
+			<ProgressBar />
 			<PopupModal clickedItem={clickedItem} />
 			<div className="tutor-demo-importer">
 				<header>
@@ -134,7 +137,6 @@ function App() {
 						</div>
 					</div>
 				</header>
-
 				<ListItems listItems={listItems} />
 			</div>
 		</div>
