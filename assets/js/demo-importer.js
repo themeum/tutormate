@@ -838,10 +838,10 @@ function App() {
       }
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
-    }, /*#__PURE__*/React.createElement("p", null, "The following plugins will be installed and activated for this demo if not already available."), clickedItem && clickedItem.map(function (item, index) {
+    }, /*#__PURE__*/React.createElement("p", null, "The follow plugins will be installed and activated for this demo if not already available:"), clickedItem && clickedItem.map(function (item, index) {
       return /*#__PURE__*/React.createElement("strong", {
         key: index
-      }, item);
+      }, item.title);
     })), /*#__PURE__*/React.createElement("div", {
       className: "modal-footer"
     }, /*#__PURE__*/React.createElement("button", {
@@ -851,7 +851,7 @@ function App() {
       }
     }, "Cancel"), /*#__PURE__*/React.createElement("button", {
       className: "btn primary-btn"
-    }, "Import"))));
+    }, "Next"))));
   }; // Component - ListItems
 
 
@@ -875,7 +875,7 @@ function App() {
         alt: import_file_name
       }), /*#__PURE__*/React.createElement("div", {
         className: "overlay"
-      }, /*#__PURE__*/React.createElement("h4", null, "Available for"), /*#__PURE__*/React.createElement("div", null, builders.map(function (btn) {
+      }, /*#__PURE__*/React.createElement("h4", null, "Available for"), /*#__PURE__*/React.createElement("div", null, builders.map(function (builder) {
         return /*#__PURE__*/React.createElement("button", {
           type: "button",
           className: "btn overlay-btn",
@@ -887,7 +887,7 @@ function App() {
           onClick: function onClick() {
             return getClickedItem(plugins);
           }
-        }, btn));
+        }, builder));
       })))), /*#__PURE__*/React.createElement("div", {
         className: "actions"
       }, /*#__PURE__*/React.createElement("h4", null, import_file_name), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
@@ -910,7 +910,7 @@ function App() {
   }, /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem
   }), /*#__PURE__*/React.createElement("div", {
-    className: "tutor-demo-importer"
+    className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, "Welcome to One Click Demo Importer "), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -952,53 +952,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dummyData", function() { return dummyData; });
 var dummyData = [{
   id: "demo1",
-  title: "Demo 1",
+  title: "Demo 1 - business",
   category: ["business"],
-  available: ["gutenberg", "elementor"],
+  builders: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["qubely", "elementor"]
+  plugins: [{
+    base: "qubely",
+    slug: "qubely",
+    title: "Qubely",
+    path: "qubely/qubely.php"
+  }, {
+    base: "elementor",
+    slug: "elementor",
+    title: "Elementor",
+    path: "elementor/elementor.php"
+  }]
 }, {
   id: "demo2",
-  title: "Demo 2",
+  title: "Demo 2 - business, blog",
   category: ["business", "blog"],
-  available: ["gutenberg"],
+  builders: ["gutenberg"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["qubely"]
+  plugins: [{
+    base: "qubely",
+    slug: "qubely",
+    title: "Qubely",
+    path: "qubely/qubely.php"
+  }]
 }, {
   id: "demo3",
-  title: "Demo 3",
+  title: "Demo 3 - agency",
   category: ["agency"],
-  available: ["gutenberg", "elementor"],
+  builders: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["qubely", "elementor"]
+  plugins: [{
+    base: "qubely",
+    slug: "qubely",
+    title: "Qubely",
+    path: "qubely/qubely.php"
+  }, {
+    base: "elementor",
+    slug: "elementor",
+    title: "Elementor",
+    path: "elementor/elementor.php"
+  }]
 }, {
   id: "demo4",
-  title: "Demo 4",
+  title: "Demo 4 - portfolio",
   category: ["portfolio"],
-  available: ["gutenberg"],
+  builders: ["gutenberg"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["qubely"]
+  plugins: [{
+    base: "qubely",
+    slug: "qubely",
+    title: "Qubely",
+    path: "qubely/qubely.php"
+  }]
 }, {
   id: "demo5",
-  title: "Demo 5",
+  title: "Demo 5 - blog",
   category: ["blog"],
-  available: ["gutenberg", "elementor"],
+  builders: ["gutenberg", "elementor"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["qubely", "elementor"]
+  plugins: [{
+    base: "qubely",
+    slug: "qubely",
+    title: "Qubely",
+    path: "qubely/qubely.php"
+  }, {
+    base: "elementor",
+    slug: "elementor",
+    title: "Elementor",
+    path: "elementor/elementor.php"
+  }]
 }, {
   id: "demo6",
-  title: "Demo 5",
+  title: "Demo 5 - portfolio, agency",
   category: ["agency", "portfolio"],
-  available: ["elementor"],
+  builders: ["elementor"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["elementor"]
+  plugins: [{
+    base: "elementor",
+    slug: "elementor",
+    title: "Elementor",
+    path: "elementor/elementor.php"
+  }]
 }, {
   id: "demo7",
-  title: "Demo 7",
+  title: "Demo 7 - education, agency",
   category: ["agency", "education"],
-  available: ["elementor"],
+  builders: ["elementor"],
   imgUrl: "http://placehold.it/350x250",
-  plugins: ["elementor"]
+  plugins: [{
+    base: "elementor",
+    slug: "elementor",
+    title: "Elementor",
+    path: "elementor/elementor.php"
+  }]
 }];
 
 /***/ }),

@@ -50,15 +50,15 @@ function App() {
 					</div>
 					<div className="modal-body">
 						<p>
-							The following plugins will be installed and activated for this demo if not already available.
+							The follow plugins will be installed and activated for this demo if not already available:
 						</p>
-						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item}</strong>)}
+						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item.title}</strong>)}
 					</div>
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn primary-btn">Import</button>
+						<button className="btn primary-btn">Next</button>
 					</div>
 				</div>
 			</div>
@@ -79,9 +79,9 @@ function App() {
 									<div className="overlay">
 										<h4>Available for</h4>
 										<div>
-											{builders.map((btn) => (
+											{builders.map((builder) => (
 												<button type="button" className="btn overlay-btn" key={Math.random()} onClick={() => toggleModalState()}>
-													<span onClick={() => getClickedItem(plugins)}>{btn}</span>
+													<span onClick={() => getClickedItem(plugins)}>{builder}</span>
 												</button>
 											))}
 										</div>
@@ -99,8 +99,8 @@ function App() {
 						);
 					})
 				) : (
-						<li className="no-list-found">Nothing Found</li>
-					)}
+					<li className="no-list-found">Nothing Found</li>
+				)}
 			</ul>
 		);
 	};
@@ -109,7 +109,7 @@ function App() {
 		<div className="demo-importer-ui">
 			
 			<PopupModal clickedItem={clickedItem} />
-			<div className="tutor-demo-importer">
+			<div className="demo-importer-wrapper">
 				<header>
 					<h3>Welcome to One Click Demo Importer </h3>
 					<div className="nav-container">
@@ -136,6 +136,7 @@ function App() {
 						</div>
 					</div>
 				</header>
+
 				<ListItems listItems={listItems} />
 			</div>
 		</div>
