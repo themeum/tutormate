@@ -5,11 +5,10 @@ import ProgressBar from './progressBar';
 import { dummyData } from "./dummyData";
 
 let importFiles = tutormate.import_files;
-const allCategories = ["all", ...new Set(dummyData.map((item) => item.category).flat())];
-
+const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
 
 function App() {
-	const [listItems, setListItems] = useState(dummyData);
+	const [listItems, setListItems] = useState(importFiles);
 	const [categories, setCategories] = useState(allCategories);
 	const [modalState, setModalState] = useState(false);
 	const [clickedItem, setClickedItem] = useState([]);
@@ -24,17 +23,17 @@ function App() {
 
 	const filterItems = (category) => {
 		if (category === "all") {
-			setListItems(dummyData);
+			setListItems(importFiles);
 			return;
 		}
 
-		const newItems = dummyData.filter((item) => item.category.includes(category));
+		const newItems = importFiles.filter((item) => item.categories.includes(category));
 		setListItems(newItems);
 	};
 
 	const searchResult = (e) => {
 		const inputValue = e.target.value.trim().toLowerCase();
-		const newItems = dummyData.filter((item) => item.title.toLowerCase().includes(inputValue));
+		const newItems = importFiles.filter((item) => item.import_file_name.toLowerCase().includes(inputValue));
 		setListItems(newItems);
 	};
 
@@ -51,7 +50,7 @@ function App() {
 					</div>
 					<div className="modal-body">
 						<p>
-							The follow plugins will be installed and activated for this demo if not already available.
+							The following plugins will be installed and activated for this demo if not already available.
 						</p>
 						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item}</strong>)}
 					</div>
@@ -72,15 +71,15 @@ function App() {
 			<ul className="list-container">
 				{listItems.length > 0 ? (
 					listItems.map((item, index) => {
-						const { title, available, imgUrl, id, plugins } = item;
+						const { import_file_name, builders, import_preview_image_url, id, plugins } = item;
 						return (
 							<li className="single-item" key={index}>
 								<figure className="thumbnail">
-									<img src={imgUrl} alt={title} />
+									<img src={import_preview_image_url} alt={import_file_name} />
 									<div className="overlay">
 										<h4>Available for</h4>
 										<div>
-											{available.map((btn) => (
+											{builders.map((btn) => (
 												<button type="button" className="btn overlay-btn" key={Math.random()} onClick={() => toggleModalState()}>
 													<span onClick={() => getClickedItem(plugins)}>{btn}</span>
 												</button>
@@ -89,7 +88,7 @@ function App() {
 									</div>
 								</figure>
 								<div className="actions">
-									<h4>{title}</h4>
+									<h4>{import_file_name}</h4>
 									<div>
 										<button className="btn primary-btn" onClick={() => toggleModalState()}>
 											<span onClick={() => getClickedItem(plugins)}>Import</span>
@@ -108,7 +107,7 @@ function App() {
 
 	return (
 		<div className="demo-importer-ui">
-			<ProgressBar />
+			
 			<PopupModal clickedItem={clickedItem} />
 			<div className="tutor-demo-importer">
 				<header>

@@ -120,7 +120,7 @@ class DemoImport {
 				'local_import_file'            => trailingslashit( get_template_directory() ) . 'demo/demo-one/content.xml',
 				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-one/widgets.wie',
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
-				//'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
+				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => array(
                     $this->tutor_lms,
@@ -146,7 +146,7 @@ class DemoImport {
 				'local_import_file'            => trailingslashit( get_template_directory() ) . 'demo/demo-three/content.xml',
 				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-three/widgets.wie',
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-three/customizer.dat',
-				//'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.jpg',
+				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
 				'builders'                     => array( 'gutenberg' ),
 				'plugins'                      => array(
                     $this->qubely,

@@ -183,7 +183,7 @@ class OneClickDemoImport {
 				array(
 					'ajax_url'         => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce'       => wp_create_nonce( 'tutormate-ajax-verification' ),
-					'import_files'     => json_encode( $this->import_files ),
+					'import_files'     => $this->import_files,
 					'wp_customize_on'  => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
 					'import_popup'     => apply_filters( 'tutormate_enable_grid_layout_import_popup_confirmation', true ),
 					'theme_screenshot' => $theme->get_screenshot(),
