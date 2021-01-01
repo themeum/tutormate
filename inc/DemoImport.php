@@ -22,7 +22,14 @@ class DemoImport {
 	 *
 	 * @var string
 	 */
-    private $endpoint = 'https://qubely.io/wp-json/restapi/v2/packs';
+	private $endpoint = 'https://qubely.io/wp-json/restapi/v2/packs';
+	
+	/**
+	 * Public builder
+	 * 
+	 * @var string
+	 */
+	public $builder = '';
     
     /**
      * Public Woocommerce plugin config
@@ -104,9 +111,9 @@ class DemoImport {
 	public function tutorstarter_selected_builder() {
 		$builder = isset( $_POST['builder'] ) ? $_POST['builder'] : 'gutenberg';
 
-		wp_send_json_success( $builder );
+		$this->builder = $builder;
 
-		return $builder;
+		wp_send_json_success( $builder );
 	}
 
 	/**
@@ -123,8 +130,8 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => array(
-                    $this->tutor_lms,
-                    $this->qubely,
+					$this->tutor_lms,
+                    'elementor' === $this->builder ? $this->elementor : $this->qubely,
                 ),
 			),
 			array(

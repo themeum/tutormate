@@ -1,4 +1,6 @@
+const { __ } = wp.i18n;
 const { useState } = wp.element;
+const { SelectControl } = wp.components;
 
 import "./App.css";
 import ProgressBar from './progressBar';
@@ -12,10 +14,36 @@ function App() {
 	const [categories, setCategories] = useState(allCategories);
 	const [modalState, setModalState] = useState(false);
 	const [clickedItem, setClickedItem] = useState([]);
+	const [builder, setBuilder] = useState('');
 
 	const toggleModalState = () => {
 		setModalState(!modalState);
 	};
+
+	const selectedBuilder = (builder) => {
+		setBuilder(builder);
+		let data = new FormData();
+		data.append( 'action', 'selected_builder' );
+		data.append( 'security', tutormate.ajax_nonce);
+		data.append( 'builder', builder );
+		doAjax(data);
+	}
+
+	const doAjax = (data) => {
+		jQuery.ajax({
+			method:      'POST',
+			url:         tutormate.ajax_url,
+			data:        data,
+			contentType: false,
+			processData: false,
+		})
+		.done( function(response) {
+			console.log('Response: ' + response.data);
+		})
+		.fail( function(error) {
+			console.log(error);
+		});
+	}
 
 	const getClickedItem = (plugins) => {
 		setClickedItem(plugins);
@@ -49,8 +77,17 @@ function App() {
 						</button>
 					</div>
 					<div className="modal-body">
+					<SelectControl
+						label={__('Select Builder', 'tutorstarter')}
+						value={builder}
+						options={[
+							{label: 'Gutenberg', value: 'gutenberg'},
+							{label: 'Elementor', value: 'elementor'}
+						]}
+						onChange={(value) => selectedBuilder(value)}
+					/>
 						<p>
-							The follow plugins will be installed and activated for this demo if not already available:
+							The following plugins will be installed and activated for this demo if not already available:
 						</p>
 						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item.title}</strong>)}
 					</div>
