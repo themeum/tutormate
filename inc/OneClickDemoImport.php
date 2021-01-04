@@ -179,23 +179,17 @@ class OneClickDemoImport {
 			// Get theme data.
 			$theme = wp_get_theme();
 
-			wp_localize_script( 'tutormate-main-js', 'tutormate',
+			wp_localize_script( 'tutormate-demo-importer', 'tutormate',
 				array(
-					'ajax_url'         => admin_url( 'admin-ajax.php' ),
-					'ajax_nonce'       => wp_create_nonce( 'tutormate-ajax-verification' ),
-					'import_files'     => $this->import_files,
-					'wp_customize_on'  => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
-					'import_popup'     => apply_filters( 'tutormate_enable_grid_layout_import_popup_confirmation', true ),
-					'theme_screenshot' => $theme->get_screenshot(),
-					'texts'            => array(
-						'missing_preview_image' => esc_html__( 'No preview image defined for this import.', 'tutormate' ),
-						'dialog_title'          => esc_html__( 'Are you sure?', 'tutormate' ),
-						'dialog_no'             => esc_html__( 'Cancel', 'tutormate' ),
-						'dialog_yes'            => esc_html__( 'Yes, import!', 'tutormate' ),
-						'dialog_next'           => esc_html__( 'Next', 'tutormate' ),
-						'selected_import_title' => esc_html__( 'Selected demo import:', 'tutormate' ),
-					),
-					'dialog_options' => apply_filters( 'tutormate_confirmation_dialog_options', array() )
+					'ajax_url'             => admin_url( 'admin-ajax.php' ),
+					'ajax_nonce'           => wp_create_nonce( 'tutormate-ajax-verification' ),
+					'import_files'         => $this->import_files,
+					'wp_customize_on'      => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
+					'theme_screenshot'     => $theme->get_screenshot(),
+					'plugin_progress'      => esc_html__( 'Checking/Installing/Activating Required Plugins', 'tutormate' ),
+					'content_new_progress' => esc_html__( 'Importing Demo Content...', 'tutormate' ),
+					'widgets_progress'     => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
+					'customizer_progress'  => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
 				)
 			);
 

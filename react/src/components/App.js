@@ -5,6 +5,7 @@ const { SelectControl } = wp.components;
 import "./App.css";
 import ProgressBar from './progressBar';
 import { dummyData } from "./dummyData";
+import Preloader from './preloader';
 
 let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
@@ -15,6 +16,10 @@ function App() {
 	const [modalState, setModalState] = useState(false);
 	const [clickedItem, setClickedItem] = useState([]);
 	const [builder, setBuilder] = useState('');
+
+	let builderOptions = [
+		{label: 'Select Builder', value: ''},
+	];
 
 	const toggleModalState = () => {
 		setModalState(!modalState);
@@ -45,8 +50,15 @@ function App() {
 		});
 	}
 
-	const getClickedItem = (plugins) => {
+	const getClickedItem = (plugins, builders) => {
 		setClickedItem(plugins);
+		
+		if ('' !== builders) {
+			Object.keys(builders).map(item => {
+				builderOptions.push({ label: item, value: item })
+			});
+		}
+		console.log('Builders: ' + builderOptions);
 	};
 
 	const filterItems = (category) => {
@@ -80,22 +92,19 @@ function App() {
 					<SelectControl
 						label={__('Select Builder', 'tutorstarter')}
 						value={builder}
-						options={[
-							{label: 'Gutenberg', value: 'gutenberg'},
-							{label: 'Elementor', value: 'elementor'}
-						]}
+						options={builderOptions}
 						onChange={(value) => selectedBuilder(value)}
 					/>
 						<p>
 							The following plugins will be installed and activated for this demo if not already available:
 						</p>
-						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item.title}</strong>)}
+						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item.title} - {item.state}</strong>)}
 					</div>
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn primary-btn">Next</button>
+						<button className="btn primary-btn">Import Now</button>
 					</div>
 				</div>
 			</div>
@@ -116,9 +125,9 @@ function App() {
 									<div className="overlay">
 										<h4>Available for</h4>
 										<div>
-											{builders.map((builder) => (
-												<button type="button" className="btn overlay-btn" key={Math.random()} onClick={() => toggleModalState()}>
-													<span onClick={() => getClickedItem(plugins)}>{builder}</span>
+											{builders.map((builder, index) => (
+												<button type="button" className="btn overlay-btn" key={index}>
+													{builder}
 												</button>
 											))}
 										</div>
@@ -128,7 +137,7 @@ function App() {
 									<h4>{import_file_name}</h4>
 									<div>
 										<button className="btn primary-btn" onClick={() => toggleModalState()}>
-											<span onClick={() => getClickedItem(plugins)}>Import</span>
+											<span onClick={() => getClickedItem(plugins, builders)}>Import</span>
 										</button>
 									</div>
 								</div>
