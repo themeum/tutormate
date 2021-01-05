@@ -353,6 +353,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 .modal-content .modal-body strong {
 	display: block;
 	text-transform: capitalize;
+	text-align: left;
 }
 
 .modal-content .modal-body strong:not(:last-child):after {

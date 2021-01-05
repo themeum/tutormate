@@ -7,9 +7,6 @@
 
 namespace TUTORMATE;
 
-use function activate_plugin;
-use function plugins_api;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -66,13 +63,13 @@ class DemoImport {
 		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
 		add_filter( 'tutormate_disable_pt_branding', '__return_true' );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
-        add_action( 'wp_ajax_selected_builder', array( $this, 'tutorstarter_selected_builder' ) );
+        add_action( 'wp_ajax_tutormate_selected_builder', array( $this, 'tutormate_selected_builder' ) );
         
         $this->woocommerce = array(
             'base'  => 'woocommerce',
             'slug'  => 'woocommerce',
             'path'  => 'woocommerce/woocommerce.php',
-            'title' => esc_html__( 'Woocommerce', 'tutorstarter' ),
+            'title' => esc_html__( 'Woocommerce', 'tutormate' ),
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'woocommerce/woocommerce.php' ),
         );
@@ -81,7 +78,7 @@ class DemoImport {
             'base'  => 'tutor',
             'slug'  => 'tutor',
             'path'  => 'tutor/tutor.php',
-            'title' => esc_html__( 'Tutor - Ultimate WordPress LMS plugin', 'tutorstarter' ),
+            'title' => esc_html__( 'Tutor LMS', 'tutormate' ),
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'tutor/tutor.php' ),
         );
@@ -90,7 +87,7 @@ class DemoImport {
             'base'  => 'qubely',
             'slug'  => 'qubely',
             'path'  => 'qubely/qubely.php',
-            'title' => esc_html__( 'Qubely - Advanced Gutenberg Blocks', 'tutorstarter' ),
+            'title' => esc_html__( 'Qubely', 'tutormate' ),
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'qubely/qubely.php' ),
         );
@@ -99,7 +96,7 @@ class DemoImport {
             'base'  => 'elementor',
             'slug'  => 'elementor',
             'path'  => 'elementor/elementor.php',
-            'title' => esc_html__( 'Elementor', 'tutorstarter' ),
+            'title' => esc_html__( 'Elementor', 'tutormate' ),
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
         );
@@ -108,8 +105,8 @@ class DemoImport {
 	/**
 	 * Capture builder data
 	 */
-	public function tutorstarter_selected_builder() {
-		$builder = isset( $_POST['builder'] ) ? $_POST['builder'] : 'gutenberg';
+	public function tutormate_selected_builder() {
+		$builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
 
 		$this->builder = $builder;
 
@@ -143,8 +140,9 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => array(
+					$this->tutor_lms,
                     $this->woocommerce,
-                    $this->elementor,
+                    'elementor' === $this->builder ? $this->elementor : $this->qubely,
                 ),
 			),
 			array(
@@ -156,7 +154,8 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
 				'builders'                     => array( 'gutenberg' ),
 				'plugins'                      => array(
-                    $this->qubely,
+					$this->tutor_lms,
+                    'elementor' === $this->builder ? $this->elementor : $this->qubely,
                 ),
 			),
 		);

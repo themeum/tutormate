@@ -4,37 +4,39 @@ const { SelectControl } = wp.components;
 
 import "./App.css";
 import ProgressBar from './progressBar';
-import { dummyData } from "./dummyData";
 import Preloader from './preloader';
 
 let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
 
 function App() {
+	const [builderList, setBuilderList] = useState([]);
+	const [clickedItem, setClickedItem] = useState([]);
+	const [modalState, setModalState] = useState(false);
+	const [builder, setBuilder] = useState('gutenberg');
+	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
 	const [categories, setCategories] = useState(allCategories);
-	const [modalState, setModalState] = useState(false);
-	const [clickedItem, setClickedItem] = useState([]);
-	const [builder, setBuilder] = useState('');
 
-	let builderOptions = [
-		{label: 'Select Builder', value: ''},
-	];
+	let builderOptions = builderList.length > 0 && builderList.map(item => {
+		return {label: item.toUpperCase(), value: item};
+	});
 
 	const toggleModalState = () => {
 		setModalState(!modalState);
+		true === modalState ? setBuilderList([]) : null;
 	};
 
 	const selectedBuilder = (builder) => {
 		setBuilder(builder);
 		let data = new FormData();
-		data.append( 'action', 'selected_builder' );
+		data.append( 'action', 'tutormate_selected_builder' );
 		data.append( 'security', tutormate.ajax_nonce);
 		data.append( 'builder', builder );
-		doAjax(data);
+		doBuilderAjax(data);
 	}
 
-	const doAjax = (data) => {
+	const doBuilderAjax = (data) => {
 		jQuery.ajax({
 			method:      'POST',
 			url:         tutormate.ajax_url,
@@ -50,15 +52,10 @@ function App() {
 		});
 	}
 
-	const getClickedItem = (plugins, builders) => {
+	const getClickedItem = (plugins, builders, index) => {
+		setSelectedIndex(index);
 		setClickedItem(plugins);
-		
-		if ('' !== builders) {
-			Object.keys(builders).map(item => {
-				builderOptions.push({ label: item, value: item })
-			});
-		}
-		console.log('Builders: ' + builderOptions);
+		setBuilderList(builders);
 	};
 
 	const filterItems = (category) => {
@@ -78,7 +75,7 @@ function App() {
 	};
 
 	// Component - PopupModal
-	const PopupModal = ({ clickedItem }) => {
+	const PopupModal = ({ clickedItem, selectedIndex }) => {
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -98,13 +95,18 @@ function App() {
 						<p>
 							The following plugins will be installed and activated for this demo if not already available:
 						</p>
-						{clickedItem && clickedItem.map((item, index) => <strong key={index}>{item.title} - {item.state}</strong>)}
+						{'gutenberg' === builder &&
+							clickedItem && clickedItem.map((item, index) => 'elementor' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
+						}
+						{'elementor' === builder &&
+							clickedItem && clickedItem.map((item, index) => 'qubely' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
+						}
 					</div>
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn primary-btn">Import Now</button>
+						<button className="btn primary-btn" onClick={() => {console.log('Index: ' + selectedIndex)}}>Import Now</button>
 					</div>
 				</div>
 			</div>
@@ -137,7 +139,7 @@ function App() {
 									<h4>{import_file_name}</h4>
 									<div>
 										<button className="btn primary-btn" onClick={() => toggleModalState()}>
-											<span onClick={() => getClickedItem(plugins, builders)}>Import</span>
+											<span onClick={() => getClickedItem(plugins, builders, index)}>Import</span>
 										</button>
 									</div>
 								</div>
@@ -154,7 +156,7 @@ function App() {
 	return (
 		<div className="demo-importer-ui">
 			
-			<PopupModal clickedItem={clickedItem} />
+			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
 			<div className="demo-importer-wrapper">
 				<header>
 					<h3>Welcome to One Click Demo Importer </h3>

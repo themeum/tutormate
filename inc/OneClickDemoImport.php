@@ -7,6 +7,9 @@
 
 namespace TUTORMATE;
 
+use function activate_plugin;
+use function plugins_api;
+
 /**
  * One Click Demo Import class, so we don't have to worry about namespaces.
  */
@@ -94,7 +97,6 @@ class OneClickDemoImport {
 		return static::$instance;
 	}
 
-
 	/**
 	 * Class construct function, to initiate the plugin.
 	 * Protected constructor to prevent creating a new instance of the
@@ -104,13 +106,13 @@ class OneClickDemoImport {
 		// Actions.
 		add_action( 'admin_menu', array( $this, 'create_plugin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'wp_ajax_ocdi_import_demo_data', array( $this, 'import_demo_data_ajax_callback' ) );
-		add_action( 'wp_ajax_ocdi_import_customizer_data', array( $this, 'import_customizer_data_ajax_callback' ) );
-		add_action( 'wp_ajax_ocdi_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
+		add_action( 'wp_ajax_tutormate_import_demo_data', array( $this, 'import_demo_data_ajax_callback' ) );
+		add_action( 'wp_ajax_tutormate_install_plugins', array( $this, 'install_plugins_ajax_callback' ) );
+		add_action( 'wp_ajax_tutormate_import_customizer_data', array( $this, 'import_customizer_data_ajax_callback' ) );
+		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_plugin_with_filter_data' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
-
 
 	/**
 	 * Private clone method to prevent cloning of the instance of the *Singleton* instance.
@@ -119,14 +121,12 @@ class OneClickDemoImport {
 	 */
 	private function __clone() {}
 
-
 	/**
 	 * Private unserialize method to prevent unserializing of the *Singleton* instance.
 	 *
 	 * @return void
 	 */
 	private function __wakeup() {}
-
 
 	/**
 	 * Creates the plugin page and a submenu item in WP Appearance menu.
@@ -158,9 +158,7 @@ class OneClickDemoImport {
 	 */
 	public function display_plugin_page() {
 		echo '<div id="demo-importer-id"></div>';
-		//require_once TUTORMATE_PATH . 'views/plugin-page.php';
 	}
-
 
 	/**
 	 * Enqueue admin scripts (JS and CSS)
@@ -194,6 +192,86 @@ class OneClickDemoImport {
 			);
 
 			wp_enqueue_style( 'tutormate-main-css', TUTORMATE_URL . 'assets/css/main.css', array() , TUTORMATE_VERSION );
+		}
+	}
+
+	/**
+	 * AJAX callback to install a plugin.
+	 */
+	public function install_plugins_ajax_callback() {
+		Helpers::verify_ajax_call();
+
+		if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['selected'] ) ) {
+			wp_send_json_error();
+		}
+		// Get selected file index or set it to 0.
+		$selected_index = empty( $_POST['selected'] ) ? '' : sanitize_text_field( $_POST['selected'] );
+		//error_log( print_r( $this->import_files[ $selected_index ], true ) );
+		$info = $this->import_files[ $selected_index ];
+		$install = true;
+
+		if ( isset( $info['plugins'] ) && ! empty( $info['plugins'] ) ) {
+
+			if ( ! function_exists( 'plugins_api' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+			}
+			if ( ! class_exists( 'WP_Upgrader' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+			}
+
+			foreach( $info['plugins'] as $key => $plugin ) {
+				if ( 'notactive' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+					$api = plugins_api(
+						'plugin_information',
+						array(
+							'slug' => $plugin['base'],
+							'fields' => array(
+								'short_description' => false,
+								'sections' => false,
+								'requires' => false,
+								'rating' => false,
+								'ratings' => false,
+								'downloaded' => false,
+								'last_updated' => false,
+								'added' => false,
+								'tags' => false,
+								'compatibility' => false,
+								'homepage' => false,
+								'donate_link' => false,
+							),
+						)
+					);
+					if ( ! is_wp_error( $api ) ) {
+
+						// Use AJAX upgrader skin instead of plugin installer skin.
+						// ref: function wp_ajax_install_plugin().
+						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
+
+						$installed = $upgrader->install( $api->download_link );
+						if ( $installed ) {
+							$activate = activate_plugin( $plugin['path'], '', false, true );
+							if ( is_wp_error( $activate ) ) {
+								$install = false;
+							}
+						} else {
+							$install = false;
+						}
+					} else {
+						$install = false;
+					}
+				} elseif ( 'installed' === $plugin['state'] ) {
+					$activate = activate_plugin( $plugin['path'], '', false, true );
+					if ( is_wp_error( $activate ) ) {
+						$install = false;
+					}
+				}
+			}
+		}
+
+		if ( false === $install ) {
+			wp_send_json_error();
+		} else {
+			wp_send_json( array( 'status' => 'pluginSuccess' ) );
 		}
 	}
 
@@ -267,7 +345,7 @@ class OneClickDemoImport {
 		}
 
 		// Save the initial import data as a transient, so other import parts (in new AJAX calls) can use that data.
-		Helpers::set_ocdi_import_data_transient( $this->get_current_importer_data() );
+		Helpers::set_tutormate_import_data_transient( $this->get_current_importer_data() );
 
 		if ( ! $this->before_import_executed ) {
 			$this->before_import_executed = true;
@@ -300,7 +378,7 @@ class OneClickDemoImport {
 		do_action( 'tutormate_after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 
 		// Save the import data as a transient, so other import parts (in new AJAX calls) can use that data.
-		Helpers::set_ocdi_import_data_transient( $this->get_current_importer_data() );
+		Helpers::set_tutormate_import_data_transient( $this->get_current_importer_data() );
 
 		// Request the customizer import AJAX call.
 		if ( ! empty( $this->selected_import_files['customizer'] ) ) {
@@ -315,7 +393,6 @@ class OneClickDemoImport {
 		// Send a JSON response with final report.
 		$this->final_response();
 	}
-
 
 	/**
 	 * AJAX callback for importing the customizer data.
@@ -347,7 +424,6 @@ class OneClickDemoImport {
 		$this->final_response();
 	}
 
-
 	/**
 	 * AJAX callback for the after all import action.
 	 */
@@ -370,13 +446,12 @@ class OneClickDemoImport {
 		$this->final_response();
 	}
 
-
 	/**
 	 * Send a JSON response with final report.
 	 */
 	private function final_response() {
 		// Delete importer data transient for current import.
-		delete_transient( 'ocdi_importer_data' );
+		delete_transient( 'tutormate_importer_data' );
 
 		// Display final messages (success or error messages).
 		if ( empty( $this->frontend_error_messages ) ) {
@@ -424,14 +499,13 @@ class OneClickDemoImport {
 		wp_send_json( $response );
 	}
 
-
 	/**
 	 * Get content importer data, so we can continue the import with this new AJAX request.
 	 *
 	 * @return boolean
 	 */
 	private function use_existing_importer_data() {
-		if ( $data = get_transient( 'ocdi_importer_data' ) ) {
+		if ( $data = get_transient( 'tutormate_importer_data' ) ) {
 			$this->frontend_error_messages = empty( $data['frontend_error_messages'] ) ? array() : $data['frontend_error_messages'];
 			$this->log_file_path           = empty( $data['log_file_path'] ) ? '' : $data['log_file_path'];
 			$this->selected_index          = empty( $data['selected_index'] ) ? 0 : $data['selected_index'];
@@ -444,7 +518,6 @@ class OneClickDemoImport {
 		}
 		return false;
 	}
-
 
 	/**
 	 * Get the current state of selected data.
@@ -462,7 +535,6 @@ class OneClickDemoImport {
 		);
 	}
 
-
 	/**
 	 * Getter function to retrieve the private log_file_path value.
 	 *
@@ -471,7 +543,6 @@ class OneClickDemoImport {
 	public function get_log_file_path() {
 		return $this->log_file_path;
 	}
-
 
 	/**
 	 * Setter function to append additional value to the private frontend_error_messages value.
@@ -493,7 +564,6 @@ class OneClickDemoImport {
 		}
 	}
 
-
 	/**
 	 * Display the frontend error messages.
 	 *
@@ -512,14 +582,12 @@ class OneClickDemoImport {
 		return $output;
 	}
 
-
 	/**
 	 * Load the plugin textdomain, so that translations can be made.
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'tutormate', false, plugin_basename( dirname( dirname( __FILE__ ) ) ) . '/languages' );
 	}
-
 
 	/**
 	 * Get data from filters, after the theme has loaded and instantiate the importer.

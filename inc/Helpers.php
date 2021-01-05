@@ -280,7 +280,6 @@ class Helpers {
 		return $data;
 	}
 
-
 	/**
 	 * Helper function: check for WP file-system credentials needed for reading and writing to a file.
 	 *
@@ -302,11 +301,11 @@ class Helpers {
 
 		// Get plugin page settings.
 		$plugin_page_setup = apply_filters( 'tutormate_plugin_page_setup', array(
-				'parent_slug' => 'themes.php',
-				'page_title'  => esc_html__( 'One Click Demo Import' , 'tutormate' ),
-				'menu_title'  => esc_html__( 'Import Demo Data' , 'tutormate' ),
+				'parent_slug' => 'tutorstarter',
+				'page_title'  => esc_html__( 'Tutor Starter Demo Import' , 'tutormate' ),
+				'menu_title'  => esc_html__( 'Demo Import' , 'tutormate' ),
 				'capability'  => 'import',
-				'menu_slug'   => 'pt-one-click-demo-import',
+				'menu_slug'   => 'tutorstarter-demo-import',
 			)
 		);
 
@@ -331,7 +330,6 @@ class Helpers {
 		return true;
 	}
 
-
 	/**
 	 * Get log file path
 	 *
@@ -347,7 +345,6 @@ class Helpers {
 
 		return $log_path;
 	}
-
 
 	/**
 	 * Register file as attachment to the Media page.
@@ -373,7 +370,6 @@ class Helpers {
 		$attach_id = wp_insert_attachment( $attachment, $log_path );
 	}
 
-
 	/**
 	 * Get log file url
 	 *
@@ -386,7 +382,6 @@ class Helpers {
 
 		return $upload_url . basename( $log_path );
 	}
-
 
 	/**
 	 * Check if the AJAX call is valid.
@@ -405,7 +400,6 @@ class Helpers {
 			);
 		}
 	}
-
 
 	/**
 	 * Process uploaded files and return the paths to these files.
@@ -544,7 +538,6 @@ class Helpers {
 		return $selected_import_files;
 	}
 
-
 	/**
 	 * Get import file information and max execution time.
 	 *
@@ -575,7 +568,6 @@ class Helpers {
 		);
 	}
 
-
 	/**
 	 * Write the error to the log file and send the AJAX response.
 	 *
@@ -594,7 +586,6 @@ class Helpers {
 		// Send JSON Error response to the AJAX call.
 		wp_send_json( $error_text );
 	}
-
 
 	/**
 	 * Set the $demo_import_start_time class variable with the current date and time string.
@@ -628,7 +619,6 @@ class Helpers {
 		return $categories;
 	}
 
-
 	/**
 	 * Return the concatenated string of demo import item categories.
 	 * These should be separated by comma and sanitized properly.
@@ -651,7 +641,6 @@ class Helpers {
 
 		return false;
 	}
-
 
 	/**
 	 * Set the TUTORMATE transient with the current importer data.
