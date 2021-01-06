@@ -98,9 +98,9 @@ function App() {
 		.done( function( response ) {
 			if ( 'pluginSuccess' === response.status ) {
 				setProgress( tutormate.all_done_progress );
-				setTimeout(() => {
+				setTimeout( () => {
 					setFetching( false );
-				}, 2000)
+				}, 2000 )
 			}
 			console.log( 'Response: ' + response.status );
 		})
@@ -131,14 +131,14 @@ function App() {
 							The following plugins will be installed and activated for this demo if not already available:
 						</p>
 						{'gutenberg' === builder &&
-							clickedItem && clickedItem.map((item, index) => 'elementor' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
+							clickedItem && clickedItem.map( ( item, index ) => 'elementor' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
 						}
 						{'elementor' === builder &&
-							clickedItem && clickedItem.map((item, index) => 'qubely' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
+							clickedItem && clickedItem.map( ( item, index ) => 'qubely' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
 						}
 					</div>
 					<div className="modal-footer">
-						<button className="btn outline-btn" onClick={() => toggleModalState()}>
+						<button className="btn outline-btn" onClick={ () => toggleModalState() }>
 							Cancel
 						</button>
 						<button className="btn primary-btn" onClick={ () => pluginInstall( selectedIndex ) }>Import Now</button>

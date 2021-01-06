@@ -57,7 +57,7 @@ class DemoImport {
     public $elementor = array();
 
 	/**
-	 * Register Filter Hooks of the Importer Plugin
+	 * Register Hooks of the Importer Plugin
 	 */
 	public function register() {
 		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
