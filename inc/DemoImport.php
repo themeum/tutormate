@@ -61,9 +61,8 @@ class DemoImport {
 	 */
 	public function register() {
 		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
-		add_filter( 'tutormate_disable_pt_branding', '__return_true' );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
-        add_action( 'wp_ajax_tutormate_selected_builder', array( $this, 'tutormate_selected_builder' ) );
+		add_action( 'wp_ajax_tutormate_selected_builder', array( $this, 'tutormate_selected_builder' ) );
         
         $this->woocommerce = array(
             'base'  => 'woocommerce',
@@ -128,7 +127,7 @@ class DemoImport {
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => array(
 					$this->tutor_lms,
-                    'elementor' === $this->builder ? $this->elementor : $this->qubely,
+					'elementor' === $this->builder ? $this->elementor : $this->qubely,
                 ),
 			),
 			array(

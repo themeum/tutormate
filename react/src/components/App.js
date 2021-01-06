@@ -1,5 +1,5 @@
 const { __ } = wp.i18n;
-const { useState } = wp.element;
+const { useState, useEffect } = wp.element;
 const { SelectControl } = wp.components;
 
 import "./App.css";
@@ -10,6 +10,8 @@ let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
 
 function App() {
+	const [progress, setProgress] = useState('');
+	const [fetching, setFetching] = useState(false);
 	const [builderList, setBuilderList] = useState([]);
 	const [clickedItem, setClickedItem] = useState([]);
 	const [modalState, setModalState] = useState(false);
@@ -18,25 +20,47 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const [categories, setCategories] = useState(allCategories);
 
-	let builderOptions = builderList.length > 0 && builderList.map(item => {
+	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return {label: item.toUpperCase(), value: item};
-	});
+	} );
 
 	const toggleModalState = () => {
-		setModalState(!modalState);
-		true === modalState ? setBuilderList([]) : null;
+		setModalState( !modalState );
+		true === modalState ? setBuilderList( [] ) : null;
 	};
 
-	const selectedBuilder = (builder) => {
-		setBuilder(builder);
+	const filterItems = ( category ) => {
+		if ( 'all' === category ) {
+			setListItems( importFiles );
+			return;
+		}
+
+		const newItems = importFiles.filter( ( item ) => item.categories.includes( category ) );
+		setListItems( newItems );
+	};
+
+	const searchResult = ( e ) => {
+		const inputValue = e.target.value.trim().toLowerCase();
+		const newItems = importFiles.filter( ( item ) => item.import_file_name.toLowerCase().includes( inputValue ) );
+		setListItems( newItems );
+	};
+
+	const getClickedItem = ( plugins, builders, index ) => {
+		setSelectedIndex( index );
+		setClickedItem( plugins );
+		setBuilderList( builders );
+	};
+
+	const selectedBuilder = ( builder ) => {
+		setBuilder( builder );
 		let data = new FormData();
 		data.append( 'action', 'tutormate_selected_builder' );
-		data.append( 'security', tutormate.ajax_nonce);
+		data.append( 'security', tutormate.ajax_nonce );
 		data.append( 'builder', builder );
-		doBuilderAjax(data);
+		doBuilderAjax( data );
 	}
 
-	const doBuilderAjax = (data) => {
+	const doBuilderAjax = ( data ) => {
 		jQuery.ajax({
 			method:      'POST',
 			url:         tutormate.ajax_url,
@@ -44,38 +68,49 @@ function App() {
 			contentType: false,
 			processData: false,
 		})
-		.done( function(response) {
-			console.log('Response: ' + response.data);
+		.done( function( response ) {
+			console.log( 'Response: ' + response.data );
 		})
-		.fail( function(error) {
-			console.log(error);
+		.fail( function( error ) {
+			console.log( error );
 		});
 	}
 
-	const getClickedItem = (plugins, builders, index) => {
-		setSelectedIndex(index);
-		setClickedItem(plugins);
-		setBuilderList(builders);
-	};
+	const pluginInstall = ( selected ) => {
+		setModalState( !modalState );
+		setFetching( true );
+		setProgress( tutormate.plugin_progress );
+		var data = new FormData();
+		data.append( 'action', 'tutormate_install_plugins' );
+		data.append( 'security', tutormate.ajax_nonce );
+		data.append( 'selected', selected );
+		doAjax( data );
+	}
 
-	const filterItems = (category) => {
-		if (category === "all") {
-			setListItems(importFiles);
-			return;
-		}
-
-		const newItems = importFiles.filter((item) => item.categories.includes(category));
-		setListItems(newItems);
-	};
-
-	const searchResult = (e) => {
-		const inputValue = e.target.value.trim().toLowerCase();
-		const newItems = importFiles.filter((item) => item.import_file_name.toLowerCase().includes(inputValue));
-		setListItems(newItems);
-	};
+	const doAjax = ( data ) => {
+		jQuery.ajax({
+			method:      'POST',
+			url:         tutormate.ajax_url,
+			data:        data,
+			contentType: false,
+			processData: false,
+		})
+		.done( function( response ) {
+			if ( 'pluginSuccess' === response.status ) {
+				setProgress( tutormate.all_done_progress );
+				setTimeout(() => {
+					setFetching( false );
+				}, 2000)
+			}
+			console.log( 'Response: ' + response.status );
+		})
+		.fail( function( error ) {
+			console.log( error );
+		});
+	}
 
 	// Component - PopupModal
-	const PopupModal = ({ clickedItem, selectedIndex }) => {
+	const PopupModal = ( { clickedItem, selectedIndex } ) => {
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -106,7 +141,7 @@ function App() {
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn primary-btn" onClick={() => {console.log('Index: ' + selectedIndex)}}>Import Now</button>
+						<button className="btn primary-btn" onClick={ () => pluginInstall( selectedIndex ) }>Import Now</button>
 					</div>
 				</div>
 			</div>
@@ -157,9 +192,10 @@ function App() {
 		<div className="demo-importer-ui">
 			
 			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
+			{fetching && <Preloader status={progress} />}
 			<div className="demo-importer-wrapper">
 				<header>
-					<h3>Welcome to One Click Demo Importer </h3>
+					<h3>Welcome to Tutor Starter Demo Importer</h3>
 					<div className="nav-container">
 						<div className="nav-filter">
 							{categories.map((category, index) => (

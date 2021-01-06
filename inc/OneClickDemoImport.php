@@ -7,8 +7,8 @@
 
 namespace TUTORMATE;
 
-use function activate_plugin;
 use function plugins_api;
+use function activate_plugin;
 
 /**
  * One Click Demo Import class, so we don't have to worry about namespaces.
@@ -184,10 +184,11 @@ class OneClickDemoImport {
 					'import_files'         => $this->import_files,
 					'wp_customize_on'      => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
 					'theme_screenshot'     => $theme->get_screenshot(),
-					'plugin_progress'      => esc_html__( 'Checking/Installing/Activating Required Plugins', 'tutormate' ),
+					'plugin_progress'      => esc_html__( 'Checking / Installing / Activating Required Plugins...', 'tutormate' ),
 					'content_new_progress' => esc_html__( 'Importing Demo Content...', 'tutormate' ),
 					'widgets_progress'     => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
 					'customizer_progress'  => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
+					'all_done_progress'    => esc_html__( 'Houston, we have Liftoff!!', 'tutormate' ),
 				)
 			);
 
@@ -205,8 +206,7 @@ class OneClickDemoImport {
 			wp_send_json_error();
 		}
 		// Get selected file index or set it to 0.
-		$selected_index = empty( $_POST['selected'] ) ? '' : sanitize_text_field( $_POST['selected'] );
-		//error_log( print_r( $this->import_files[ $selected_index ], true ) );
+		$selected_index = empty( $_POST['selected'] ) ? 0 : absint( $_POST['selected'] );
 		$info = $this->import_files[ $selected_index ];
 		$install = true;
 
@@ -220,7 +220,7 @@ class OneClickDemoImport {
 			}
 
 			foreach( $info['plugins'] as $key => $plugin ) {
-				if ( 'notactive' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+				if ( 'not active' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
 					$api = plugins_api(
 						'plugin_information',
 						array(
@@ -243,8 +243,6 @@ class OneClickDemoImport {
 					);
 					if ( ! is_wp_error( $api ) ) {
 
-						// Use AJAX upgrader skin instead of plugin installer skin.
-						// ref: function wp_ajax_install_plugin().
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 						$installed = $upgrader->install( $api->download_link );

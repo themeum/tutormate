@@ -58,7 +58,7 @@ class PluginCheck {
 		} elseif ( in_array( $plugin_base_name, self::$installed_plugins, true ) || array_key_exists( $plugin_base_name, self::$installed_plugins ) ) {
 			return 'installed';
 		} else {
-			return 'notactive';
+			return 'not active';
 		}
 	}
 }

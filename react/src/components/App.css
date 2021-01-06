@@ -414,6 +414,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 	left: 0;
 	background: rgb(0 0 0 / 0.7);
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	z-index: 9;
@@ -429,6 +430,11 @@ input[type="search" i]::-webkit-search-cancel-button {
 }
 .svg-preloader svg path {
 	animation: preLoading 1.5s linear infinite;
+}
+.svg-preloader .status-texts {
+	color: #ffffff;
+	margin-top: 10px;
+	font-size: 18px;
 }
 
 @keyframes preLoading {
