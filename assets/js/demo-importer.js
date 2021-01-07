@@ -11804,6 +11804,8 @@ function App() {
   var PopupModal = function PopupModal(_ref) {
     var clickedItem = _ref.clickedItem,
         selectedIndex = _ref.selectedIndex;
+    var elementorPlugins = builderplugins.elementor_plugins;
+    var gutenbergPlugins = builderplugins.gutenberg_plugins;
     return /*#__PURE__*/React.createElement("div", {
       className: "modal-wrapper ".concat(!modalState ? "" : "active")
     }, /*#__PURE__*/React.createElement("div", {
@@ -11824,12 +11826,12 @@ function App() {
       onChange: function onChange(value) {
         return selectedBuilder(value);
       }
-    }), /*#__PURE__*/React.createElement("p", null, "The following plugins will be installed and activated for this demo if not already available:"), 'gutenberg' === builder && clickedItem && clickedItem.map(function (item, index) {
-      return 'elementor' !== item.slug && /*#__PURE__*/React.createElement("strong", {
+    }), /*#__PURE__*/React.createElement("p", null, "The following plugins will be installed and activated for this demo if not already available:"), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
+      return /*#__PURE__*/React.createElement("strong", {
         key: index
       }, item.title, " - ", item.state);
-    }), 'elementor' === builder && clickedItem && clickedItem.map(function (item, index) {
-      return 'qubely' !== item.slug && /*#__PURE__*/React.createElement("strong", {
+    }), 'gutenberg' === builder && gutenbergPlugins && gutenbergPlugins.map(function (item, index) {
+      return /*#__PURE__*/React.createElement("strong", {
         key: index
       }, item.title, " - ", item.state);
     })), /*#__PURE__*/React.createElement("div", {

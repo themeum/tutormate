@@ -111,6 +111,8 @@ function App() {
 
 	// Component - PopupModal
 	const PopupModal = ( { clickedItem, selectedIndex } ) => {
+		const elementorPlugins = builderplugins.elementor_plugins;
+		const gutenbergPlugins = builderplugins.gutenberg_plugins;
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -130,12 +132,14 @@ function App() {
 						<p>
 							The following plugins will be installed and activated for this demo if not already available:
 						</p>
-						{'gutenberg' === builder &&
-							clickedItem && clickedItem.map( ( item, index ) => 'elementor' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
-						}
-						{'elementor' === builder &&
-							clickedItem && clickedItem.map( ( item, index ) => 'qubely' !== item.slug && <strong key={index}>{item.title} - {item.state}</strong>)
-						}
+						{'elementor' === builder && 
+						elementorPlugins && elementorPlugins.map((item, index) => {
+							return (<strong key={index}>{item.title} - {item.state}</strong>)
+						})}
+						{'gutenberg' === builder && 
+						gutenbergPlugins && gutenbergPlugins.map((item, index) => {
+							return (<strong key={index}>{item.title} - {item.state}</strong>)
+						})}
 					</div>
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={ () => toggleModalState() }>

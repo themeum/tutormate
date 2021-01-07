@@ -188,7 +188,7 @@ class OneClickDemoImport {
 					'content_new_progress' => esc_html__( 'Importing Demo Content...', 'tutormate' ),
 					'widgets_progress'     => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
 					'customizer_progress'  => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
-					'all_done_progress'    => esc_html__( 'Houston, we have Liftoff!!', 'tutormate' ),
+					'all_done_progress'    => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
 
