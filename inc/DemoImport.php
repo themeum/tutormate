@@ -163,24 +163,6 @@ class DemoImport {
 	}
 
 	/**
-	 * Plugin bundle
-	 */
-	public function plugin_bundle() {
-		if ( 'elementor' === $this->builder ) {
-			return $this->is_elementor = array(
-				$this->tutor_lms,
-				$this->elementor,
-				//$this->tutor_elementor,
-			);
-		} else {
-			return $this->is_gutenberg = array(
-				$this->tutor_lms,
-				$this->qubely,
-			);
-		}
-	}
-
-	/**
 	 * Admin script localization
 	 */
 	public function tutormate_admin_enqueue_scripts() {
@@ -208,7 +190,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins'                      => $this->plugin_bundle(),
+				'plugins'                      => ( 'gutenberg' === $this->builder ? $this->gutenberg_plugins() : $this->elementor_plugins() ),
 			),
 			array(
 				'import_file_name'             => 'Demo Two',
