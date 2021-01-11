@@ -11739,9 +11739,8 @@ function App() {
     setListItems(newItems);
   };
 
-  var getClickedItem = function getClickedItem(plugins, builders, index) {
+  var getClickedItem = function getClickedItem(builders, index) {
     setSelectedIndex(index);
-    setClickedItem(plugins);
     setBuilderList(builders);
   };
 
@@ -11752,6 +11751,18 @@ function App() {
     data.append('security', tutormate.ajax_nonce);
     data.append('builder', builder);
     doBuilderAjax(data);
+  };
+
+  var bundledDemoPlugins = function bundledDemoPlugins() {
+    var bundledPlugins = [];
+
+    if ('elementor' === builder) {
+      bundledPlugins = builderplugins.elementor_plugins;
+    } else {
+      bundledPlugins = builderplugins.gutenberg_plugins;
+    }
+
+    return bundledPlugins;
   };
 
   var doBuilderAjax = function doBuilderAjax(data) {
@@ -11768,7 +11779,7 @@ function App() {
     });
   };
 
-  var pluginInstall = function pluginInstall(selected) {
+  var pluginInstall = function pluginInstall(selected, builder) {
     setModalState(!modalState);
     setFetching(true);
     setProgress(tutormate.plugin_progress);
@@ -11776,6 +11787,7 @@ function App() {
     data.append('action', 'tutormate_install_plugins');
     data.append('security', tutormate.ajax_nonce);
     data.append('selected', selected);
+    data.append('builder', builder);
     doAjax(data);
   };
 
@@ -11802,10 +11814,9 @@ function App() {
 
 
   var PopupModal = function PopupModal(_ref) {
-    var clickedItem = _ref.clickedItem,
-        selectedIndex = _ref.selectedIndex;
-    var elementorPlugins = builderplugins.elementor_plugins;
-    var gutenbergPlugins = builderplugins.gutenberg_plugins;
+    var selectedIndex = _ref.selectedIndex;
+    var elementorPlugins = tutormate.elementor_plugins;
+    var gutenbergPlugins = tutormate.gutenberg_plugins;
     return /*#__PURE__*/React.createElement("div", {
       className: "modal-wrapper ".concat(!modalState ? "" : "active")
     }, /*#__PURE__*/React.createElement("div", {
@@ -11844,7 +11855,7 @@ function App() {
     }, "Cancel"), /*#__PURE__*/React.createElement("button", {
       className: "btn primary-btn",
       onClick: function onClick() {
-        return pluginInstall(selectedIndex);
+        return pluginInstall(selectedIndex, builder);
       }
     }, "Import Now"))));
   }; // Component - ListItems
@@ -11885,7 +11896,7 @@ function App() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         onClick: function onClick() {
-          return getClickedItem(plugins, builders, index);
+          return getClickedItem(builders, index);
         }
       }, "Import")))));
     }) : /*#__PURE__*/React.createElement("li", {

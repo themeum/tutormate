@@ -45,9 +45,8 @@ function App() {
 		setListItems( newItems );
 	};
 
-	const getClickedItem = ( plugins, builders, index ) => {
+	const getClickedItem = ( builders, index ) => {
 		setSelectedIndex( index );
-		setClickedItem( plugins );
 		setBuilderList( builders );
 	};
 
@@ -58,6 +57,17 @@ function App() {
 		data.append( 'security', tutormate.ajax_nonce );
 		data.append( 'builder', builder );
 		doBuilderAjax( data );
+	}
+
+	const bundledDemoPlugins = () => {
+		let bundledPlugins = [];
+		if ( 'elementor' === builder ) {
+			bundledPlugins = builderplugins.elementor_plugins;
+		} else {
+			bundledPlugins = builderplugins.gutenberg_plugins;
+		}
+
+		return bundledPlugins;
 	}
 
 	const doBuilderAjax = ( data ) => {
@@ -76,7 +86,7 @@ function App() {
 		});
 	}
 
-	const pluginInstall = ( selected ) => {
+	const pluginInstall = ( selected, builder ) => {
 		setModalState( !modalState );
 		setFetching( true );
 		setProgress( tutormate.plugin_progress );
@@ -84,6 +94,7 @@ function App() {
 		data.append( 'action', 'tutormate_install_plugins' );
 		data.append( 'security', tutormate.ajax_nonce );
 		data.append( 'selected', selected );
+		data.append( 'builder', builder );
 		doAjax( data );
 	}
 
@@ -110,9 +121,9 @@ function App() {
 	}
 
 	// Component - PopupModal
-	const PopupModal = ( { clickedItem, selectedIndex } ) => {
-		const elementorPlugins = builderplugins.elementor_plugins;
-		const gutenbergPlugins = builderplugins.gutenberg_plugins;
+	const PopupModal = ( { selectedIndex } ) => {
+		const elementorPlugins = tutormate.elementor_plugins;
+		const gutenbergPlugins = tutormate.gutenberg_plugins;
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -145,7 +156,7 @@ function App() {
 						<button className="btn outline-btn" onClick={ () => toggleModalState() }>
 							Cancel
 						</button>
-						<button className="btn primary-btn" onClick={ () => pluginInstall( selectedIndex ) }>Import Now</button>
+						<button className="btn primary-btn" onClick={ () => pluginInstall( selectedIndex, builder ) }>Import Now</button>
 					</div>
 				</div>
 			</div>
@@ -177,8 +188,8 @@ function App() {
 								<div className="actions">
 									<h4>{import_file_name}</h4>
 									<div>
-										<button className="btn primary-btn" onClick={() => toggleModalState()}>
-											<span onClick={() => getClickedItem(plugins, builders, index)}>Import</span>
+										<button className="btn primary-btn" onClick={ () => toggleModalState() }>
+											<span onClick={ () => getClickedItem( builders, index ) }>Import</span>
 										</button>
 									</div>
 								</div>

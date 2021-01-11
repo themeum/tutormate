@@ -91,7 +91,3 @@ class TUTORMATE_Plugin {
 $tutormate_plugin = new TUTORMATE_Plugin();
 
 // Require the demo importer class.
-if ( class_exists( 'TUTORMATE\\DemoImport' ) ) {
-	$demo_import = new TUTORMATE\DemoImport();
-	$demo_import->register();
-}

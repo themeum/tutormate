@@ -26,7 +26,7 @@ class DemoImport {
 	 * 
 	 * @var string
 	 */
-	public $builder = 'gutenberg';
+	public $builder = '';
     
     /**
      * Public Woocommerce plugin config
@@ -134,7 +134,7 @@ class DemoImport {
 	 * Capture builder data
 	 */
 	public function tutormate_selected_builder() {
-		$selected_builder = sanitize_text_field( $_POST['builder'] );
+		$selected_builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
 
 		$this->builder = $selected_builder;
 
@@ -146,8 +146,8 @@ class DemoImport {
 	 */
 	public function elementor_plugins() {
 		return $this->is_elementor = array(
-			$this->tutor_lms,
 			$this->elementor,
+			$this->tutor_lms,
 			//$this->tutor_elementor,
 		);
 	}
@@ -190,7 +190,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins'                      => ( 'gutenberg' === $this->builder ? $this->gutenberg_plugins() : $this->elementor_plugins() ),
+				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 			array(
 				'import_file_name'             => 'Demo Two',
@@ -200,7 +200,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-two/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins'                      => ( 'gutenberg' === $this->builder ? $this->gutenberg_plugins() : $this->elementor_plugins() ),
+				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 			array(
 				'import_file_name'             => 'Demo Three',
@@ -210,12 +210,12 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-three/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
 				'builders'                     => array( 'gutenberg' ),
-				'plugins'                      => ( 'gutenberg' === $this->builder ? $this->gutenberg_plugins() : $this->elementor_plugins() ),
+				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 		);
-    }
+	}
 
-	/**
+		/**
 	 * Handles Theme Demo Imports for Content, Customizer and Widgets
 	 *
 	 * @return array $demo_list list of demos
@@ -257,7 +257,7 @@ class DemoImport {
 					'import_customizer_file_url' => $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
 					'builders'                   => array( 'gutenberg', 'elementor' ),
-					'plugins'                    => array( 'qubely', 'elementor' ),
+					'plugins'                    => $this->gutenberg_plugins(),
 				);
 
 				array_push( $demo_list, $list );
