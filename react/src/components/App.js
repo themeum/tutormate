@@ -12,6 +12,7 @@ const allCategories = ["all", ...new Set(importFiles.map((item) => item.categori
 function App() {
 	const [progress, setProgress] = useState('');
 	const [fetching, setFetching] = useState(false);
+	const [selectedDemo, setSelectedDemo] = useState(0);
 	const [builderList, setBuilderList] = useState([]);
 	const [clickedItem, setClickedItem] = useState([]);
 	const [modalState, setModalState] = useState(false);
@@ -20,6 +21,8 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const [categories, setCategories] = useState(allCategories);
 
+	const [percentage, setPercentage] = useState(0);
+   
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return {label: item.toUpperCase(), value: item};
 	} );
@@ -34,7 +37,6 @@ function App() {
 			setListItems( importFiles );
 			return;
 		}
-
 		const newItems = importFiles.filter( ( item ) => item.categories.includes( category ) );
 		setListItems( newItems );
 	};
@@ -52,44 +54,14 @@ function App() {
 
 	const selectedBuilder = ( builder ) => {
 		setBuilder( builder );
-		let data = new FormData();
-		data.append( 'action', 'tutormate_selected_builder' );
-		data.append( 'security', tutormate.ajax_nonce );
-		data.append( 'builder', builder );
-		doBuilderAjax( data );
-	}
-
-	const bundledDemoPlugins = () => {
-		let bundledPlugins = [];
-		if ( 'elementor' === builder ) {
-			bundledPlugins = builderplugins.elementor_plugins;
-		} else {
-			bundledPlugins = builderplugins.gutenberg_plugins;
-		}
-
-		return bundledPlugins;
-	}
-
-	const doBuilderAjax = ( data ) => {
-		jQuery.ajax({
-			method:      'POST',
-			url:         tutormate.ajax_url,
-			data:        data,
-			contentType: false,
-			processData: false,
-		})
-		.done( function( response ) {
-			console.log( 'Response: ' + response.data );
-		})
-		.fail( function( error ) {
-			console.log( error );
-		});
 	}
 
 	const pluginInstall = ( selected, builder ) => {
+		setSelectedDemo( selected );
 		setModalState( !modalState );
 		setFetching( true );
 		setProgress( tutormate.plugin_progress );
+		setPercentage( 10 );
 		var data = new FormData();
 		data.append( 'action', 'tutormate_install_plugins' );
 		data.append( 'security', tutormate.ajax_nonce );
@@ -107,13 +79,33 @@ function App() {
 			processData: false,
 		})
 		.done( function( response ) {
-			if ( 'pluginSuccess' === response.status ) {
+			if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
+				setProgress( tutormate.content_progress );
+				setPercentage( 60 );
+				let contentData = new FormData();
+				contentData.append( 'action', 'tutormate_import_demo_data' );
+				contentData.append( 'security', tutormate.ajax_nonce );
+				contentData.append( 'selected', selectedDemo );
+				doAjax( contentData );
+			} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
+				setProgress( tutormate.customizer_progress );
+				setPercentage( 90 );
+				let customizerData = new FormData();
+				customizerData.append( 'action', 'tutormate_import_customizer_data' );
+				customizerData.append( 'security', tutormate.ajax_nonce );
+				customizerData.append( 'wp_customize', 'on' );
+				doAjax( customizerData );
+			} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
+				let afterImportData = new FormData();
+				afterImportData.append( 'action', 'tutormate_after_import_data' );
+				afterImportData.append( 'security', tutormate.ajax_nonce );
+				doAjax( afterImportData );
 				setProgress( tutormate.all_done_progress );
+				setPercentage( 100 );
 				setTimeout( () => {
 					setFetching( false );
-				}, 2000 )
+				}, 1000 )
 			}
-			console.log( 'Response: ' + response.status );
 		})
 		.fail( function( error ) {
 			console.log( error );
@@ -122,8 +114,8 @@ function App() {
 
 	// Component - PopupModal
 	const PopupModal = ( { selectedIndex } ) => {
-		const elementorPlugins = tutormate.elementor_plugins;
-		const gutenbergPlugins = tutormate.gutenberg_plugins;
+		const elementorPlugins = builderplugins.elementor_plugins;
+		const gutenbergPlugins = builderplugins.gutenberg_plugins;
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -207,7 +199,7 @@ function App() {
 		<div className="demo-importer-ui">
 			
 			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
-			{fetching && <Preloader status={progress} />}
+			{fetching && <Preloader status={progress} percentage={percentage} />}
 			<div className="demo-importer-wrapper">
 				<header>
 					<h3>Welcome to Tutor Starter Demo Importer</h3>

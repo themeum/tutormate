@@ -26,7 +26,7 @@ class DemoImport {
 	 * 
 	 * @var string
 	 */
-	public $builder = '';
+	public $builder = 'gutenberg';
     
     /**
      * Public Woocommerce plugin config
@@ -82,7 +82,6 @@ class DemoImport {
 		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
-		add_action( 'wp_ajax_tutormate_selected_builder', array( $this, 'tutormate_selected_builder' ) );
         
         $this->woocommerce = array(
             'base'  => 'woocommerce',
@@ -129,17 +128,6 @@ class DemoImport {
             'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
         );
 	}
-	
-	/**
-	 * Capture builder data
-	 */
-	public function tutormate_selected_builder() {
-		$selected_builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
-
-		$this->builder = $selected_builder;
-
-		wp_send_json_success( $this->builder );
-	}
 
 	/**
 	 * Builder plugins
@@ -148,6 +136,7 @@ class DemoImport {
 		return $this->is_elementor = array(
 			$this->elementor,
 			$this->tutor_lms,
+			$this->woocommerce,
 			//$this->tutor_elementor,
 		);
 	}
@@ -159,6 +148,7 @@ class DemoImport {
 		return $this->is_gutenberg = array(
 			$this->tutor_lms,
 			$this->qubely,
+			$this->woocommerce,
 		);
 	}
 
@@ -181,6 +171,9 @@ class DemoImport {
 	 * Temporary demo import function
 	 */
 	public function temp_demo_import() {
+
+		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
+
 		return array(
 			array(
 				'import_file_name'             => 'Demo One',
@@ -190,7 +183,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
+				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 			array(
 				'import_file_name'             => 'Demo Two',
@@ -200,7 +193,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-two/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
+				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 			array(
 				'import_file_name'             => 'Demo Three',
@@ -210,7 +203,7 @@ class DemoImport {
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-three/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
 				'builders'                     => array( 'gutenberg' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
+				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 			),
 		);
 	}
@@ -222,6 +215,8 @@ class DemoImport {
 	 */
 	public function import_theme_demo() {
 
+		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
+		
 		$demo_list  = array();
 		$packs_list = get_transient( 'tutorstarter_packs' );
 
@@ -257,7 +252,7 @@ class DemoImport {
 					'import_customizer_file_url' => $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
 					'builders'                   => array( 'gutenberg', 'elementor' ),
-					'plugins'                    => $this->gutenberg_plugins(),
+					'plugins'                    => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 				);
 
 				array_push( $demo_list, $list );

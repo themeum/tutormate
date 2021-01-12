@@ -84,60 +84,6 @@ class OneClickDemoImport {
    */
   private $plugin_page_setup = array();
 
-  	/**
-	 * Public builder
-	 * 
-	 * @var string
-	 */
-	public $builder = '';
-    
-    /**
-     * Public Woocommerce plugin config
-     * 
-     * @var array
-     */
-    public $woocommerce = array();
-
-    /**
-     * Public Tutor LMS plugin config
-     * 
-     * @var array
-     */
-	public $tutor_lms = array();
-	
-	/**
-	 * Public Tutor Elementor Addon
-	 */
-	public $tutor_elementor = array();
-
-    /**
-     * Public Qubely plugin config
-     * 
-     * @var array
-     */
-    public $qubely = array();
-
-    /**
-     * Public Elementor plugin config
-     * 
-     * @var array
-     */
-	public $elementor = array();
-
-	/**
-	 * Public is_gutenberg
-	 * 
-	 * @var array
-	 */
-	public $is_gutenberg = array();
-
-	/**
-	 * Public is elementor
-	 * 
-	 * @var array
-	 */
-	public $is_elementor = array();
-
 	/**
 	 * Returns the *Singleton* instance of this class.
 	 *
@@ -161,64 +107,12 @@ class OneClickDemoImport {
 		add_action( 'admin_menu', array( $this, 'create_plugin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_tutormate_import_demo_data', array( $this, 'import_demo_data_ajax_callback' ) );
-		add_action( 'wp_ajax_tutormate_install_plugins', function() {
-			$demo_index = $_POST['selected'];
-			$this->install_plugins_ajax_callback( $demo_index );
-		} );
-
+		add_action( 'wp_ajax_tutormate_install_plugins', array( $this, 'install_plugins_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_import_customizer_data', array( $this, 'import_customizer_data_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_plugin_with_filter_data' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
-		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
-		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
-		add_action( 'wp_ajax_tutormate_selected_builder', array( $this, 'tutormate_selected_builder' ) );
-        
-        $this->woocommerce = array(
-            'base'  => 'woocommerce',
-            'slug'  => 'woocommerce',
-            'path'  => 'woocommerce/woocommerce.php',
-            'title' => esc_html__( 'Woocommerce', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'woocommerce/woocommerce.php' ),
-        );
-
-        $this->tutor_lms = array(
-            'base'  => 'tutor',
-            'slug'  => 'tutor',
-            'path'  => 'tutor/tutor.php',
-            'title' => esc_html__( 'Tutor LMS', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'tutor/tutor.php' ),
-		);
-		
-        $this->tutor_elementor = array(
-            'base'  => 'tutor-lms-elementor-addons',
-            'slug'  => 'tutor-lms-elementor-addons',
-            'path'  => 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php',
-            'title' => esc_html__( 'Tutor Elementor Addon', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php' ),
-        );
-
-        $this->qubely = array(
-            'base'  => 'qubely',
-            'slug'  => 'qubely',
-            'path'  => 'qubely/qubely.php',
-            'title' => esc_html__( 'Qubely', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'qubely/qubely.php' ),
-        );
-
-        $this->elementor = array(
-            'base'  => 'elementor',
-            'slug'  => 'elementor',
-            'path'  => 'elementor/elementor.php',
-            'title' => esc_html__( 'Elementor', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
-        );
 	}
 
 	/**
@@ -289,12 +183,11 @@ class OneClickDemoImport {
 					'ajax_url'             => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce'           => wp_create_nonce( 'tutormate-ajax-verification' ),
 					'import_files'         => $this->import_files,
-					'elementor_plugins'    => $this->elementor_plugins(),
-					'gutenberg_plugins'    => $this->gutenberg_plugins(),
 					'wp_customize_on'      => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
 					'theme_screenshot'     => $theme->get_screenshot(),
-					'plugin_progress'      => esc_html__( 'Checking / Installing / Activating Required Plugins...', 'tutormate' ),
-					'content_new_progress' => esc_html__( 'Importing Demo Content...', 'tutormate' ),
+					'plugin_progress'      => esc_html__( 'Checking / Installing Required Plugins...', 'tutormate' ),
+					'plugin_activate'      => esc_html__( 'Activating Required Plugins...', 'tutormate' ),
+					'content_progress'     => esc_html__( 'Importing Demo Content...', 'tutormate' ),
 					'widgets_progress'     => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
 					'customizer_progress'  => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
 					'all_done_progress'    => esc_html__( 'Import Complete!', 'tutormate' ),
@@ -306,52 +199,20 @@ class OneClickDemoImport {
 	}
 
 	/**
-	 * Capture builder data
-	 */
-	public function tutormate_selected_builder() {
-		$selected_builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
-
-		$this->builder = $selected_builder;
-
-		wp_send_json_success( $this->builder );
-	}
-
-	/**
-	 * Builder plugins
-	 */
-	public function elementor_plugins() {
-		return $this->is_elementor = array(
-			$this->elementor,
-			$this->tutor_lms,
-			//$this->tutor_elementor,
-		);
-	}
-
-	/**
-	 * Gutenberg plugins
-	 */
-	public function gutenberg_plugins() {
-		return $this->is_gutenberg = array(
-			$this->tutor_lms,
-			$this->qubely,
-		);
-	}
-
-	/**
 	 * AJAX callback to install a plugin.
 	 */
-	public function install_plugins_ajax_callback( $index ) {
+	public function install_plugins_ajax_callback() {
 		Helpers::verify_ajax_call();
 
 		if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['selected'] ) ) {
 			wp_send_json_error();
 		}
 		// Get selected file index or set it to 0.
-		$selected_index = $index;
+		$selected_index = ! empty ( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
 		$info = $this->import_files[ $selected_index ];
 		$install = true;
 
-		if ( isset( $info['plugins_tutor'] ) && ! empty( $info['plugins_tutor'] ) ) {
+		if ( isset( $info['plugins'] ) && ! empty( $info['plugins'] ) ) {
 
 			if ( ! function_exists( 'plugins_api' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
@@ -360,7 +221,7 @@ class OneClickDemoImport {
 				require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 			}
 
-			foreach( $info['plugins_tutor'] as $key => $plugin ) {
+			foreach( $info['plugins'] as $key => $plugin ) {
 				if ( 'not active' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
 					$api = plugins_api(
 						'plugin_information',
@@ -414,44 +275,6 @@ class OneClickDemoImport {
 		}
 	}
 
-		/**
-	 * Temporary demo import function
-	 */
-	public function temp_demo_import() {
-		return array(
-			array(
-				'import_file_name'             => 'Demo One',
-				'categories'                   => array( 'Business' ),
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'demo/demo-one/content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-one/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
-				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
-				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-			),
-			array(
-				'import_file_name'             => 'Demo Two',
-				'categories'                   => array( 'Business', 'Agency' ),
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'demo/demo-two/content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-two/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-two/customizer.dat',
-				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
-				'builders'                     => array( 'gutenberg', 'elementor' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-			),
-			array(
-				'import_file_name'             => 'Demo Three',
-				'categories'                   => array( 'Portfolio', 'Blog' ),
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'demo/demo-three/content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-three/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-three/customizer.dat',
-				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
-				'builders'                     => array( 'gutenberg' ),
-				'plugins_tutor'                => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-			),
-		);
-	}
-
 	/**
 	 * Main AJAX callback function for:
 	 * 1). prepare import files (uploaded or predefined via filters)
@@ -477,7 +300,7 @@ class OneClickDemoImport {
 			$this->log_file_path = Helpers::get_log_path();
 
 			// Get selected file index or set it to 0.
-			$this->selected_index = empty( $_POST['selected'] ) ? 0 : absint( $_POST['selected'] );
+			$this->selected_index = ! empty( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
 
 			/**
 			 * 1). Prepare import files.

@@ -376,14 +376,16 @@ input[type="search" i]::-webkit-search-cancel-button {
 /* ProgressBar */
 .progress-wrapper {
 	max-width: 350px;
+	width: 100%;
+	margin-top: 15px;
 	text-align: center;
 	font-size: 14px;
 }
 
 .progress {
-	background-color: #d8d8d8;
+	background-color: transparent;
 	border-radius: 20px;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 	height: 10px;
 	position: relative;
 	overflow: hidden;
@@ -391,10 +393,8 @@ input[type="search" i]::-webkit-search-cancel-button {
 }
 
 .progress-status {
-	--color-1: #03a9f4;
-	--color-2: #da00ff;
-	--color-3: #e91e63;
-	background: linear-gradient(to right, var(--color-1), var(--color-2), var(--color-3));
+	--color-white: #ffffff;
+	background: var(--color-white);
 	border-radius: 20px;
 	color: #fff;
 	display: flex;
@@ -403,6 +403,12 @@ input[type="search" i]::-webkit-search-cancel-button {
 	position: absolute;
 	height: 100%;
 	width: 0;
+	transition: .2s linear;
+}
+
+span.status-text {
+	color: #ffffff;
+	margin-top: 15px;
 }
 
 /* Preloader */
