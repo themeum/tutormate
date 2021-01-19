@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "* {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-sizing: border-box;\n}\n\n:root {\n\t--primary: #0071a1;\n\t--default: #464646;\n\t--lightgray: #cccccc;\n}\n\nbody {\n\tbackground: #f1f1f1;\n\tcolor: #000;\n\tposition: relative;\n}\n\nbutton {\n\tcursor: pointer;\n\toutline: none;\n}\n.demo-importer-ui {\n\twidth: 100%;\n\tpadding: 30px;\n\tposition: relative;\n}\n\n.demo-importer-ui .btn {\n\ttext-decoration: none;\n\tdisplay: inline-block;\n\ttext-transform: capitalize;\n\toutline: none;\n\tborder: 1px solid var(--lightgray);\n\tcolor: #464646;\n\tpadding: 6px 13px;\n\tborder-radius: 4px;\n\ttransition: 0.2s linear;\n}\n\n.demo-importer-ui .btn.primary-btn {\n\tbackground: var(--primary);\n\tborder: 1px solid var(--primary);\n\tcolor: #fff;\n}\n\n.demo-importer-ui .btn.primary-btn:hover,\n.demo-importer-ui .btn.primary-btn:focus {\n\topacity: 0.85;\n}\n\n.demo-importer-ui .btn.outline-btn {\n\tbackground: transparent;\n\tborder: 1px solid var(--primary);\n\tcolor: var(--primary);\n}\n\n.demo-importer-wrapper img {\n\twidth: 100%;\n\theight: auto;\n\tobject-fit: cover;\n}\n\n.demo-importer-wrapper header h3 {\n\tmargin-bottom: 20px;\n}\n\n.nav-container {\n\tbackground: #fff;\n\tmargin-bottom: 30px;\n\tborder-radius: 3px;\n\tpadding: 13px 20px;\n\tdisplay: grid;\n\talign-items: center;\n\tgrid-template-columns: 1fr;\n}\n\n.nav-container .nav-filter {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tlist-style: none;\n\tmargin-bottom: 10px;\n}\n\n@media (min-width: 768px) {\n\t.nav-container {\n\t\tgrid-template-columns: 4fr 1fr;\n\t}\n\t.nav-container .nav-filter {\n\t\tmargin-bottom: 0;\n\t}\n\n\t.nav-container .nav-filter .filter-btn:not(:first-child) {\n\t\tmargin-left: 15px;\n\t}\n\t.no-list-found {\n\t\tgrid-column: 2/3;\n\t}\n}\n\n.nav-container .nav-filter .filter-btn {\n\ttext-decoration: none;\n\tcolor: inherit;\n\tcursor: pointer;\n\tbackground: transparent;\n\toutline: none;\n\tborder: none;\n\tfont-size: 1em;\n\ttext-transform: capitalize;\n\tposition: relative;\n\tpadding: 0px 10px;\n}\n\n.nav-container .nav-filter .filter-btn:after {\n\tcontent: \"\";\n\tposition: absolute;\n\twidth: 100%;\n\theight: 3px;\n\tbottom: calc(0% - 19px);\n\tleft: 0;\n\tbackground: #303030;\n\topacity: 0;\n\ttransition: 0.2s linear;\n\ttransform: scaleX(0);\n}\n\n.nav-container .nav-filter .filter-btn:hover:after,\n.nav-container .nav-filter .filter-btn:focus:after {\n\topacity: 1;\n\ttransform: scaleX(1);\n}\n\n@media (max-width: 767px) {\n\t.nav-container .nav-filter .filter-btn:after {\n\t\tdisplay: none;\n\t}\n\n\t.nav-container .nav-filter,\n\t.nav-container .nav-filter .filter-btn {\n\t\tdisplay: block;\n\t}\n\t.nav-container .nav-filter .filter-btn {\n\t\tmargin-left: 0;\n\t\tpadding: 0;\n\t}\n\t.nav-container .nav-filter .filter-btn:not(:last-child) {\n\t\tmargin-bottom: 8px;\n\t}\n}\n\n.search-filter {\n\tz-index: 1;\n}\n\n.search-filter input[type=\"search\"] {\n\twidth: 100%;\n\theight: auto;\n\tpadding: 5px;\n\tborder: 1px solid var(--lightgray);\n\tborder-radius: 3px;\n\toutline: none;\n\ttransition: 0.2s linear;\n}\n.search-filter input[type=\"search\"]:hover,\n.search-filter input[type=\"search\"]:focus {\n\tborder-color: var(--primary);\n}\n\n.search-filter input[type=\"search\"]:focus {\n\tbox-shadow: 0 0 0 1px rgb(0 113 161 / 60%);\n}\n\ninput[type=\"search\" i]::-webkit-search-cancel-button {\n\tcursor: pointer;\n}\n\n.list-container {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n\tdisplay: grid;\n\tgrid-column-gap: 30px;\n\tgrid-row-gap: 30px;\n\tanimation: fade 0.6s linear;\n}\n\n@media (min-width: 768px) {\n\t.list-container {\n\t\tgrid-template-columns: repeat(3, 1fr);\n\t}\n}\n\n@keyframes fade {\n\tfrom {\n\t\topacity: 0;\n\t}\n\tto {\n\t\topacity: 1;\n\t}\n}\n\n.single-item .thumbnail {\n\tborder-radius: 3px 3px 0 0;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n.single-item .thumbnail .overlay {\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 55%);\n\topacity: 0;\n\ttransition: opacity 0.3s linear;\n}\n\n.single-item:hover .overlay {\n\topacity: 1;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 20px;\n}\n\n.single-item .thumbnail .overlay-btn {\n\tcolor: #fff;\n\tbackground: rgb(0 0 0 / 53%);\n\tborder: 1px solid rgb(255 255 255 / 25%);\n}\n\n.single-item .thumbnail .overlay-btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 15px;\n}\n\n.single-item .thumbnail img{\n\twidth: 100%;\n\theight: 350px;\n}\n\n.single-item .actions {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 0 0 3px 3px;\n\tposition: relative;\n\tmargin-top: -3px;\n}\n\n.single-item .actions .import-btn {\n\tbackground: #0071a1;\n\tborder: 1px solid #0071a1;\n\tcolor: #fff;\n}\n\n.single-item .actions .import-btn:hover,\n.single-item .thumbnail .overlay-btn:hover {\n\topacity: 0.8;\n}\n\n.no-list-found {\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 3px;\n}\n\n/* Modal popup */\n.modal-wrapper {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 80%);\n\tpadding: 30px;\n\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\n\tz-index: 0;\n\topacity: 0;\n}\n\n.modal-wrapper.active {\n\tz-index: 10;\n\topacity: 1;\n}\n\n.modal-content {\n\tbackground: #fff;\n\tmax-width: 450px;\n\tborder-radius: 5px;\n\n\tanimation: fade 0.4s linear;\n}\n\n.modal-wrapper.active .modal-content {\n\topacity: 1;\n\ttransform: translateY(0px);\n}\n\n/* Modal Content  */\n.modal-content > [class^=\"modal-\"] {\n\tpadding: 15px;\n}\n\n.modal-head {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n}\n\n.modal-content .close-btn {\n\tbackground: transparent;\n\tborder: none;\n\tfont-size: 2em;\n\tline-height: 0.6;\n\tfont-family: sans-serif;\n\tfont-weight: 300;\n\ttransform: rotate(45deg);\n}\n\n.modal-content .modal-body {\n\tborder-top: 1px solid #dadada;\n\tborder-bottom: 1px solid #dadada;\n\tpadding: 30px;\n\ttext-align: center;\n}\n\n.modal-content .modal-body p {\n\tline-height: 1.5;\n\tmargin-bottom: 5px;\n}\n\n.modal-content .modal-body strong {\n\tdisplay: block;\n\ttext-transform: capitalize;\n\ttext-align: left;\n}\n\n.modal-content .modal-body strong:not(:last-child):after {\n\tcontent: \", \";\n}\n\n.modal-footer {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: flex-end;\n}\n\n.modal-footer .btn {\n\tpadding: 5px 10px;\n}\n.modal-footer .btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n/* ProgressBar */\n.progress-wrapper {\n\tmax-width: 350px;\n\twidth: 100%;\n\tmargin-top: 15px;\n\ttext-align: center;\n\tfont-size: 14px;\n}\n\n.progress {\n\tbackground-color: transparent;\n\tborder-radius: 20px;\n\tmargin-bottom: 15px;\n\theight: 10px;\n\tposition: relative;\n\toverflow: hidden;\n\tbox-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);\n}\n\n.progress-status {\n\t--color-white: #ffffff;\n\tbackground: var(--color-white);\n\tborder-radius: 20px;\n\tcolor: #fff;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 0;\n\ttransition: .2s linear;\n}\n\nspan.status-text {\n\tcolor: #ffffff;\n\tmargin-top: 15px;\n}\n\n/* Preloader */\n.svg-preloader {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\tbackground: rgb(0 0 0 / 0.7);\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tz-index: 9;\n}\n\n.svg-preloader svg path {\n\tfill: transparent;\n\tstroke-width: 0.1px;\n\t--stroke: 30;\n\tstroke: #fff;\n\tstroke-dasharray: var(--stroke);\n\tstroke-dashoffset: var(--stroke);\n}\n.svg-preloader svg path {\n\tanimation: preLoading 1.5s linear infinite;\n}\n.svg-preloader .status-texts {\n\tcolor: #ffffff;\n\tmargin-top: 10px;\n\tfont-size: 18px;\n}\n\n@keyframes preLoading {\n\t0% {\n\t\tstroke-dashoffset: 80;\n\t\tfill: #fff;\n\t}\n\t40% {\n\t\tstroke-dashoffset: 40;\n\t\tfill: transparent;\n\t}\n\t80% {\n\t\tstroke-dashoffset: 0;\n\t\tfill: transparent;\n\t}\n\t100% {\n\t\tstroke-dashoffset: 0;\n\t\tfill: #fff;\n\t}\n}", ""]);
+exports.push([module.i, "* {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-sizing: border-box;\n}\n\n:root {\n\t--primary: #0071a1;\n\t--default: #464646;\n\t--lightgray: #cccccc;\n}\n\nbody {\n\tbackground: #f1f1f1;\n\tcolor: #000;\n\tposition: relative;\n}\n\nbutton {\n\tcursor: pointer;\n\toutline: none;\n}\n.demo-importer-ui {\n\twidth: 100%;\n\tpadding: 30px;\n\tposition: relative;\n}\n\n.demo-importer-ui .btn {\n\ttext-decoration: none;\n\tdisplay: inline-block;\n\ttext-transform: capitalize;\n\toutline: none;\n\tborder: 1px solid var(--lightgray);\n\tcolor: #464646;\n\tpadding: 6px 13px;\n\tborder-radius: 4px;\n\ttransition: 0.2s linear;\n}\n\n.demo-importer-ui .btn.primary-btn {\n\tbackground: var(--primary);\n\tborder: 1px solid var(--primary);\n\tcolor: #fff;\n}\n\n.demo-importer-ui .btn.primary-btn:hover,\n.demo-importer-ui .btn.primary-btn:focus {\n\topacity: 0.85;\n}\n\n.demo-importer-ui .btn.outline-btn {\n\tbackground: transparent;\n\tborder: 1px solid var(--primary);\n\tcolor: var(--primary);\n}\n\n.demo-importer-wrapper img {\n\twidth: 100%;\n\theight: auto;\n\tobject-fit: cover;\n}\n\n.demo-importer-wrapper header h3 {\n\tmargin-bottom: 20px;\n}\n\n.nav-container {\n\tbackground: #fff;\n\tmargin-bottom: 30px;\n\tborder-radius: 3px;\n\tpadding: 13px 20px;\n\tdisplay: grid;\n\talign-items: center;\n\tgrid-template-columns: 1fr;\n}\n\n.nav-container .nav-filter {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tlist-style: none;\n\tmargin-bottom: 10px;\n}\n\n@media (min-width: 768px) {\n\t.nav-container {\n\t\tgrid-template-columns: 4fr 1fr;\n\t}\n\t.nav-container .nav-filter {\n\t\tmargin-bottom: 0;\n\t}\n\n\t.nav-container .nav-filter .filter-btn:not(:first-child) {\n\t\tmargin-left: 15px;\n\t}\n\t.no-list-found {\n\t\tgrid-column: 2/3;\n\t}\n}\n\n.nav-container .nav-filter .filter-btn {\n\ttext-decoration: none;\n\tcolor: inherit;\n\tcursor: pointer;\n\tbackground: transparent;\n\toutline: none;\n\tborder: none;\n\tfont-size: 1em;\n\ttext-transform: capitalize;\n\tposition: relative;\n\tpadding: 0px 10px;\n}\n\n.nav-container .nav-filter .filter-btn:after {\n\tcontent: \"\";\n\tposition: absolute;\n\twidth: 100%;\n\theight: 3px;\n\tbottom: calc(0% - 19px);\n\tleft: 0;\n\tbackground: #303030;\n\topacity: 0;\n\ttransition: 0.2s linear;\n\ttransform: scaleX(0);\n}\n\n.nav-container .nav-filter .filter-btn:hover:after,\n.nav-container .nav-filter .filter-btn:focus:after {\n\topacity: 1;\n\ttransform: scaleX(1);\n}\n\n@media (max-width: 767px) {\n\t.nav-container .nav-filter .filter-btn:after {\n\t\tdisplay: none;\n\t}\n\n\t.nav-container .nav-filter,\n\t.nav-container .nav-filter .filter-btn {\n\t\tdisplay: block;\n\t}\n\t.nav-container .nav-filter .filter-btn {\n\t\tmargin-left: 0;\n\t\tpadding: 0;\n\t}\n\t.nav-container .nav-filter .filter-btn:not(:last-child) {\n\t\tmargin-bottom: 8px;\n\t}\n}\n\n.search-filter {\n\tz-index: 1;\n}\n\n.search-filter input[type=\"search\"] {\n\twidth: 100%;\n\theight: auto;\n\tpadding: 5px;\n\tborder: 1px solid var(--lightgray);\n\tborder-radius: 3px;\n\toutline: none;\n\ttransition: 0.2s linear;\n}\n.search-filter input[type=\"search\"]:hover,\n.search-filter input[type=\"search\"]:focus {\n\tborder-color: var(--primary);\n}\n\n.search-filter input[type=\"search\"]:focus {\n\tbox-shadow: 0 0 0 1px rgb(0 113 161 / 60%);\n}\n\ninput[type=\"search\" i]::-webkit-search-cancel-button {\n\tcursor: pointer;\n}\n\n.list-container {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n\tdisplay: grid;\n\tgrid-column-gap: 30px;\n\tgrid-row-gap: 30px;\n\tanimation: fade 0.6s linear;\n}\n\n@media (min-width: 768px) {\n\t.list-container {\n\t\tgrid-template-columns: repeat(3, 1fr);\n\t}\n}\n\n@keyframes fade {\n\tfrom {\n\t\topacity: 0;\n\t}\n\tto {\n\t\topacity: 1;\n\t}\n}\n\n.single-item .thumbnail {\n\tborder-radius: 3px 3px 0 0;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n.single-item .thumbnail .overlay {\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 55%);\n\topacity: 0;\n\ttransition: opacity 0.3s linear;\n}\n\n.single-item:hover .overlay {\n\topacity: 1;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 20px;\n}\n\n.single-item .thumbnail .overlay-btn {\n\tcolor: #fff;\n\tbackground: rgb(0 0 0 / 53%);\n\tborder: 1px solid rgb(255 255 255 / 25%);\n\tcursor: text;\n}\n\n.single-item .thumbnail .overlay-btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n.single-item .thumbnail .overlay h4 {\n\tfont-size: 1.5em;\n\tfont-weight: 600;\n\tcolor: #fff;\n\tmargin-bottom: 15px;\n}\n\n.single-item .thumbnail img{\n\twidth: 100%;\n\theight: 350px;\n}\n\n.single-item .actions {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 0 0 3px 3px;\n\tposition: relative;\n\tmargin-top: -3px;\n}\n\n.single-item .actions .import-btn {\n\tbackground: #0071a1;\n\tborder: 1px solid #0071a1;\n\tcolor: #fff;\n}\n\n.single-item .actions .import-btn:hover,\n.single-item .thumbnail .overlay-btn:hover {\n\topacity: 0.8;\n}\n\n.no-list-found {\n\tpadding: 13px 15px 15px 15px;\n\tbackground: #ffff;\n\tborder-radius: 3px;\n}\n\n/* Modal popup */\n.modal-wrapper {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tbackground: rgb(0 0 0 / 80%);\n\tpadding: 30px;\n\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\n\tz-index: 0;\n\topacity: 0;\n}\n\n.modal-wrapper.active {\n\tz-index: 10;\n\topacity: 1;\n}\n\n.modal-content {\n\tbackground: #fff;\n\tmax-width: 450px;\n\tborder-radius: 5px;\n\n\tanimation: fade 0.4s linear;\n}\n\n.modal-wrapper.active .modal-content {\n\topacity: 1;\n\ttransform: translateY(0px);\n}\n\n/* Modal Content  */\n.modal-content > [class^=\"modal-\"] {\n\tpadding: 15px;\n}\n\n.modal-head {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: center;\n}\n\n.modal-content .close-btn {\n\tbackground: transparent;\n\tborder: none;\n\tfont-size: 2em;\n\tline-height: 0.6;\n\tfont-family: sans-serif;\n\tfont-weight: 300;\n\ttransform: rotate(45deg);\n}\n\n.modal-content .modal-body {\n\tborder-top: 1px solid #dadada;\n\tborder-bottom: 1px solid #dadada;\n\tpadding: 30px;\n\ttext-align: center;\n}\n\n.modal-content .modal-body p {\n\tline-height: 1.5;\n\tmargin-bottom: 5px;\n}\n\n.modal-content .modal-body strong {\n\tdisplay: block;\n\ttext-transform: capitalize;\n\ttext-align: left;\n}\n\n.modal-content .modal-body strong:not(:last-child):after {\n\tcontent: \", \";\n}\n\n.modal-footer {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: flex-end;\n}\n\n.modal-footer .btn {\n\tpadding: 5px 10px;\n}\n.modal-footer .btn:not(:last-child) {\n\tmargin-right: 10px;\n}\n\n/* ProgressBar */\n.progress-wrapper {\n\tmax-width: 350px;\n\twidth: 100%;\n\tmargin-top: 15px;\n\ttext-align: center;\n\tfont-size: 14px;\n}\n\n.progress {\n\tbackground-color: transparent;\n\tborder-radius: 20px;\n\tmargin-bottom: 15px;\n\theight: 10px;\n\tposition: relative;\n\toverflow: hidden;\n\tbox-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);\n}\n\n.progress-status {\n\t--color-white: #ffffff;\n\tbackground: var(--color-white);\n\tborder-radius: 20px;\n\tcolor: #fff;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 0;\n\ttransition: .2s linear;\n}\n\nspan.status-text {\n\tcolor: #ffffff;\n\tmargin-top: 15px;\n}\n\n/* Preloader */\n.svg-preloader {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\ttop: 0;\n\tleft: 0;\n\tbackground: rgb(0 0 0 / 0.7);\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tz-index: 9;\n}\n\n.svg-preloader svg path {\n\tfill: transparent;\n\tstroke-width: 0.1px;\n\t--stroke: 30;\n\tstroke: #fff;\n\tstroke-dasharray: var(--stroke);\n\tstroke-dashoffset: var(--stroke);\n}\n.svg-preloader svg path {\n\tanimation: preLoading 1.5s linear infinite;\n}\n.svg-preloader .status-texts {\n\tcolor: #ffffff;\n\tmargin-top: 10px;\n\tfont-size: 18px;\n}\n\n@keyframes preLoading {\n\t0% {\n\t\tstroke-dashoffset: 80;\n\t\tfill: #fff;\n\t}\n\t40% {\n\t\tstroke-dashoffset: 40;\n\t\tfill: transparent;\n\t}\n\t80% {\n\t\tstroke-dashoffset: 0;\n\t\tfill: transparent;\n\t}\n\t100% {\n\t\tstroke-dashoffset: 0;\n\t\tfill: #fff;\n\t}\n}", ""]);
 
 // exports
 
@@ -11649,9 +11649,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var __ = wp.i18n.__;
-var _wp$element = wp.element,
-    useState = _wp$element.useState,
-    useEffect = _wp$element.useEffect;
+var useState = wp.element.useState;
 var SelectControl = wp.components.SelectControl;
 
 
@@ -11674,48 +11672,48 @@ function App() {
 
   var _useState5 = useState(0),
       _useState6 = _slicedToArray(_useState5, 2),
-      selectedDemo = _useState6[0],
-      setSelectedDemo = _useState6[1];
+      percentage = _useState6[0],
+      setPercentage = _useState6[1];
 
-  var _useState7 = useState([]),
+  var _useState7 = useState(0),
       _useState8 = _slicedToArray(_useState7, 2),
-      builderList = _useState8[0],
-      setBuilderList = _useState8[1];
+      selectedDemo = _useState8[0],
+      setSelectedDemo = _useState8[1];
 
   var _useState9 = useState([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      clickedItem = _useState10[0],
-      setClickedItem = _useState10[1];
+      builderList = _useState10[0],
+      setBuilderList = _useState10[1];
 
-  var _useState11 = useState(false),
+  var _useState11 = useState([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      modalState = _useState12[0],
-      setModalState = _useState12[1];
+      clickedItem = _useState12[0],
+      setClickedItem = _useState12[1];
 
-  var _useState13 = useState('gutenberg'),
+  var _useState13 = useState(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      builder = _useState14[0],
-      setBuilder = _useState14[1];
+      modalState = _useState14[0],
+      setModalState = _useState14[1];
 
-  var _useState15 = useState(0),
+  var _useState15 = useState('gutenberg'),
       _useState16 = _slicedToArray(_useState15, 2),
-      selectedIndex = _useState16[0],
-      setSelectedIndex = _useState16[1];
+      builder = _useState16[0],
+      setBuilder = _useState16[1];
 
-  var _useState17 = useState(importFiles),
+  var _useState17 = useState(0),
       _useState18 = _slicedToArray(_useState17, 2),
-      listItems = _useState18[0],
-      setListItems = _useState18[1];
+      selectedIndex = _useState18[0],
+      setSelectedIndex = _useState18[1];
 
-  var _useState19 = useState(allCategories),
+  var _useState19 = useState(importFiles),
       _useState20 = _slicedToArray(_useState19, 2),
-      categories = _useState20[0],
-      setCategories = _useState20[1];
+      listItems = _useState20[0],
+      setListItems = _useState20[1];
 
-  var _useState21 = useState(0),
+  var _useState21 = useState(allCategories),
       _useState22 = _slicedToArray(_useState21, 2),
-      percentage = _useState22[0],
-      setPercentage = _useState22[1];
+      categories = _useState22[0],
+      setCategories = _useState22[1];
 
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -11823,7 +11821,7 @@ function App() {
       className: "modal-content"
     }, /*#__PURE__*/React.createElement("div", {
       className: "modal-head"
-    }, /*#__PURE__*/React.createElement("h3", null, "Required Plugins"), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("h3", null, __('Required Plugins', 'tutormate')), /*#__PURE__*/React.createElement("button", {
       className: "close-btn",
       onClick: function onClick() {
         return toggleModalState();
@@ -11831,13 +11829,13 @@ function App() {
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
     }, /*#__PURE__*/React.createElement(SelectControl, {
-      label: __('Select Builder', 'tutorstarter'),
+      label: __('Select Builder', 'tutormate'),
       value: builder,
       options: builderOptions,
       onChange: function onChange(value) {
         return selectedBuilder(value);
       }
-    }), /*#__PURE__*/React.createElement("p", null, "The following plugins will be installed and activated for this demo if not already available:"), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
+    }), /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
       return /*#__PURE__*/React.createElement("strong", {
         key: index
       }, item.title, " - ", item.state);
@@ -11857,7 +11855,7 @@ function App() {
       onClick: function onClick() {
         return pluginInstall(selectedIndex, builder);
       }
-    }, "Import Now"))));
+    }, __('Import Now', 'tutormate')))));
   }; // Component - ListItems
 
 
@@ -11868,9 +11866,7 @@ function App() {
     }, listItems.length > 0 ? listItems.map(function (item, index) {
       var import_file_name = item.import_file_name,
           builders = item.builders,
-          import_preview_image_url = item.import_preview_image_url,
-          id = item.id,
-          plugins = item.plugins;
+          import_preview_image_url = item.import_preview_image_url;
       return /*#__PURE__*/React.createElement("li", {
         className: "single-item",
         key: index
@@ -11881,7 +11877,7 @@ function App() {
         alt: import_file_name
       }), /*#__PURE__*/React.createElement("div", {
         className: "overlay"
-      }, /*#__PURE__*/React.createElement("h4", null, "Available for"), /*#__PURE__*/React.createElement("div", null, builders.map(function (builder, index) {
+      }, /*#__PURE__*/React.createElement("h4", null, __('Available for', 'tutormate')), /*#__PURE__*/React.createElement("div", null, builders.map(function (builder, index) {
         return /*#__PURE__*/React.createElement("button", {
           type: "button",
           className: "btn overlay-btn",
@@ -11898,10 +11894,10 @@ function App() {
         onClick: function onClick() {
           return getClickedItem(builders, index);
         }
-      }, "Import")))));
+      }, __('Import', 'tutormate'))))));
     }) : /*#__PURE__*/React.createElement("li", {
       className: "no-list-found"
-    }, "Nothing Found"));
+    }, __('Nothing Found', 'tutormate')));
   };
 
   return /*#__PURE__*/React.createElement("div", {
@@ -11914,7 +11910,7 @@ function App() {
     percentage: percentage
   }), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
-  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, "Welcome to Tutor Starter Demo Importer"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, __('Welcome to Tutor Starter Demo Importer', 'tutormate')), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "nav-filter"

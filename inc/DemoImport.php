@@ -228,7 +228,7 @@ class DemoImport {
 				$packs_list = json_decode( $results['body'], true );
 
 				if ( is_array( $packs_list ) || ! empty( $packs_list ) ) {
-					set_transient( 'tutorstarter_packs', $packs_list, DAY_IN_SECONDS );
+					set_transient( 'tutorstarter_packs', $packs_list, 6 * HOUR_IN_SECONDS );
 				}
 			} catch ( Exception $e ) {
 				echo esc_html( $e->getMessage() );
