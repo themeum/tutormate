@@ -361,6 +361,16 @@ input[type="search" i]::-webkit-search-cancel-button {
 	content: ", ";
 }
 
+.modal-content .notices {
+	padding: 10px 25px;
+	margin-left:5px;
+	border-bottom: 1px solid #cccccc;
+}
+
+.modal-content .notices span {
+    font-weight: bold;
+}
+
 .modal-footer {
 	display: flex;
 	align-items: center;

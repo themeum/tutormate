@@ -20,6 +20,7 @@ function App() {
 	const [builder, setBuilder] = useState('gutenberg');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
+	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
 
 	let builderOptions = builderList.length > 0 && builderList.map(item => {
@@ -28,7 +29,6 @@ function App() {
 
 	const toggleModalState = () => {
 		setModalState(!modalState);
-		true === modalState ? setBuilderList([]) : null;
 	};
 
 	const filterItems = (category) => {
@@ -46,9 +46,10 @@ function App() {
 		setListItems(newItems);
 	};
 
-	const getClickedItem = (builders, index) => {
+	const getClickedItem = (builders, index, notice) => {
 		setSelectedIndex(index);
 		setBuilderList(builders);
+		setDemoNotice(notice);
 	};
 
 	const selectedBuilder = (builder) => {
@@ -119,7 +120,7 @@ function App() {
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
 					<div className="modal-head">
-						<h3>{__('Required Plugins', 'tutormate')}</h3>
+						<h3>{__('Demo Details', 'tutormate')}</h3>
 						<button className="close-btn" onClick={() => toggleModalState()}>
 							+
 						</button>
@@ -143,6 +144,7 @@ function App() {
 								return (<strong key={index}>{item.title} - {item.state}</strong>)
 							})}
 					</div>
+					{demoNotice && <div className="notices"><span>{__('Important: ', 'tutormate')}</span>{demoNotice}</div>}
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel
@@ -160,7 +162,7 @@ function App() {
 			<ul className="list-container">
 				{listItems.length > 0 ? (
 					listItems.map((item, index) => {
-						const { import_file_name, builders, import_preview_image_url } = item;
+						const { import_file_name, builders, import_preview_image_url, notice } = item;
 						return (
 							<li className="single-item" key={index}>
 								<figure className="thumbnail">
@@ -180,7 +182,7 @@ function App() {
 									<h4>{import_file_name}</h4>
 									<div>
 										<button className="btn primary-btn" onClick={() => toggleModalState()}>
-											<span onClick={() => getClickedItem(builders, index)}>{__('Import', 'tutormate')}</span>
+											<span onClick={() => getClickedItem(builders, index, notice)}>{__('Import', 'tutormate')}</span>
 										</button>
 									</div>
 								</div>
