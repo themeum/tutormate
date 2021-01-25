@@ -361,7 +361,7 @@ class Helpers {
 		$attachment = array(
 			'guid'           => self::get_log_url( $log_path ),
 			'post_mime_type' => $filetype['type'],
-			'post_title'     => apply_filters( 'tutormate_attachment_prefix', esc_html__( 'One Click Demo Import - ', 'tutormate' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
+			'post_title'     => apply_filters( 'tutormate_attachment_prefix', esc_html__( 'Tutormate Demo Import - ', 'tutormate' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 		);
