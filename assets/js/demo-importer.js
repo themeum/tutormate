@@ -11626,8 +11626,7 @@ if(false) {}
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.css */ "./react/src/components/App.css");
 /* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_App_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _progressBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./progressBar */ "./react/src/components/progressBar.js");
-/* harmony import */ var _preloader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./preloader */ "./react/src/components/preloader.js");
+/* harmony import */ var _preloader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preloader */ "./react/src/components/preloader.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11653,7 +11652,6 @@ var useState = wp.element.useState;
 var SelectControl = wp.components.SelectControl;
 
 
-
 var importFiles = tutormate.import_files;
 var allCategories = ["all"].concat(_toConsumableArray(new Set(importFiles.map(function (item) {
   return item.categories;
@@ -11675,50 +11673,55 @@ function App() {
       percentage = _useState6[0],
       setPercentage = _useState6[1];
 
-  var _useState7 = useState(0),
+  var _useState7 = useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      selectedDemo = _useState8[0],
-      setSelectedDemo = _useState8[1];
+      importCompleted = _useState8[0],
+      setImportCompleted = _useState8[1];
 
-  var _useState9 = useState([]),
+  var _useState9 = useState(0),
       _useState10 = _slicedToArray(_useState9, 2),
-      builderList = _useState10[0],
-      setBuilderList = _useState10[1];
+      selectedDemo = _useState10[0],
+      setSelectedDemo = _useState10[1];
 
   var _useState11 = useState([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      clickedItem = _useState12[0],
-      setClickedItem = _useState12[1];
+      builderList = _useState12[0],
+      setBuilderList = _useState12[1];
 
-  var _useState13 = useState(false),
+  var _useState13 = useState([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      modalState = _useState14[0],
-      setModalState = _useState14[1];
+      clickedItem = _useState14[0],
+      setClickedItem = _useState14[1];
 
-  var _useState15 = useState('gutenberg'),
+  var _useState15 = useState(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      builder = _useState16[0],
-      setBuilder = _useState16[1];
+      modalState = _useState16[0],
+      setModalState = _useState16[1];
 
-  var _useState17 = useState(0),
+  var _useState17 = useState('gutenberg'),
       _useState18 = _slicedToArray(_useState17, 2),
-      selectedIndex = _useState18[0],
-      setSelectedIndex = _useState18[1];
+      builder = _useState18[0],
+      setBuilder = _useState18[1];
 
-  var _useState19 = useState(importFiles),
+  var _useState19 = useState(0),
       _useState20 = _slicedToArray(_useState19, 2),
-      listItems = _useState20[0],
-      setListItems = _useState20[1];
+      selectedIndex = _useState20[0],
+      setSelectedIndex = _useState20[1];
 
-  var _useState21 = useState(''),
+  var _useState21 = useState(importFiles),
       _useState22 = _slicedToArray(_useState21, 2),
-      demoNotice = _useState22[0],
-      setDemoNotice = _useState22[1];
+      listItems = _useState22[0],
+      setListItems = _useState22[1];
 
-  var _useState23 = useState(allCategories),
+  var _useState23 = useState(''),
       _useState24 = _slicedToArray(_useState23, 2),
-      categories = _useState24[0],
-      setCategories = _useState24[1];
+      demoNotice = _useState24[0],
+      setDemoNotice = _useState24[1];
+
+  var _useState25 = useState(allCategories),
+      _useState26 = _slicedToArray(_useState25, 2),
+      categories = _useState26[0],
+      setCategories = _useState26[1];
 
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -11809,10 +11812,44 @@ function App() {
         setTimeout(function () {
           setFetching(false);
         }, 1000);
+        setTimeout(function () {
+          setImportCompleted(true);
+        }, 2000);
       }
     }).fail(function (error) {
       console.log(error);
     });
+  }; // Component - After Import
+
+
+  var AfterImport = function AfterImport() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "modal-wrapper active"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "modal-content"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "modal-head"
+    }, /*#__PURE__*/React.createElement("h3", null, __('All Done!', 'tutormate')), /*#__PURE__*/React.createElement("button", {
+      className: "close-btn",
+      onClick: function onClick() {
+        return setImportCompleted(false);
+      }
+    }, "+")), /*#__PURE__*/React.createElement("div", {
+      className: "modal-body"
+    }, /*#__PURE__*/React.createElement("p", null, __('Demo import has been completed successfully!', 'tutormate')), /*#__PURE__*/React.createElement("p", null, __('Visit', 'tutormate'), " ", /*#__PURE__*/React.createElement("a", {
+      href: tutormate.site_url,
+      target: "__blank"
+    }, __('Site', 'tutormate')), " ", __('or go to', 'tutormate'), " ", /*#__PURE__*/React.createElement("a", {
+      href: tutormate.admin_url,
+      target: "__blank"
+    }, __('Dashboard', 'tutormate')))), /*#__PURE__*/React.createElement("div", {
+      className: "modal-footer"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn outline-btn",
+      onClick: function onClick() {
+        return setImportCompleted(false);
+      }
+    }, "Close"))));
   }; // Component - PopupModal
 
 
@@ -11913,10 +11950,10 @@ function App() {
   }, /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem,
     selectedIndex: selectedIndex
-  }), fetching && /*#__PURE__*/React.createElement(_preloader__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), fetching && /*#__PURE__*/React.createElement(_preloader__WEBPACK_IMPORTED_MODULE_1__["default"], {
     status: progress,
     percentage: percentage
-  }), /*#__PURE__*/React.createElement("div", {
+  }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, __('Welcome to Tutor Starter Demo Importer', 'tutormate')), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"

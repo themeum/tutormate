@@ -3,7 +3,6 @@ const { useState } = wp.element;
 const { SelectControl } = wp.components;
 
 import "./App.css";
-import ProgressBar from './progressBar';
 import Preloader from './preloader';
 
 let importFiles = tutormate.import_files;
@@ -13,6 +12,7 @@ function App() {
 	const [progress, setProgress] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const [percentage, setPercentage] = useState(0);
+	const [importCompleted, setImportCompleted] = useState(false);
 	const [selectedDemo, setSelectedDemo] = useState(0);
 	const [builderList, setBuilderList] = useState([]);
 	const [clickedItem, setClickedItem] = useState([]);
@@ -105,11 +105,41 @@ function App() {
 					setTimeout(() => {
 						setFetching(false);
 					}, 1000)
+					setTimeout(() => {
+						setImportCompleted(true);
+					}, 2000)
 				}
 			})
 			.fail(function (error) {
 				console.log(error);
 			});
+	}
+
+	// Component - After Import
+	const AfterImport = () => {
+		return (
+			<div className="modal-wrapper active">
+				<div className="modal-content">
+					<div className="modal-head">
+						<h3>{__('All Done!', 'tutormate')}</h3>
+						<button className="close-btn" onClick={() => setImportCompleted(false)}>
+							+
+						</button>
+					</div>
+					<div className="modal-body">
+						<p>
+							{__('Demo import has been completed successfully!', 'tutormate')}
+						</p>
+						<p>{__('Visit', 'tutormate')} <a href={tutormate.site_url} target="__blank">{__('Site', 'tutormate')}</a> {__('or go to', 'tutormate')} <a href={tutormate.admin_url} target="__blank">{__('Dashboard', 'tutormate')}</a></p>
+					</div>
+					<div className="modal-footer">
+						<button className="btn outline-btn" onClick={() => setImportCompleted(false)}>
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+		);
 	}
 
 	// Component - PopupModal
@@ -201,6 +231,7 @@ function App() {
 
 			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
 			{fetching && <Preloader status={progress} percentage={percentage} />}
+			{importCompleted && <AfterImport />}
 			<div className="demo-importer-wrapper">
 				<header>
 					<h3>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h3>

@@ -180,16 +180,18 @@ class OneClickDemoImport {
 
 			wp_localize_script( 'tutormate-demo-importer', 'tutormate',
 				array(
-					'ajax_url'             => admin_url( 'admin-ajax.php' ),
-					'ajax_nonce'           => wp_create_nonce( 'tutormate-ajax-verification' ),
-					'import_files'         => $this->import_files,
-					'wp_customize_on'      => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
-					'theme_screenshot'     => $theme->get_screenshot(),
-					'plugin_progress'      => esc_html__( 'Installing / Activating Required Plugins...', 'tutormate' ),
-					'content_progress'     => esc_html__( 'Importing Demo Content...', 'tutormate' ),
-					'widgets_progress'     => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
-					'customizer_progress'  => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
-					'all_done_progress'    => esc_html__( 'Import Complete!', 'tutormate' ),
+					'site_url'            => site_url(),
+					'admin_url'           => admin_url(),
+					'ajax_url'            => admin_url( 'admin-ajax.php' ),
+					'ajax_nonce'          => wp_create_nonce( 'tutormate-ajax-verification' ),
+					'import_files'        => $this->import_files,
+					'wp_customize_on'     => apply_filters( 'tutormate_enable_wp_customize_save_hooks', false ),
+					'theme_screenshot'    => $theme->get_screenshot(),
+					'plugin_progress'     => esc_html__( 'Installing / Activating Required Plugins...', 'tutormate' ),
+					'content_progress'    => esc_html__( 'Importing Demo Content...', 'tutormate' ),
+					'widgets_progress'    => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
+					'customizer_progress' => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
+					'all_done_progress'   => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
 
