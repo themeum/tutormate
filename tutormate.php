@@ -95,3 +95,9 @@ if ( class_exists( 'TUTORMATE\\DemoImport' ) ) :
 	$demo_import = new TUTORMATE\DemoImport();
 	$demo_import->register();
 endif;
+
+// Require the performance settings class.
+if ( class_exists( 'TUTORMATE\\PerformanceSettings' ) ) :
+	$performance_settings = new TUTORMATE\PerformanceSettings();
+	$performance_settings->register();
+endif;

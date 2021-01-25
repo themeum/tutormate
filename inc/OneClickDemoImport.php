@@ -151,6 +151,7 @@ class OneClickDemoImport {
 		);
 
 		register_importer( $this->plugin_page_setup['menu_slug'], $this->plugin_page_setup['page_title'], $this->plugin_page_setup['menu_title'], apply_filters( 'tutormate_plugin_page_display_callback_function', array( $this, 'display_plugin_page' ) ) );
+		add_submenu_page( 'tutorstarter', __( 'Performance', 'tutormate' ), __( 'Performance', 'tutormate' ), 'import', 'tutormate-performance-options', array( $this, 'performance_markup' ) );
 	}
 
 	/**
@@ -162,6 +163,13 @@ class OneClickDemoImport {
 	}
 
 	/**
+	 * Performance markup
+	 */
+	public function performance_markup() {
+		echo '<div id="tutormate-performance-container"></div>';
+	}
+
+	/**
 	 * Enqueue admin scripts (JS and CSS)
 	 *
 	 * @param string $hook holds info on which admin page you are currently loading.
@@ -169,10 +177,7 @@ class OneClickDemoImport {
 	public function admin_enqueue_scripts( $hook ) {
 		// Enqueue the scripts only on the plugin page.
 		if ( $this->plugin_page === $hook || ( 'admin.php' === $hook && $this->plugin_page_setup['menu_slug'] === esc_attr( $_GET['import'] ) ) ) {
-			wp_enqueue_script( 'jquery-ui-dialog' );
-			wp_enqueue_style( 'wp-jquery-ui-dialog' );
-
-			wp_enqueue_script( 'tutormate-main-js', TUTORMATE_URL . 'assets/js/main.js' , array( 'jquery', 'jquery-ui-dialog' ), TUTORMATE_VERSION );
+			
 			wp_enqueue_script( 'tutormate-demo-importer', TUTORMATE_URL . 'assets/js/demo-importer.js' , array( 'wp-element', 'wp-components', 'wp-i18n', 'wp-api' ), TUTORMATE_VERSION, true );
 
 			// Get theme data.
@@ -194,8 +199,11 @@ class OneClickDemoImport {
 					'all_done_progress'   => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
+		}
 
-			wp_enqueue_style( 'tutormate-main-css', TUTORMATE_URL . 'assets/css/main.css', array() , TUTORMATE_VERSION );
+		if ( 'tutormate-performance-options' === $_GET['page'] ) {
+			wp_enqueue_style( 'tutormate-performance', TUTORMATE_URL . 'assets/css/performance.css', array( 'wp-components' ), TUTORMATE_VERSION, 'all' );
+			wp_enqueue_script( 'tutormate-performance', TUTORMATE_URL . 'assets/js/performance.js', array( 'wp-api', 'wp-i18n', 'wp-components', 'wp-element' ), TUTORMATE_VERSION, true );
 		}
 	}
 
