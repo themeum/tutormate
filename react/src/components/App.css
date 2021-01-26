@@ -61,8 +61,10 @@ button {
 	object-fit: cover;
 }
 
-.demo-importer-wrapper header h3 {
+.demo-importer-wrapper header h2 {
+	font-size: 25px;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 .nav-container {

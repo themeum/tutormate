@@ -1,6 +1,6 @@
 <?php
 /**
- * Main One Click Demo Import plugin class/file.
+ * Main Tutormate plugin class/file.
  *
  * @package Tutormate
  */
@@ -11,7 +11,7 @@ use function plugins_api;
 use function activate_plugin;
 
 /**
- * One Click Demo Import class, so we don't have to worry about namespaces.
+ * OneClickDemoImport class.
  */
 class OneClickDemoImport {
 	/**
@@ -201,7 +201,7 @@ class OneClickDemoImport {
 			);
 		}
 
-		if ( 'tutormate-performance-options' === $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && 'tutormate-performance-options' === $_GET['page'] ) {
 			wp_enqueue_style( 'tutormate-performance', TUTORMATE_URL . 'assets/css/performance.css', array( 'wp-components' ), TUTORMATE_VERSION, 'all' );
 			wp_enqueue_script( 'tutormate-performance', TUTORMATE_URL . 'assets/js/performance.js', array( 'wp-api', 'wp-i18n', 'wp-components', 'wp-element' ), TUTORMATE_VERSION, true );
 		}

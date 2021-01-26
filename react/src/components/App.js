@@ -234,7 +234,7 @@ function App() {
 			{importCompleted && <AfterImport />}
 			<div className="demo-importer-wrapper">
 				<header>
-					<h3>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h3>
+					<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
 					<div className="nav-container">
 						<div className="nav-filter">
 							{categories.map((category, index) => (

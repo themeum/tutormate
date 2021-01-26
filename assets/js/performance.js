@@ -143,8 +143,7 @@ var _wp$components = wp.components,
     BaseControl = _wp$components.BaseControl,
     PanelRow = _wp$components.PanelRow,
     PanelBody = _wp$components.PanelBody,
-    ToggleControl = _wp$components.ToggleControl,
-    Spinner = _wp$components.Spinner;
+    ToggleControl = _wp$components.ToggleControl;
 
 var PerformanceSettings = /*#__PURE__*/function (_Component) {
   _inherits(PerformanceSettings, _Component);
@@ -240,135 +239,139 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this4 = this;
 
-      if (!this.state.isApiLoaded) {
-        return /*#__PURE__*/React.createElement(Spinner, null);
-      }
-
       return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "performance-header"
       }, /*#__PURE__*/React.createElement("div", {
         className: "performance-container"
       }, /*#__PURE__*/React.createElement("div", {
         className: "performance-heading"
-      }, /*#__PURE__*/React.createElement("h1", null, __('Performance Optimizations', 'performance'))))), /*#__PURE__*/React.createElement("div", {
+      }, /*#__PURE__*/React.createElement("h2", null, __('Performance Optimizations', 'tutormate'))))), /*#__PURE__*/React.createElement("div", {
         className: "performance-settings"
       }, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(BaseControl, {
-        label: __('Please note that, the default settings are optimal for majority of the websites. Some settings may break your website\'s layout. Tweak the settings with caution!', 'performance')
+        label: __('Please note that, the default settings are optimal for majority of the websites. Some settings may break your website\'s layout. Tweak the settings with caution!', 'tutormate')
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "perf-settings-container"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "first-half"
       }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Block Externl HTTP Request?', 'performance'),
+        label: __('Block Externl HTTP Request?', 'tutormate'),
         checked: this.state.opt_block_external_http,
         onChange: function onChange() {
           return _this4.changeOptions('opt_block_external_http', !_this4.state.opt_block_external_http);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Defer CSS?', 'performance'),
+        label: __('Defer CSS?', 'tutormate'),
         checked: this.state.opt_defer_css,
         onChange: function onChange() {
           return _this4.changeOptions('opt_defer_css', !_this4.state.opt_defer_css);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Defer JS?', 'performance'),
+        label: __('Defer JS?', 'tutormate'),
         checked: this.state.opt_defer_js,
         onChange: function onChange() {
           return _this4.changeOptions('opt_defer_js', !_this4.state.opt_defer_js);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Comments?', 'performance'),
+        label: __('Disable Comments?', 'tutormate'),
         checked: this.state.opt_disable_comments,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_comments', !_this4.state.opt_disable_comments);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Embed?', 'performance'),
+        label: __('Disable Embed?', 'tutormate'),
         checked: this.state.opt_disable_embed,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_embed', !_this4.state.opt_disable_embed);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Emoji?', 'performance'),
+        label: __('Disable Emoji?', 'tutormate'),
         checked: this.state.opt_disable_emoji,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_emoji', !_this4.state.opt_disable_emoji);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Feeds?', 'performance'),
+        label: __('Disable Feeds?', 'tutormate'),
         checked: this.state.opt_disable_feeds,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_feeds', !_this4.state.opt_disable_feeds);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable jQuery Migrate?', 'performance'),
+        label: __('Disable jQuery Migrate?', 'tutormate'),
         checked: this.state.opt_disable_jquery_migrate,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_jquery_migrate', !_this4.state.opt_disable_jquery_migrate);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable RSD Links?', 'performance'),
+        label: __('Disable RSD Links?', 'tutormate'),
         checked: this.state.opt_disable_rsd,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_rsd', !_this4.state.opt_disable_rsd);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Shortlinks?', 'performance'),
+        label: __('Disable Shortlinks?', 'tutormate'),
         checked: this.state.opt_disable_shortlinks,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_shortlinks', !_this4.state.opt_disable_shortlinks);
         }
-      })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable Version Numbers?', 'performance'),
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "second-half"
+      }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
+        label: __('Disable Version Numbers?', 'tutormate'),
         checked: this.state.opt_disable_version_numbers,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_version_numbers', !_this4.state.opt_disable_version_numbers);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable WLW Manifest?', 'performance'),
+        label: __('Disable WLW Manifest?', 'tutormate'),
         checked: this.state.opt_disable_wlwmanifest,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_wlwmanifest', !_this4.state.opt_disable_wlwmanifest);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable WP Version?', 'performance'),
+        label: __('Disable WP Version?', 'tutormate'),
         checked: this.state.opt_disable_wp_version,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_wp_version', !_this4.state.opt_disable_wp_version);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Disable XMLRPC?', 'performance'),
+        label: __('Disable XMLRPC?', 'tutormate'),
         checked: this.state.opt_disable_xmlrpc,
         onChange: function onChange() {
           return _this4.changeOptions('opt_disable_xmlrpc', !_this4.state.opt_disable_xmlrpc);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Place jQuery to Footer?', 'performance'),
+        label: __('Place jQuery to Footer?', 'tutormate'),
         checked: this.state.opt_jquery_to_footer,
         onChange: function onChange() {
           return _this4.changeOptions('opt_jquery_to_footer', !_this4.state.opt_jquery_to_footer);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Limit Comments JS?', 'performance'),
+        label: __('Limit Comments JS?', 'tutormate'),
         checked: this.state.opt_limit_comments_js,
         onChange: function onChange() {
           return _this4.changeOptions('opt_limit_comments_js', !_this4.state.opt_limit_comments_js);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Limit Revisions to 5?', 'performance'),
+        label: __('Limit Revisions to 5?', 'tutormate'),
         checked: this.state.opt_limit_revisions,
         onChange: function onChange() {
           return _this4.changeOptions('opt_limit_revisions', !_this4.state.opt_limit_revisions);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Remove Comments Style?', 'performance'),
+        label: __('Remove Comments Style?', 'tutormate'),
         checked: this.state.opt_remove_comments_style,
         onChange: function onChange() {
           return _this4.changeOptions('opt_remove_comments_style', !_this4.state.opt_remove_comments_style);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Slowdown Heartbeat API?', 'performance'),
+        label: __('Slowdown Heartbeat API?', 'tutormate'),
         checked: this.state.opt_slow_heartbeat,
         onChange: function onChange() {
           return _this4.changeOptions('opt_slow_heartbeat', !_this4.state.opt_slow_heartbeat);
         }
-      }))))));
+      })))))))));
     }
   }]);
 
@@ -386,7 +389,7 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/performance/src/performance.js */"./performance/src/performance.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/performance/src/performance.js */"./performance/src/performance.js");
 
 
 /***/ })

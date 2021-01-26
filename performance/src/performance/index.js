@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { BaseControl, PanelRow, PanelBody, ToggleControl, Spinner } = wp.components;
+const { BaseControl, PanelRow, PanelBody, ToggleControl } = wp.components;
 
 class PerformanceSettings extends Component {
     constructor() {
@@ -83,159 +83,161 @@ class PerformanceSettings extends Component {
 
     render() {
 
-        if (!this.state.isApiLoaded) {
-            return (
-                <Spinner />
-            );
-        }
-
         return (
             <Fragment>
                 <div className="performance-header">
                     <div className="performance-container">
                         <div className="performance-heading">
-                            <h1>{__('Performance Optimizations', 'performance')}</h1>
+                            <h2>{__('Performance Optimizations', 'tutormate')}</h2>
                         </div>
                     </div>
                 </div>
                 <div className="performance-settings">
                     <PanelBody>
                         <BaseControl
-                            label={__('Please note that, the default settings are optimal for majority of the websites. Some settings may break your website\'s layout. Tweak the settings with caution!', 'performance')}
+                            label={__('Please note that, the default settings are optimal for majority of the websites. Some settings may break your website\'s layout. Tweak the settings with caution!', 'tutormate')}
                         >
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Block Externl HTTP Request?', 'performance')}
-                                    checked={this.state.opt_block_external_http}
-                                    onChange={() => this.changeOptions('opt_block_external_http', !this.state.opt_block_external_http)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Defer CSS?', 'performance')}
-                                    checked={this.state.opt_defer_css}
-                                    onChange={() => this.changeOptions('opt_defer_css', !this.state.opt_defer_css)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Defer JS?', 'performance')}
-                                    checked={this.state.opt_defer_js}
-                                    onChange={() => this.changeOptions('opt_defer_js', !this.state.opt_defer_js)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Comments?', 'performance')}
-                                    checked={this.state.opt_disable_comments}
-                                    onChange={() => this.changeOptions('opt_disable_comments', !this.state.opt_disable_comments)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Embed?', 'performance')}
-                                    checked={this.state.opt_disable_embed}
-                                    onChange={() => this.changeOptions('opt_disable_embed', !this.state.opt_disable_embed)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Emoji?', 'performance')}
-                                    checked={this.state.opt_disable_emoji}
-                                    onChange={() => this.changeOptions('opt_disable_emoji', !this.state.opt_disable_emoji)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Feeds?', 'performance')}
-                                    checked={this.state.opt_disable_feeds}
-                                    onChange={() => this.changeOptions('opt_disable_feeds', !this.state.opt_disable_feeds)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable jQuery Migrate?', 'performance')}
-                                    checked={this.state.opt_disable_jquery_migrate}
-                                    onChange={() => this.changeOptions('opt_disable_jquery_migrate', !this.state.opt_disable_jquery_migrate)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable RSD Links?', 'performance')}
-                                    checked={this.state.opt_disable_rsd}
-                                    onChange={() => this.changeOptions('opt_disable_rsd', !this.state.opt_disable_rsd)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Shortlinks?', 'performance')}
-                                    checked={this.state.opt_disable_shortlinks}
-                                    onChange={() => this.changeOptions('opt_disable_shortlinks', !this.state.opt_disable_shortlinks)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable Version Numbers?', 'performance')}
-                                    checked={this.state.opt_disable_version_numbers}
-                                    onChange={() => this.changeOptions('opt_disable_version_numbers', !this.state.opt_disable_version_numbers)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable WLW Manifest?', 'performance')}
-                                    checked={this.state.opt_disable_wlwmanifest}
-                                    onChange={() => this.changeOptions('opt_disable_wlwmanifest', !this.state.opt_disable_wlwmanifest)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable WP Version?', 'performance')}
-                                    checked={this.state.opt_disable_wp_version}
-                                    onChange={() => this.changeOptions('opt_disable_wp_version', !this.state.opt_disable_wp_version)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Disable XMLRPC?', 'performance')}
-                                    checked={this.state.opt_disable_xmlrpc}
-                                    onChange={() => this.changeOptions('opt_disable_xmlrpc', !this.state.opt_disable_xmlrpc)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Place jQuery to Footer?', 'performance')}
-                                    checked={this.state.opt_jquery_to_footer}
-                                    onChange={() => this.changeOptions('opt_jquery_to_footer', !this.state.opt_jquery_to_footer)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Limit Comments JS?', 'performance')}
-                                    checked={this.state.opt_limit_comments_js}
-                                    onChange={() => this.changeOptions('opt_limit_comments_js', !this.state.opt_limit_comments_js)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Limit Revisions to 5?', 'performance')}
-                                    checked={this.state.opt_limit_revisions}
-                                    onChange={() => this.changeOptions('opt_limit_revisions', !this.state.opt_limit_revisions)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Remove Comments Style?', 'performance')}
-                                    checked={this.state.opt_remove_comments_style}
-                                    onChange={() => this.changeOptions('opt_remove_comments_style', !this.state.opt_remove_comments_style)}
-                                />
-                            </PanelRow>
-                            <PanelRow>
-                                <ToggleControl
-                                    label={__('Slowdown Heartbeat API?', 'performance')}
-                                    checked={this.state.opt_slow_heartbeat}
-                                    onChange={() => this.changeOptions('opt_slow_heartbeat', !this.state.opt_slow_heartbeat)}
-                                />
-                            </PanelRow>
+                            <div className="perf-settings-container">
+                                <div className="row">
+                                    <div className="first-half">
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Block Externl HTTP Request?', 'tutormate')}
+                                                checked={this.state.opt_block_external_http}
+                                                onChange={() => this.changeOptions('opt_block_external_http', !this.state.opt_block_external_http)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Defer CSS?', 'tutormate')}
+                                                checked={this.state.opt_defer_css}
+                                                onChange={() => this.changeOptions('opt_defer_css', !this.state.opt_defer_css)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Defer JS?', 'tutormate')}
+                                                checked={this.state.opt_defer_js}
+                                                onChange={() => this.changeOptions('opt_defer_js', !this.state.opt_defer_js)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Comments?', 'tutormate')}
+                                                checked={this.state.opt_disable_comments}
+                                                onChange={() => this.changeOptions('opt_disable_comments', !this.state.opt_disable_comments)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Embed?', 'tutormate')}
+                                                checked={this.state.opt_disable_embed}
+                                                onChange={() => this.changeOptions('opt_disable_embed', !this.state.opt_disable_embed)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Emoji?', 'tutormate')}
+                                                checked={this.state.opt_disable_emoji}
+                                                onChange={() => this.changeOptions('opt_disable_emoji', !this.state.opt_disable_emoji)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Feeds?', 'tutormate')}
+                                                checked={this.state.opt_disable_feeds}
+                                                onChange={() => this.changeOptions('opt_disable_feeds', !this.state.opt_disable_feeds)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable jQuery Migrate?', 'tutormate')}
+                                                checked={this.state.opt_disable_jquery_migrate}
+                                                onChange={() => this.changeOptions('opt_disable_jquery_migrate', !this.state.opt_disable_jquery_migrate)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable RSD Links?', 'tutormate')}
+                                                checked={this.state.opt_disable_rsd}
+                                                onChange={() => this.changeOptions('opt_disable_rsd', !this.state.opt_disable_rsd)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Shortlinks?', 'tutormate')}
+                                                checked={this.state.opt_disable_shortlinks}
+                                                onChange={() => this.changeOptions('opt_disable_shortlinks', !this.state.opt_disable_shortlinks)}
+                                            />
+                                        </PanelRow>
+                                    </div>
+                                    <div className="second-half">
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable Version Numbers?', 'tutormate')}
+                                                checked={this.state.opt_disable_version_numbers}
+                                                onChange={() => this.changeOptions('opt_disable_version_numbers', !this.state.opt_disable_version_numbers)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable WLW Manifest?', 'tutormate')}
+                                                checked={this.state.opt_disable_wlwmanifest}
+                                                onChange={() => this.changeOptions('opt_disable_wlwmanifest', !this.state.opt_disable_wlwmanifest)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable WP Version?', 'tutormate')}
+                                                checked={this.state.opt_disable_wp_version}
+                                                onChange={() => this.changeOptions('opt_disable_wp_version', !this.state.opt_disable_wp_version)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Disable XMLRPC?', 'tutormate')}
+                                                checked={this.state.opt_disable_xmlrpc}
+                                                onChange={() => this.changeOptions('opt_disable_xmlrpc', !this.state.opt_disable_xmlrpc)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Place jQuery to Footer?', 'tutormate')}
+                                                checked={this.state.opt_jquery_to_footer}
+                                                onChange={() => this.changeOptions('opt_jquery_to_footer', !this.state.opt_jquery_to_footer)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Limit Comments JS?', 'tutormate')}
+                                                checked={this.state.opt_limit_comments_js}
+                                                onChange={() => this.changeOptions('opt_limit_comments_js', !this.state.opt_limit_comments_js)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Limit Revisions to 5?', 'tutormate')}
+                                                checked={this.state.opt_limit_revisions}
+                                                onChange={() => this.changeOptions('opt_limit_revisions', !this.state.opt_limit_revisions)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Remove Comments Style?', 'tutormate')}
+                                                checked={this.state.opt_remove_comments_style}
+                                                onChange={() => this.changeOptions('opt_remove_comments_style', !this.state.opt_remove_comments_style)}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__('Slowdown Heartbeat API?', 'tutormate')}
+                                                checked={this.state.opt_slow_heartbeat}
+                                                onChange={() => this.changeOptions('opt_slow_heartbeat', !this.state.opt_slow_heartbeat)}
+                                            />
+                                        </PanelRow>
+                                    </div>
+                                </div>
+                            </div>
                         </BaseControl>
                     </PanelBody>
                 </div>
