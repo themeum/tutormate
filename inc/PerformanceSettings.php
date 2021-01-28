@@ -32,7 +32,6 @@ class PerformanceSettings {
 
 		// Get all the settings from database
 		$opt_defer_js                = get_option( 'opt_defer_js', true );
-		$opt_defer_css               = get_option( 'opt_defer_css', false );
 		$opt_disable_rsd             = get_option( 'opt_disable_rsd', true );
 		$opt_disable_emoji           = get_option( 'opt_disable_emoji', true );
 		$opt_disable_xmlrpc          = get_option( 'opt_disable_xmlrpc', true );
@@ -53,7 +52,6 @@ class PerformanceSettings {
 
 		$optimizations = array(
 			'block_external_http'     => $opt_block_external_http ? true : false,
-			'defer_css'               => $opt_defer_css ? true : false,
 			'defer_js'                => $opt_defer_js ? true : false,
 			'disable_comments'        => $opt_disable_comments ? true : false,
 			'disable_embed'           => $opt_disable_embed ? true : false,
@@ -85,16 +83,6 @@ class PerformanceSettings {
 		register_setting(
 			'performance_settings',
 			'opt_block_external_http',
-			array(
-				'type'              => 'boolean',
-				'show_in_rest'      => true,
-				'default'           => false,
-				'sanitize_callback' => isset( $input ) ? true : false,
-			)
-		);
-		register_setting(
-			'performance_settings',
-			'opt_defer_css',
 			array(
 				'type'              => 'boolean',
 				'show_in_rest'      => true,

@@ -12,7 +12,6 @@ class PerformanceSettings extends Component {
             isApiLoaded: false,
             isApiSaving: false,
             opt_defer_js: true,
-            opt_defer_css: false,
             opt_disable_rsd: true,
             opt_disable_emoji: true,
             opt_disable_xmlrpc: true,
@@ -41,7 +40,6 @@ class PerformanceSettings extends Component {
                 this.settings.fetch().then(response => {
                     this.setState({
                         opt_block_external_http: Boolean(response.opt_block_external_http),
-                        opt_defer_css: Boolean(response.opt_defer_css),
                         opt_defer_js: Boolean(response.opt_defer_js),
                         opt_disable_comments: Boolean(response.opt_disable_comments),
                         opt_disable_embed: Boolean(response.opt_disable_embed),
@@ -105,13 +103,6 @@ class PerformanceSettings extends Component {
                                                 label={__('Block Externl HTTP Request?', 'tutormate')}
                                                 checked={this.state.opt_block_external_http}
                                                 onChange={() => this.changeOptions('opt_block_external_http', !this.state.opt_block_external_http)}
-                                            />
-                                        </PanelRow>
-                                        <PanelRow>
-                                            <ToggleControl
-                                                label={__('Defer CSS?', 'tutormate')}
-                                                checked={this.state.opt_defer_css}
-                                                onChange={() => this.changeOptions('opt_defer_css', !this.state.opt_defer_css)}
                                             />
                                         </PanelRow>
                                         <PanelRow>

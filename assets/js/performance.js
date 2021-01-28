@@ -161,7 +161,6 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
       isApiLoaded: false,
       isApiSaving: false,
       opt_defer_js: true,
-      opt_defer_css: false,
       opt_disable_rsd: true,
       opt_disable_emoji: true,
       opt_disable_xmlrpc: true,
@@ -195,7 +194,6 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
           _this2.settings.fetch().then(function (response) {
             _this2.setState({
               opt_block_external_http: Boolean(response.opt_block_external_http),
-              opt_defer_css: Boolean(response.opt_defer_css),
               opt_defer_js: Boolean(response.opt_defer_js),
               opt_disable_comments: Boolean(response.opt_disable_comments),
               opt_disable_embed: Boolean(response.opt_disable_embed),
@@ -260,12 +258,6 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
         checked: this.state.opt_block_external_http,
         onChange: function onChange() {
           return _this4.changeOptions('opt_block_external_http', !_this4.state.opt_block_external_http);
-        }
-      })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __('Defer CSS?', 'tutormate'),
-        checked: this.state.opt_defer_css,
-        onChange: function onChange() {
-          return _this4.changeOptions('opt_defer_css', !_this4.state.opt_defer_css);
         }
       })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
         label: __('Defer JS?', 'tutormate'),

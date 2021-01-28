@@ -30,7 +30,6 @@ class Performance {
 
 		$defaults = array(
 			'block_external_http'     => false,
-			'defer_css'               => false,
 			'defer_js'                => true,
 			'disable_comments'        => false,
 			'disable_embed'           => false,
@@ -82,85 +81,6 @@ class Performance {
 				100
 			);
 		}
-	}
-
-	/**
-	 * Defers all CSS using loadCSS
-	 */
-	private function defer_css() {
-
-		// Rewrite object context.
-		$object = $this;
-
-		// Dequeue CSS and save styles. Please note - this function removes conditional styles for older browsers.
-		add_action(
-			'wp_enqueue_scripts',
-			function() use ( $object ) {
-
-				// Bail out if in customizer preview.
-				if ( is_customize_preview() ) {
-					return;
-				}
-
-				global $wp_styles;
-
-				// Save the queued styles.
-				foreach ( $wp_styles->queue as $style ) {
-					$object->styles[] = $wp_styles->registered[ $style ];
-					$dependencies     = $wp_styles->registered[ $style ]->deps;
-
-					if ( ! $dependencies ) {
-						continue;
-					}
-
-					// Add dependencies, but only if they are not included yet.
-					foreach ( $dependencies as $dependency ) {
-						$object->styles[] = $wp_styles->registered[ $dependency ];
-					}
-				}
-
-				// Remove duplicate values because of the dependencies.
-				$object->styles = array_unique( $object->styles, SORT_REGULAR );
-
-				// Dequeue styles and their dependencies except for conditionals.
-				foreach ( $object->styles as $style ) {
-					wp_dequeue_style( $style->handle );
-				}
-
-			},
-			9999
-		);
-
-		// Load CSS using loadCSS.
-		add_action(
-			'wp_head',
-			function() use ( $object ) {
-
-				// Bail out if in customizer preview.
-				if ( is_customize_preview() ) {
-					return;
-				}
-
-				$output = '<script>function loadCSS(a,b,c,d){"use strict";var e=window.document.createElement("link"),f=b||window.document.getElementsByTagName("script")[0],g=window.document.styleSheets;return e.rel="stylesheet",e.href=a,e.media="only x",d&&(e.onload=d),f.parentNode.insertBefore(e,f),e.onloadcssdefined=function(b){for(var c,d=0;d<g.length;d++)g[d].href&&g[d].href.indexOf(a)>-1&&(c=!0);c?b():setTimeout(function(){e.onloadcssdefined(b)})},e.onloadcssdefined(function(){e.media=c||"all"}),e}';
-				foreach ( $object->styles as $style ) {
-					if ( isset( $style->extra['conditional'] ) ) {
-						continue;
-					}
-
-					// Load local assets.
-					if ( strpos( $style->src, 'http' ) === false ) {
-						$style->src = site_url() . $style->src;
-					}
-					$output .= 'loadCSS("' . $style->src . '", "", "' . $style->args . '");';
-				}
-				$output .= '</script>';
-
-				echo $output;
-
-			},
-			9999
-		);
-
 	}
 
 	/**
@@ -232,7 +152,6 @@ class Performance {
 		);
 
 	}
-
 
 	/**
 	 * Removes the Embed Javascript and References
@@ -372,7 +291,6 @@ class Performance {
 		}
 
 		return $target_url;
-
 	}
 
 	/**
@@ -514,7 +432,5 @@ class Performance {
 				return $settings;
 			}
 		);
-
 	}
-
 }
