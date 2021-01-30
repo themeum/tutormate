@@ -174,7 +174,7 @@ function App() {
 								return (<strong key={index}>{item.title} - {item.state}</strong>)
 							})}
 					</div>
-					{demoNotice && <div className="notices"><span>{__('Important: ', 'tutormate')}</span>{demoNotice}</div>}
+					{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => toggleModalState()}>
 							Cancel

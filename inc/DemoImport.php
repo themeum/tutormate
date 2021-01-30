@@ -184,7 +184,7 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-				'notice'                       => __( 'This demo requires the Tutor Pro plugin to be installed and activated.', 'tutormate' ),
+				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
 			),
 			array(
 				'import_file_name'             => 'Demo Two',
@@ -195,7 +195,7 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-				'notice'                       => __( 'This demo requires the Tutor Pro plugin to be installed and activated.', 'tutormate' ),
+				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
 			),
 			array(
 				'import_file_name'             => 'Demo Three',
@@ -206,7 +206,7 @@ class DemoImport {
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
 				'builders'                     => array( 'gutenberg' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
-				'notice'                       => __( 'This demo requires the Qubely Pro plugin to be installed and activated.', 'tutormate' ),
+				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
 			),
 		);
 	}

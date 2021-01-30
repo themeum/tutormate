@@ -381,7 +381,7 @@ var PerformanceSettings = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/performance/src/performance.js */"./performance/src/performance.js");
+module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/performance/src/performance.js */"./performance/src/performance.js");
 
 
 /***/ })
