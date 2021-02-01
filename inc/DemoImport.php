@@ -19,7 +19,7 @@ class DemoImport {
 	 *
 	 * @var string
 	 */
-	private $endpoint = 'https://qubely.io/wp-json/restapi/v2/packs';
+	private $endpoint = 'https://api.tutorlms.com/wp-json/restapi/v1/tutorpacks';
 	
 	/**
 	 * Public builder
@@ -137,7 +137,7 @@ class DemoImport {
 			$this->elementor,
 			$this->tutor_lms,
 			$this->woocommerce,
-			//$this->tutor_elementor,
+			$this->tutor_elementor,
 		);
 	}
 
@@ -182,6 +182,7 @@ class DemoImport {
 				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-one/widgets.wie',
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-one/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-one/preview.jpg',
+				'preview_url'                  => 'https://preview.tutorlms.com/',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
@@ -193,6 +194,7 @@ class DemoImport {
 				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-two/widgets.wie',
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-two/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-two/preview.jpg',
+				'preview_url'                  => 'https://preview.tutorlms.com/',
 				'builders'                     => array( 'gutenberg', 'elementor' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
@@ -204,6 +206,7 @@ class DemoImport {
 				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'demo/demo-three/widgets.wie',
 				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'demo/demo-three/customizer.dat',
 				'import_preview_image_url'     => get_template_directory_uri() . '/demo/demo-three/preview.png',
+				'preview_url'                  => 'https://preview.tutorlms.com/',
 				'builders'                     => array( 'gutenberg' ),
 				'plugins'                      => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 				'notice'                       => __( 'This demo requires the <a href="https://www.themeum.com/product/tutor-pro">Tutor Pro</a> plugin to be installed and activated.', 'tutormate' ),
@@ -211,7 +214,7 @@ class DemoImport {
 		);
 	}
 
-		/**
+	/**
 	 * Handles Theme Demo Imports for Content, Customizer and Widgets
 	 *
 	 * @return array $demo_list list of demos
@@ -231,7 +234,7 @@ class DemoImport {
 				$packs_list = json_decode( $results['body'], true );
 
 				if ( is_array( $packs_list ) || ! empty( $packs_list ) ) {
-					set_transient( 'tutorstarter_packs', $packs_list, 6 * HOUR_IN_SECONDS );
+					set_transient( 'tutorstarter_packs', $packs_list, 1 * HOUR_IN_SECONDS );
 				}
 			} catch ( Exception $e ) {
 				echo esc_html( $e->getMessage() );
@@ -256,6 +259,7 @@ class DemoImport {
 					'import_preview_image_url'   => $packs['preview_image'],
 					'builders'                   => array( 'gutenberg', 'elementor' ),
 					'plugins'                    => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
+					'preview_url'                => $packs['preview_url'],
 				);
 
 				array_push( $demo_list, $list );

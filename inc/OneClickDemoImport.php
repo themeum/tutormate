@@ -167,6 +167,7 @@ class OneClickDemoImport {
 	 * @param string $hook holds info on which admin page you are currently loading.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
+		
 		// Enqueue the scripts only on the plugin page.
 		if ( $this->plugin_page === $hook || ( 'admin.php' === $hook && $this->plugin_page_setup['menu_slug'] === esc_attr( $_GET['import'] ) ) ) {
 			

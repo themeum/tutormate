@@ -273,6 +273,16 @@ input[type="search" i]::-webkit-search-cancel-button {
     color: #fff;
 }
 
+.single-item .actions .preview-url {
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 5px 15px;
+    background: #ffffff;
+    border: 1px solid #0071a1;
+    border-radius: 3px;
+    color: #0071a1;
+}
+
 .single-item .actions .import-btn:hover,
 .single-item .thumbnail .overlay-btn:hover {
     opacity: 0.8;

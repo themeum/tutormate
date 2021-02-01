@@ -192,7 +192,7 @@ function App() {
 			<ul className="list-container">
 				{listItems.length > 0 ? (
 					listItems.map((item, index) => {
-						const { import_file_name, builders, import_preview_image_url, notice } = item;
+						const { import_file_name, builders, import_preview_image_url, notice, preview_url } = item;
 						return (
 							<li className="single-item" key={index}>
 								<figure className="thumbnail">
@@ -211,6 +211,7 @@ function App() {
 								<div className="actions">
 									<h4>{import_file_name}</h4>
 									<div>
+										<a className="preview-url" href={preview_url} target="__blank">{__('Preview', 'tutormate')}</a>
 										<button className="btn primary-btn" onClick={() => toggleModalState()}>
 											<span onClick={() => getClickedItem(builders, index, notice)}>{__('Import', 'tutormate')}</span>
 										</button>
