@@ -151,7 +151,6 @@ class OneClickDemoImport {
 		);
 
 		register_importer( $this->plugin_page_setup['menu_slug'], $this->plugin_page_setup['page_title'], $this->plugin_page_setup['menu_title'], apply_filters( 'tutormate_plugin_page_display_callback_function', array( $this, 'display_plugin_page' ) ) );
-		add_submenu_page( 'tutorstarter', __( 'Performance', 'tutormate' ), __( 'Performance', 'tutormate' ), 'import', 'tutormate-performance-options', array( $this, 'performance_markup' ) );
 	}
 
 	/**
@@ -160,13 +159,6 @@ class OneClickDemoImport {
 	 */
 	public function display_plugin_page() {
 		echo '<div id="demo-importer-id"></div>';
-	}
-
-	/**
-	 * Performance markup
-	 */
-	public function performance_markup() {
-		echo '<div id="tutormate-performance-container"></div>';
 	}
 
 	/**
@@ -199,11 +191,6 @@ class OneClickDemoImport {
 					'all_done_progress'   => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
-		}
-
-		if ( isset( $_GET['page'] ) && 'tutormate-performance-options' === $_GET['page'] ) {
-			wp_enqueue_style( 'tutormate-performance', TUTORMATE_URL . 'assets/css/performance.css', array( 'wp-components' ), TUTORMATE_VERSION, 'all' );
-			wp_enqueue_script( 'tutormate-performance', TUTORMATE_URL . 'assets/js/performance.js', array( 'wp-api', 'wp-i18n', 'wp-components', 'wp-element' ), TUTORMATE_VERSION, true );
 		}
 	}
 
