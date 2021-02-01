@@ -341,6 +341,10 @@ input[type="search" i]::-webkit-search-cancel-button {
     align-items: center;
 }
 
+.modal-head h3 {
+    margin: 0.2rem 1rem;
+}
+
 .modal-content .close-btn {
     background: transparent;
     border: none;
@@ -356,6 +360,20 @@ input[type="search" i]::-webkit-search-cancel-button {
     border-bottom: 1px solid #dadada;
     padding: 30px;
     text-align: center;
+}
+
+.modal-content .modal-body .components-radio-control{
+    text-align: left;
+}
+
+.modal-content .modal-body .components-radio-control__input[type="radio"]:checked::before {
+    width: 2px;
+    height: 2px;
+    margin: 3px;
+}
+
+.modal-content .modal-body .components-base-control__label {
+    font-size: 18px;
 }
 
 .modal-content .modal-body p {

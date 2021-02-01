@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { useState } = wp.element;
-const { SelectControl } = wp.components;
+const { SelectControl, RadioControl } = wp.components;
 
 import "./App.css";
 import Preloader from './preloader';
@@ -156,9 +156,9 @@ function App() {
 						</button>
 					</div>
 					<div className="modal-body">
-						<SelectControl
+						<RadioControl
 							label={__('Select Builder', 'tutormate')}
-							value={builder}
+							selected={builder}
 							options={builderOptions}
 							onChange={(value) => selectedBuilder(value)}
 						/>
