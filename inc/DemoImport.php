@@ -79,7 +79,7 @@ class DemoImport {
 	 * Register Hooks of the Importer Plugin
 	 */
 	public function register() {
-		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
+		add_filter( 'tutormate_import_files', array( $this, 'import_theme_demo' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
         
@@ -250,16 +250,21 @@ class DemoImport {
 					$category['name'];
 				}
 
+				foreach ( $packs['builders'] as $builder ) {
+					$builder['slug'];
+				}
+
 				$list = array(
 					'import_file_name'           => $packs['name'],
 					'categories'                 => array( $category['name'] ),
-					'import_file_url'            => $packs['content'],
-					'import_widget_file_url'     => $packs['widget'],
-					'import_customizer_file_url' => $packs['customizer'],
+					'import_file_url'            => 'elementor' === $this->builder ? $packs['elementor_content'] : $packs['content'],
+					'import_widget_file_url'     => 'elementor' === $this->builder ? $packs['elementor_widget'] : $packs['widget'],
+					'import_customizer_file_url' => 'elementor' === $this->builder ? $packs['elementor_customizer'] : $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
-					'builders'                   => array( 'gutenberg', 'elementor' ),
+					'builders'                   => array( $builder['slug'] ),
 					'plugins'                    => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 					'preview_url'                => $packs['preview_url'],
+					'notice'                     => $packs['notices']
 				);
 
 				array_push( $demo_list, $list );
