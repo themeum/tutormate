@@ -71,6 +71,13 @@ class OneClickDemoImport {
 	public $frontend_error_messages = array();
 
 	/**
+	 * Public response_array
+	 * 
+	 * @var array
+	 */
+	public $response_texts = array();
+
+	/**
 	 * Was the before content import already triggered?
 	 *
 	 * @var boolean
@@ -245,6 +252,7 @@ class OneClickDemoImport {
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 						$installed = $upgrader->install( $api->download_link );
+						$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling' );
 						if ( $installed ) {
 							$activate = activate_plugin( $plugin['path'], '', false, true );
 							if ( is_wp_error( $activate ) ) {
@@ -258,8 +266,11 @@ class OneClickDemoImport {
 					}
 				} elseif ( 'installed' === $plugin['state'] ) {
 					$activate = activate_plugin( $plugin['path'], '', false, true );
+					$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' );
 					if ( is_wp_error( $activate ) ) {
 						$install = false;
+					} else {
+						$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivated' );
 					}
 				}
 			}
@@ -454,24 +465,8 @@ class OneClickDemoImport {
 		if ( empty( $this->frontend_error_messages ) ) {
 			$response['message'] = '';
 
-			if ( ! apply_filters( 'tutormate_disable_pt_branding', false ) ) {
-				$twitter_status = esc_html__( 'Just used One Click Demo Import plugin and it was awesome! Thanks @ProteusThemes! #TUTORMATE https://www.proteusthemes.com/', 'tutormate' );
-
-				$response['message'] .= sprintf(
-					__( '%1$s%6$sWasn\'t this a great One Click Demo Import experience?%7$s Created and maintained by %3$sProteusThemes%4$s. %2$s%5$sClick to Tweet!%4$s%8$s', 'tutormate' ),
-					'<div class="notice  notice-info"><p>',
-					'<br>',
-					'<strong><a href="https://www.proteusthemes.com/" target="_blank">',
-					'</a></strong>',
-					'<strong><a href="' . add_query_arg( 'status', urlencode( $twitter_status ), 'http://twitter.com/home' ) . '" target="_blank">',
-					'<strong>',
-					'</strong>',
-					'</p></div>'
-				);
-			}
-
 			$response['message'] .= sprintf(
-				__( '%1$s%3$sThat\'s it, all done!%4$s%2$sThe demo import has finished. Please check your page and make sure that everything has imported correctly. If it did, you can deactivate the %3$sOne Click Demo Import%4$s plugin, because it has done its job.%5$s', 'tutormate' ),
+				__( '%1$s%3$sThat\'s it, all done!%4$s%2$sThe demo import has finished. Please check your page and make sure that everything has imported correctly. If it did, you can deactivate the %3$sTutormate%4$s plugin.%5$s', 'tutormate' ),
 				'<div class="notice  notice-success"><p>',
 				'<br>',
 				'<strong>',

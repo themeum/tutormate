@@ -35,9 +35,9 @@ class PluginCheck {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-		self::$installed_plugins = (array) get_plugins();
+		self::$installed_plugins = ( array ) get_plugins();
 
-		self::$active_plugins = (array) get_option( 'active_plugins', array() );
+		self::$active_plugins = ( array ) get_option( 'active_plugins', array() );
 
 		if ( is_multisite() ) {
 			self::$active_plugins = array_merge( self::$active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
@@ -45,7 +45,7 @@ class PluginCheck {
 	}
 
 	/**
-	 * Check status
+	 * Check plugin status
 	 *
 	 * @param string $plugin_base_name is plugin folder/filename.php.
 	 */

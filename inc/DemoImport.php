@@ -79,9 +79,10 @@ class DemoImport {
 	 * Register Hooks of the Importer Plugin
 	 */
 	public function register() {
-		add_filter( 'tutormate_import_files', array( $this, 'import_theme_demo' ) );
+		add_filter( 'tutormate_import_files', array( $this, 'temp_demo_import' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
+		add_action( 'tutormate_enable_wp_customize_save_hooks', array( $this, 'save_customizer_data' ) );
         
         $this->woocommerce = array(
             'base'  => 'woocommerce',
@@ -292,10 +293,31 @@ class DemoImport {
 			)
 		);
 
+		if ( 'Starter' === $selected_import['import_file_name'] ) {
+			// Set header logo in customizer.
+			set_theme_mod( 'custom_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+			set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+
+			// Set footer logo in customizer.
+			set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+			set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+		}
+
 		// Assign front page.
 		$front_page_id = get_page_by_title( $selected_import['import_file_name'] );
+		$blog_page_id  = get_page_by_title( 'News' );
 
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $front_page_id->ID );
+		update_option( 'page_for_posts', $blog_page_id->ID );
+	}
+
+	/**
+	 * Save customizer data
+	 * 
+	 * @return bool true
+	 */
+	public function save_customizer_data() {
+		return true;
 	}
 }

@@ -904,6 +904,16 @@ function App() {
       contentType: false,
       processData: false
     }).done(function (response) {
+      // if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
+      // 	setProgress(`Installing ${response.plugin_name}`);
+      // 	setPercentage(20);
+      // } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
+      // 	setProgress(`Activating ${response.plugin_name}`);
+      // 	setPercentage(30);
+      // } else if ('undefined' !== response.status && 'pluginActivated' === response.status) {
+      // 	setProgress(`Activated ${response.plugin_name}`);
+      // 	setPercentage(50);
+      // } 
       if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
         setProgress(tutormate.content_progress);
         setPercentage(60);
