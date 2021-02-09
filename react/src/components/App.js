@@ -6,7 +6,7 @@ import "./App.css";
 import Preloader from './preloader';
 
 let importFiles = tutormate.import_files;
-const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
+const allCategories = ["all", ...new Set( importFiles.map( ( item ) => item.categories ).flat() )];
 
 function App() {
 	const [progress, setProgress] = useState('');
@@ -23,106 +23,92 @@ function App() {
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
 
-	let builderOptions = builderList.length > 0 && builderList.map(item => {
+	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return { label: item.toUpperCase(), value: item };
-	});
+	} );
 
 	const toggleModalState = () => {
-		setModalState(!modalState);
+		setModalState( !modalState );
 	};
 
-	const filterItems = (category) => {
-		if ('all' === category) {
-			setListItems(importFiles);
+	const filterItems = ( category ) => {
+		if ( 'all' === category ) {
+			setListItems( importFiles );
 			return;
 		}
-		const newItems = importFiles.filter((item) => item.categories.includes(category));
-		setListItems(newItems);
+		const newItems = importFiles.filter( ( item ) => item.categories.includes( category ) );
+		setListItems( newItems );
 	};
 
-	const searchResult = (e) => {
+	const searchResult = ( e ) => {
 		const inputValue = e.target.value.trim().toLowerCase();
-		const newItems = importFiles.filter((item) => item.import_file_name.toLowerCase().includes(inputValue));
-		setListItems(newItems);
+		const newItems = importFiles.filter( ( item ) => item.import_file_name.toLowerCase().includes( inputValue ) );
+		setListItems( newItems );
 	};
 
-	const getClickedItem = (builders, index, notice) => {
-		setSelectedIndex(index);
-		setBuilderList(builders);
-		setDemoNotice(notice);
+	const getClickedItem = ( builders, index, notice ) => {
+		setSelectedIndex( index );
+		setBuilderList( builders );
+		setDemoNotice( notice );
 	};
 
-	const selectedBuilder = (builder) => {
-		setBuilder(builder);
+	const selectedBuilder = ( builder ) => {
+		setBuilder( builder );
 	}
 
-	const pluginInstall = (selected, builder) => {
-		setSelectedDemo(selected);
-		setModalState(!modalState);
-		setFetching(true);
-		setProgress(tutormate.plugin_progress);
-		setPercentage(10);
+	const pluginInstall = ( selected, builder ) => {
+		setSelectedDemo( selected );
+		setModalState( !modalState );
+		setFetching( true );
+		setProgress( tutormate.plugin_progress );
+		setPercentage( 10) ;
 		var data = new FormData();
-		data.append('action', 'tutormate_install_plugins');
-		data.append('security', tutormate.ajax_nonce);
-		data.append('selected', selected);
-		data.append('builder', builder);
-		doAjax(data);
+		data.append( 'action', 'tutormate_install_plugins' );
+		data.append( 'security', tutormate.ajax_nonce );
+		data.append( 'selected', selected );
+		data.append( 'builder', builder );
+		doAjax( data );
 	}
 
-	const doAjax = (data) => {
-		jQuery.ajax({
-			method: 'POST',
-			url: tutormate.ajax_url,
-			data: data,
-			contentType: false,
-			processData: false,
-		})
-			.done(function (response) {
-				// if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
-				// 	setProgress(`Installing ${response.plugin_name}`);
-				// 	setPercentage(20);
-				// } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
-				// 	setProgress(`Activating ${response.plugin_name}`);
-				// 	setPercentage(30);
-				// } else if ('undefined' !== response.status && 'pluginActivated' === response.status) {
-				// 	setProgress(`Activated ${response.plugin_name}`);
-				// 	setPercentage(50);
-				// } 
-				if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
-					setProgress(tutormate.content_progress);
-					setPercentage(60);
+	const doAjax = ( data ) => {
+		let request = new XMLHttpRequest();
+		request.open( "POST", tutormate.ajax_url );   
+		request.onreadystatechange = function() {
+			if ( this.readyState == 4 && this.status == 200 ) {
+				let response = JSON.parse( this.responseText );
+				if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
+					setProgress( tutormate.content_progress );
+					setPercentage( 60 );
 					let contentData = new FormData();
-					contentData.append('action', 'tutormate_import_demo_data');
-					contentData.append('security', tutormate.ajax_nonce);
-					contentData.append('selected', selectedDemo);
-					doAjax(contentData);
-				} else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
-					setProgress(tutormate.customizer_progress);
-					setPercentage(90);
+					contentData.append( 'action', 'tutormate_import_demo_data' );
+					contentData.append( 'security', tutormate.ajax_nonce );
+					contentData.append( 'selected', selectedDemo );
+					doAjax( contentData );
+				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
+					setProgress( tutormate.customizer_progress );
+					setPercentage( 90 );
 					let customizerData = new FormData();
-					customizerData.append('action', 'tutormate_import_customizer_data');
-					customizerData.append('security', tutormate.ajax_nonce);
-					customizerData.append('wp_customize', 'on');
-					doAjax(customizerData);
-				} else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
+					customizerData.append( 'action', 'tutormate_import_customizer_data' );
+					customizerData.append( 'security', tutormate.ajax_nonce );
+					customizerData.append( 'wp_customize', 'on' );
+					doAjax( customizerData );
+				} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
 					let afterImportData = new FormData();
-					afterImportData.append('action', 'tutormate_after_import_data');
-					afterImportData.append('security', tutormate.ajax_nonce);
-					doAjax(afterImportData);
-					setProgress(tutormate.all_done_progress);
-					setPercentage(100);
-					setTimeout(() => {
-						setFetching(false);
-					}, 1000)
-					setTimeout(() => {
-						setImportCompleted(true);
-					}, 2000)
+					afterImportData.append( 'action', 'tutormate_after_import_data' );
+					afterImportData.append( 'security', tutormate.ajax_nonce );
+					doAjax( afterImportData );
+					setProgress( tutormate.all_done_progress );
+					setPercentage( 100 );
+					setTimeout( () => {
+						setFetching( false );
+					}, 1000 )
+					setTimeout( () => {
+						setImportCompleted( true );
+					}, 2000 )
 				}
-			})
-			.fail(function (error) {
-				console.log(error);
-			});
+			}
+		};      
+		request.send( data );
 	}
 
 	// Component - After Import
@@ -131,16 +117,16 @@ function App() {
 			<div className="modal-wrapper active">
 				<div className="modal-content">
 					<div className="modal-head">
-						<h3>{__('All Done!', 'tutormate')}</h3>
-						<button className="close-btn" onClick={() => setImportCompleted(false)}>
+						<h3>{ __( 'All Done!', 'tutormate' ) }</h3>
+						<button className="close-btn" onClick={ () => setImportCompleted( false ) }>
 							+
 						</button>
 					</div>
 					<div className="modal-body">
 						<p>
-							{__('Demo import has been completed successfully!', 'tutormate')}
+							{ __( 'Demo import has been completed successfully!', 'tutormate' ) }
 						</p>
-						<p>{__('Visit', 'tutormate')} <a href={tutormate.site_url} target="__blank">{__('Site', 'tutormate')}</a> {__('or go to', 'tutormate')} <a href={tutormate.admin_url} target="__blank">{__('Dashboard', 'tutormate')}</a></p>
+						<p>{ __( 'Visit', 'tutormate' ) } <a href={tutormate.site_url} target="__blank">{__('Site', 'tutormate')}</a> {__('or go to', 'tutormate')} <a href={tutormate.admin_url} target="__blank">{__('Dashboard', 'tutormate')}</a></p>
 					</div>
 					<div className="modal-footer">
 						<button className="btn outline-btn" onClick={() => setImportCompleted(false)}>

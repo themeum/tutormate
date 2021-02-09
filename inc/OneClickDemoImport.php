@@ -71,25 +71,18 @@ class OneClickDemoImport {
 	public $frontend_error_messages = array();
 
 	/**
-	 * Public response_array
-	 * 
-	 * @var array
-	 */
-	public $response_texts = array();
-
-	/**
 	 * Was the before content import already triggered?
 	 *
 	 * @var boolean
 	 */
 	private $before_import_executed = false;
 
-  /**
-   * Make plugin page options available to other methods.
-   *
-   * @var array
-   */
-  private $plugin_page_setup = array();
+	/**
+	 * Make plugin page options available to other methods.
+	 *
+	 * @var array
+	 */
+	private $plugin_page_setup = array();
 
 	/**
 	 * Returns the *Singleton* instance of this class.
@@ -250,9 +243,7 @@ class OneClickDemoImport {
 					if ( ! is_wp_error( $api ) ) {
 
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-
 						$installed = $upgrader->install( $api->download_link );
-						$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling' );
 						if ( $installed ) {
 							$activate = activate_plugin( $plugin['path'], '', false, true );
 							if ( is_wp_error( $activate ) ) {
@@ -266,11 +257,8 @@ class OneClickDemoImport {
 					}
 				} elseif ( 'installed' === $plugin['state'] ) {
 					$activate = activate_plugin( $plugin['path'], '', false, true );
-					$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' );
 					if ( is_wp_error( $activate ) ) {
 						$install = false;
-					} else {
-						$this->response_texts = array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivated' );
 					}
 				}
 			}

@@ -897,56 +897,47 @@ function App() {
   };
 
   var doAjax = function doAjax(data) {
-    jQuery.ajax({
-      method: 'POST',
-      url: tutormate.ajax_url,
-      data: data,
-      contentType: false,
-      processData: false
-    }).done(function (response) {
-      // if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
-      // 	setProgress(`Installing ${response.plugin_name}`);
-      // 	setPercentage(20);
-      // } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
-      // 	setProgress(`Activating ${response.plugin_name}`);
-      // 	setPercentage(30);
-      // } else if ('undefined' !== response.status && 'pluginActivated' === response.status) {
-      // 	setProgress(`Activated ${response.plugin_name}`);
-      // 	setPercentage(50);
-      // } 
-      if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
-        setProgress(tutormate.content_progress);
-        setPercentage(60);
-        var contentData = new FormData();
-        contentData.append('action', 'tutormate_import_demo_data');
-        contentData.append('security', tutormate.ajax_nonce);
-        contentData.append('selected', selectedDemo);
-        doAjax(contentData);
-      } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
-        setProgress(tutormate.customizer_progress);
-        setPercentage(90);
-        var customizerData = new FormData();
-        customizerData.append('action', 'tutormate_import_customizer_data');
-        customizerData.append('security', tutormate.ajax_nonce);
-        customizerData.append('wp_customize', 'on');
-        doAjax(customizerData);
-      } else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
-        var afterImportData = new FormData();
-        afterImportData.append('action', 'tutormate_after_import_data');
-        afterImportData.append('security', tutormate.ajax_nonce);
-        doAjax(afterImportData);
-        setProgress(tutormate.all_done_progress);
-        setPercentage(100);
-        setTimeout(function () {
-          setFetching(false);
-        }, 1000);
-        setTimeout(function () {
-          setImportCompleted(true);
-        }, 2000);
+    var request = new XMLHttpRequest();
+    request.open("POST", tutormate.ajax_url);
+
+    request.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+
+        if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
+          setProgress(tutormate.content_progress);
+          setPercentage(60);
+          var contentData = new FormData();
+          contentData.append('action', 'tutormate_import_demo_data');
+          contentData.append('security', tutormate.ajax_nonce);
+          contentData.append('selected', selectedDemo);
+          doAjax(contentData);
+        } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
+          setProgress(tutormate.customizer_progress);
+          setPercentage(90);
+          var customizerData = new FormData();
+          customizerData.append('action', 'tutormate_import_customizer_data');
+          customizerData.append('security', tutormate.ajax_nonce);
+          customizerData.append('wp_customize', 'on');
+          doAjax(customizerData);
+        } else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
+          var afterImportData = new FormData();
+          afterImportData.append('action', 'tutormate_after_import_data');
+          afterImportData.append('security', tutormate.ajax_nonce);
+          doAjax(afterImportData);
+          setProgress(tutormate.all_done_progress);
+          setPercentage(100);
+          setTimeout(function () {
+            setFetching(false);
+          }, 1000);
+          setTimeout(function () {
+            setImportCompleted(true);
+          }, 2000);
+        }
       }
-    }).fail(function (error) {
-      console.log(error);
-    });
+    };
+
+    request.send(data);
   }; // Component - After Import
 
 
@@ -1220,7 +1211,7 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
 
 
 /***/ })
