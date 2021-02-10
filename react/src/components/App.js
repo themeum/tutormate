@@ -23,6 +23,8 @@ function App() {
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
 
+	let resData;
+
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return { label: item.toUpperCase(), value: item };
 	} );
@@ -76,14 +78,6 @@ function App() {
 		request.onreadystatechange = function() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
-				//let responseTexts = JSON.parse( Cookies.get( 'response_texts' ) );
-				// if ( 'undefined' !== responseTexts.status && 'pluginInstalling' === responseTexts.status ) {
-				// 	setProgress( `Installing ${responseTexts.plugin_name}` );
-				// 	setPercentage( 20 );
-				// } else if ( 'undefined' !== responseTexts.status && 'pluginActivating' === responseTexts.status ) {
-				// 	setProgress( `Activating ${response.plugin_name}` );
-				// 	setPercentage( 40 );
-				// } else 
 				if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
@@ -239,7 +233,10 @@ function App() {
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
-					<h2>{ __( 'Welcome to Tutor Starter Demo Importer', 'tutormate' ) }</h2>
+					<div className="header-top">
+						<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
+						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate')}</p>
+					</div>
 					<div className="nav-container">
 						<div className="nav-filter">
 							{ categories.map( ( category, index ) => (
@@ -258,8 +255,8 @@ function App() {
 							<input
 								type="search"
 								name="search-demos"
-								placeholder={ __( 'Search demos', 'tutormate' ) }
-								onChange={ searchResult }
+								placeholder="Search for starter packs…"
+								onChange={searchResult}
 							/>
 						</div>
 					</div>
