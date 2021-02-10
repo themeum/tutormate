@@ -11,7 +11,7 @@
 }
 
 body {
-    background: #f1f1f1;
+    background: #F4F7FC;
     color: #000;
     position: relative;
 }
@@ -20,6 +20,23 @@ button {
     cursor: pointer;
     outline: none;
 }
+
+.header-top {
+	max-width: 498px;
+	margin: 0 auto;
+	text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.57;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 63px;
+}
+.header-top h2{
+    color: #0A083B;
+    margin-bottom: 10px;
+}
+
 .demo-importer-ui {
     width: 100%;
     padding: 30px;
@@ -53,6 +70,11 @@ button {
     background: transparent;
     border: 1px solid var(--primary);
     color: var(--primary);
+}
+
+.demo-importer-wrapper header {
+	position: relative;
+	z-index: 2;
 }
 
 .demo-importer-wrapper img {

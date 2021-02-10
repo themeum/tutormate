@@ -231,7 +231,10 @@ function App() {
 			{importCompleted && <AfterImport />}
 			<div className="demo-importer-wrapper">
 				<header>
-					<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
+					<div className="header-top">
+						<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
+						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate')}</p>
+					</div>
 					<div className="nav-container">
 						<div className="nav-filter">
 							{categories.map((category, index) => (
@@ -250,7 +253,7 @@ function App() {
 							<input
 								type="search"
 								name="search-demos"
-								placeholder="Search demos"
+								placeholder="Search for starter packs…"
 								onChange={searchResult}
 							/>
 						</div>
