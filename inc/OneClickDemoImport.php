@@ -243,8 +243,10 @@ class OneClickDemoImport {
 					if ( ! is_wp_error( $api ) ) {
 
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
+						do_action( 'tutorstarter_installing_plugins', $plugin['title'] );
 						$installed = $upgrader->install( $api->download_link );
 						if ( $installed ) {
+							do_action( 'tutorstarter_activating_plugins', $plugin['title'] );
 							$activate = activate_plugin( $plugin['path'], '', false, true );
 							if ( is_wp_error( $activate ) ) {
 								$install = false;
@@ -256,6 +258,7 @@ class OneClickDemoImport {
 						$install = false;
 					}
 				} elseif ( 'installed' === $plugin['state'] ) {
+					do_action( 'tutorstarter_activating_plugins', $plugin['title'] );
 					$activate = activate_plugin( $plugin['path'], '', false, true );
 					if ( is_wp_error( $activate ) ) {
 						$install = false;

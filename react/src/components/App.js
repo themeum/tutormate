@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { useState } = wp.element;
-const { SelectControl, RadioControl } = wp.components;
+const { RadioControl } = wp.components;
 
 import "./App.css";
 import Preloader from './preloader';
@@ -76,6 +76,14 @@ function App() {
 		request.onreadystatechange = function() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
+				//let responseTexts = JSON.parse( Cookies.get( 'response_texts' ) );
+				// if ( 'undefined' !== responseTexts.status && 'pluginInstalling' === responseTexts.status ) {
+				// 	setProgress( `Installing ${responseTexts.plugin_name}` );
+				// 	setPercentage( 20 );
+				// } else if ( 'undefined' !== responseTexts.status && 'pluginActivating' === responseTexts.status ) {
+				// 	setProgress( `Activating ${response.plugin_name}` );
+				// 	setPercentage( 40 );
+				// } else 
 				if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
@@ -226,22 +234,22 @@ function App() {
 	return (
 		<div className="demo-importer-ui">
 
-			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
-			{fetching && <Preloader status={progress} percentage={percentage} />}
-			{importCompleted && <AfterImport />}
+			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
+			{ fetching && <Preloader status={ progress } percentage={ percentage } /> }
+			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
-					<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
+					<h2>{ __( 'Welcome to Tutor Starter Demo Importer', 'tutormate' ) }</h2>
 					<div className="nav-container">
 						<div className="nav-filter">
-							{categories.map((category, index) => (
+							{ categories.map( ( category, index ) => (
 								<button
 									type="button"
 									className="filter-btn"
-									key={index}
-									onClick={() => filterItems(category)}
+									key={ index }
+									onClick={ () => filterItems( category ) }
 								>
-									<span>{category}</span>
+									<span>{ category }</span>
 								</button>
 							))}
 						</div>
@@ -250,14 +258,14 @@ function App() {
 							<input
 								type="search"
 								name="search-demos"
-								placeholder="Search demos"
-								onChange={searchResult}
+								placeholder={ __( 'Search demos', 'tutormate' ) }
+								onChange={ searchResult }
 							/>
 						</div>
 					</div>
 				</header>
 
-				<ListItems listItems={listItems} />
+				<ListItems listItems={ listItems } />
 			</div>
 		</div>
 	);

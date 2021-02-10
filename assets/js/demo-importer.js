@@ -765,9 +765,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var __ = wp.i18n.__;
 var useState = wp.element.useState;
-var _wp$components = wp.components,
-    SelectControl = _wp$components.SelectControl,
-    RadioControl = _wp$components.RadioControl;
+var RadioControl = wp.components.RadioControl;
 
 
 var importFiles = tutormate.import_files;
@@ -902,7 +900,14 @@ function App() {
 
     request.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
+        var response = JSON.parse(this.responseText); //let responseTexts = JSON.parse( Cookies.get( 'response_texts' ) );
+        // if ( 'undefined' !== responseTexts.status && 'pluginInstalling' === responseTexts.status ) {
+        // 	setProgress( `Installing ${responseTexts.plugin_name}` );
+        // 	setPercentage( 20 );
+        // } else if ( 'undefined' !== responseTexts.status && 'pluginActivating' === responseTexts.status ) {
+        // 	setProgress( `Activating ${response.plugin_name}` );
+        // 	setPercentage( 40 );
+        // } else 
 
         if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
@@ -1105,7 +1110,7 @@ function App() {
   }, /*#__PURE__*/React.createElement("input", {
     type: "search",
     name: "search-demos",
-    placeholder: "Search demos",
+    placeholder: __('Search demos', 'tutormate'),
     onChange: searchResult
   })))), /*#__PURE__*/React.createElement(ListItems, {
     listItems: listItems
@@ -1211,7 +1216,7 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
 
 
 /***/ })
