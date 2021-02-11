@@ -273,9 +273,7 @@ class OneClickDemoImport {
 					
 					$activate = activate_plugin( $plugin['path'], '', false, true );
 
-					if ( isset( $_POST['activating'] ) ) {
-						wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
-					}
+					wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
 					
 					if ( is_wp_error( $activate ) ) {
 						$install = false;
