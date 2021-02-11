@@ -170,7 +170,11 @@ class OneClickDemoImport {
 		// Enqueue the scripts only on the plugin page.
 		if ( $this->plugin_page === $hook || ( 'admin.php' === $hook && $this->plugin_page_setup['menu_slug'] === esc_attr( $_GET['import'] ) ) ) {
 			
+			wp_enqueue_style('tutormate-style', TUTORMATE_URL . 'assets/css/app.css', array(), 'all');
+
 			wp_enqueue_script( 'tutormate-demo-importer', TUTORMATE_URL . 'assets/js/demo-importer.js' , array( 'wp-element', 'wp-components', 'wp-i18n', 'wp-api' ), TUTORMATE_VERSION, true );
+
+			wp_enqueue_style('tutormate-google-font', '//fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"', array(), 'all');
 
 			// Get theme data.
 			$theme = wp_get_theme();
@@ -179,6 +183,7 @@ class OneClickDemoImport {
 				array(
 					'site_url'            => site_url(),
 					'admin_url'           => admin_url(),
+					'tutormate_url'		  => TUTORMATE_URL,
 					'ajax_url'            => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce'          => wp_create_nonce( 'tutormate-ajax-verification' ),
 					'import_files'        => $this->import_files,

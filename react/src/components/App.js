@@ -2,7 +2,6 @@ const { __ } = wp.i18n;
 const { useState } = wp.element;
 const { RadioControl } = wp.components;
 
-import "./App.css";
 import Preloader from './preloader';
 
 let importFiles = tutormate.import_files;
@@ -208,6 +207,7 @@ function App() {
 
 	// Component - ListItems
 	const ListItems = ({ listItems }) => {
+		console.log(listItems);
 		return (
 			<ul className="list-container">
 				{listItems.length > 0 ? (
@@ -215,6 +215,16 @@ function App() {
 						const { import_file_name, builders, import_preview_image_url, notice, preview_url } = item;
 						return (
 							<li className="single-item" key={index}>
+								<div className="header">
+									<div className="title">{import_file_name}</div>
+									<div className="icons">
+										{
+											builders.map( (builder, index) => builder === 'gutenberg' ? 
+												(<img src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon"/>) : 
+												(<img src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon"/>) )
+										}
+									</div>
+								</div>
 								<figure className="thumbnail">
 									<img src={import_preview_image_url} alt={import_file_name} />
 									<div className="overlay">
@@ -229,10 +239,9 @@ function App() {
 									</div>
 								</figure>
 								<div className="actions">
-									<h4>{import_file_name}</h4>
 									<div>
-										<a className="preview-url" href={preview_url} target="__blank">{__('Preview', 'tutormate')}</a>
-										<button className="btn primary-btn" onClick={() => toggleModalState()}>
+										<a className="preview-url btn btn-light" href={preview_url} target="__blank">{__('Preview', 'tutormate')}</a>
+										<button className="btn btn-primary primary-btn" onClick={() => toggleModalState()}>
 											<span onClick={() => getClickedItem(builders, index, notice)}>{__('Import', 'tutormate')}</span>
 										</button>
 									</div>
@@ -256,7 +265,10 @@ function App() {
 			<div className="demo-importer-wrapper">
 				<header>
 					<div className="header-top">
-						<h2>{__('Welcome to Tutor Starter Demo Importer', 'tutormate')}</h2>
+						<div className="logo-version">
+							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} alt="tutor starter logo"/>
+							<span>&nbsp; v{'1.0.0'}</span>
+						</div>
 						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate')}</p>
 					</div>
 					<div className="nav-container">
@@ -280,6 +292,7 @@ function App() {
 								placeholder="Search for starter packs…"
 								onChange={searchResult}
 							/>
+							<img src={`${tutormate.tutormate_url}assets/images/search-icon.png`} style={{width: '14px', height: '14px'}} alt="icon"/>
 						</div>
 					</div>
 				</header>
