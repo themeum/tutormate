@@ -112,9 +112,6 @@ class OneClickDemoImport {
 		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_plugin_with_filter_data' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		//add_action( 'tutorstarter_installing_plugins', array( $this, 'installing_plugins_callback' ) );
-		//add_action( 'tutorstarter_activating_plugins', array( $this, 'activating_plugins_callback' ) );
-
 	}
 
 	/**
@@ -198,24 +195,6 @@ class OneClickDemoImport {
 	}
 
 	/**
-	 * Installing plugin progress callback
-	 * 
-	 * @param string $plugin_name
-	 */
-	public function installing_plugins_callback( $plugin_name ) {
-		
-	}
-
-	/**
-	 * Activating plugin progress callback
-	 * 
-	 * @param string $plugin_name
-	 */
-	public function activating_plugins_callback( $plugin_name ) {
-
-	}
-
-	/**
 	 * AJAX callback to install a plugin.
 	 */
 	public function install_plugins_ajax_callback() {
@@ -266,16 +245,20 @@ class OneClickDemoImport {
 					if ( ! is_wp_error( $api ) ) {
 
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-						
-						do_action( 'tutorstarter_installing_plugins', $plugin['title'] );
-						
+
+						if ( isset( $_POST['installing'] ) ) {
+							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling' ) );
+						}
+
 						$installed = $upgrader->install( $api->download_link );
 						
 						if ( $installed ) {
 							
-							do_action( 'tutorstarter_activating_plugins', $plugin['title'] );
-							
 							$activate = activate_plugin( $plugin['path'], '', false, true );
+
+							if ( isset( $_POST['activating'] ) ) {
+								wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
+							}
 							
 							if ( is_wp_error( $activate ) ) {
 								$install = false;
@@ -288,9 +271,11 @@ class OneClickDemoImport {
 					}
 				} elseif ( 'installed' === $plugin['state'] ) {
 					
-					do_action( 'tutorstarter_activating_plugins', $plugin['title'] );
-					
 					$activate = activate_plugin( $plugin['path'], '', false, true );
+
+					if ( isset( $_POST['activating'] ) ) {
+						wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
+					}
 					
 					if ( is_wp_error( $activate ) ) {
 						$install = false;
@@ -301,7 +286,7 @@ class OneClickDemoImport {
 
 		if ( false === $install ) {
 			wp_send_json_error();
-		} else {
+		} elseif ( isset( $_POST['activated'] ) ) {
 			wp_send_json( array( 'status' => 'pluginSuccess' ) );
 		}
 	}
