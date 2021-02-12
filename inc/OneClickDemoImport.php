@@ -291,6 +291,8 @@ class OneClickDemoImport {
 			wp_send_json_error();
 		} elseif ( isset( $_POST['activated'] ) ) {
 			wp_send_json( array( 'status' => 'pluginSuccess' ) );
+		} else {
+			wp_send_json( array( 'status' => 'pluginSuccess' ) );
 		}
 	}
 
