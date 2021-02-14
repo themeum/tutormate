@@ -369,12 +369,12 @@ function App() {
     })), /*#__PURE__*/React.createElement("div", {
       className: "modal-footer"
     }, /*#__PURE__*/React.createElement("button", {
-      className: "btn outline-btn",
+      className: "btn btn-outline",
       onClick: function onClick() {
         return toggleModalState();
       }
     }, "Cancel"), /*#__PURE__*/React.createElement("button", {
-      className: "btn primary-btn",
+      className: "btn btn-primary",
       onClick: function onClick() {
         return pluginInstall(selectedIndex, builder);
       }

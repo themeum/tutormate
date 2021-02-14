@@ -81,6 +81,7 @@ button {
 		color: rgba(0, 0, 0, 0.6);
 	}
 }
+
 .demo-importer-ui {
 	width: 100%;
 	padding: 30px;
@@ -107,6 +108,11 @@ button {
             background: linear-gradient(0deg, #0184FF, #0184FF), #E5F2FF;
             box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 1px 1px rgba(0, 0, 0, 0.1);
         }
+		&.btn-outline{
+			color: #5E727C;
+			background: #F0F3F8;
+			border: 1px solid #BDC5C8;
+		}
         &:not(:last-child){
             margin-right: 5px;
         }
@@ -368,9 +374,10 @@ input[type="search" i]::-webkit-search-cancel-button {
 
 /* Modal Content  */
 .modal-content {
-	background: #fff;
-	max-width: 450px;
-	border-radius: 5px;
+	max-width: 472px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
+    border-radius: 3px;
 	// animation: fade 0.4s linear;
 	>[class^="modal-"] {
 		padding: 15px;
@@ -439,7 +446,6 @@ input[type="search" i]::-webkit-search-cancel-button {
 	align-items: center;
 	justify-content: flex-end;
 	.btn {
-		padding: 5px 10px;
 		&:not(:last-child) {
 			margin-right: 10px;
 		}
