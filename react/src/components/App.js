@@ -195,10 +195,10 @@ function App() {
 					</div>
 					{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
 					<div className="modal-footer">
-						<button className="btn outline-btn" onClick={() => toggleModalState()}>
+						<button className="btn btn-outline" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn primary-btn" onClick={() => pluginInstall(selectedIndex, builder)}>{__('Import Now', 'tutormate')}</button>
+						<button className="btn btn-primary" onClick={() => pluginInstall(selectedIndex, builder)}>{__('Import Now', 'tutormate')}</button>
 					</div>
 				</div>
 			</div>
