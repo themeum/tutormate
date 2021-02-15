@@ -51,7 +51,7 @@ class ImportActions {
 		}
 
 		// Get import data, with new menu IDs.
-		$tutormate                = OneClickDemoImport::get_instance();
+		$tutormate           = OneClickDemoImport::get_instance();
 		$content_import_data = $tutormate->importer->get_importer_data();
 		$term_ids            = $content_import_data['mapping']['term_id'];
 
@@ -141,7 +141,7 @@ class ImportActions {
 	 */
 	private function do_import_action( $action, $selected_import ) {
 		if ( false !== has_action( $action ) ) {
-			$tutormate          = OneClickDemoImport::get_instance();
+			$tutormate     = OneClickDemoImport::get_instance();
 			$log_file_path = $tutormate->get_log_file_path();
 
 			ob_start();

@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 const { useState } = wp.element;
-const { SelectControl, RadioControl } = wp.components;
+const { RadioControl } = wp.components;
 
 import Preloader from './preloader';
 
@@ -21,6 +21,8 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
+
+	let resData;
 
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return { label: item.toUpperCase(), value: item };
@@ -66,6 +68,7 @@ function App() {
 		data.append( 'security', tutormate.ajax_nonce );
 		data.append( 'selected', selected );
 		data.append( 'builder', builder );
+		data.append( 'installing', true );
 		doAjax( data );
 	}
 
@@ -75,7 +78,26 @@ function App() {
 		request.onreadystatechange = function() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
-				if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
+				if ( 'undefined' !== response.status && 'pluginInstalling' === response.status ) {
+					setProgress( `Installing ${response.plugin_name}` );
+					setPercentage( 20 );
+					let pluginData = new FormData();
+					pluginData.append( 'action', 'tutormate_install_plugins' );
+					pluginData.append( 'security', tutormate.ajax_nonce );
+					pluginData.append( 'selected', selectedDemo );
+					pluginData.append( 'activating', false );
+					doAjax( pluginData );
+				} else if ( 'undefined' !== response.status && 'pluginActivating' === response.status ) {
+					setProgress( `Activating ${response.plugin_name}` );
+					setPercentage( 40 );
+					let pluginData = new FormData();
+					pluginData.append( 'action', 'tutormate_install_plugins' );
+					pluginData.append( 'security', tutormate.ajax_nonce );
+					pluginData.append( 'selected', selectedDemo );
+					pluginData.append( 'activating', true );
+					pluginData.append( 'activated', true );
+					doAjax( pluginData );
+				} else if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
 					let contentData = new FormData();
@@ -85,7 +107,7 @@ function App() {
 					doAjax( contentData );
 				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
 					setProgress( tutormate.customizer_progress );
-					setPercentage( 90 );
+					setPercentage( 80 );
 					let customizerData = new FormData();
 					customizerData.append( 'action', 'tutormate_import_customizer_data' );
 					customizerData.append( 'security', tutormate.ajax_nonce );
@@ -105,6 +127,8 @@ function App() {
 						setImportCompleted( true );
 					}, 2000 )
 				}
+			} else {
+				console.log( 'Something went wrong. Please try again.' );
 			}
 		};      
 		request.send( data );
@@ -235,9 +259,9 @@ function App() {
 	return (
 		<div className="demo-importer-ui">
 
-			<PopupModal clickedItem={clickedItem} selectedIndex={selectedIndex} />
-			{fetching && <Preloader status={progress} percentage={percentage} />}
-			{importCompleted && <AfterImport />}
+			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
+			{ fetching && <Preloader status={ progress } percentage={ percentage } /> }
+			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
 					<div className="header-top">
@@ -249,14 +273,14 @@ function App() {
 					</div>
 					<div className="nav-container">
 						<div className="nav-filter">
-							{categories.map((category, index) => (
+							{ categories.map( ( category, index ) => (
 								<button
 									type="button"
 									className="filter-btn"
-									key={index}
-									onClick={() => filterItems(category)}
+									key={ index }
+									onClick={ () => filterItems( category ) }
 								>
-									<span>{category}</span>
+									<span>{ category }</span>
 								</button>
 							))}
 						</div>
@@ -273,7 +297,7 @@ function App() {
 					</div>
 				</header>
 
-				<ListItems listItems={listItems} />
+				<ListItems listItems={ listItems } />
 			</div>
 		</div>
 	);

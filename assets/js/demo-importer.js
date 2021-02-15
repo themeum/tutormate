@@ -118,9 +118,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var __ = wp.i18n.__;
 var useState = wp.element.useState;
-var _wp$components = wp.components,
-    SelectControl = _wp$components.SelectControl,
-    RadioControl = _wp$components.RadioControl;
+var RadioControl = wp.components.RadioControl;
 
 var importFiles = tutormate.import_files;
 var allCategories = ["all"].concat(_toConsumableArray(new Set(importFiles.map(function (item) {
@@ -193,6 +191,7 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
+  var resData;
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
       label: item.toUpperCase(),
@@ -245,6 +244,7 @@ function App() {
     data.append('security', tutormate.ajax_nonce);
     data.append('selected', selected);
     data.append('builder', builder);
+    data.append('installing', true);
     doAjax(data);
   };
 
@@ -256,7 +256,33 @@ function App() {
       if (this.readyState == 4 && this.status == 200) {
         var response = JSON.parse(this.responseText);
 
-        if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
+        if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
+          setProgress("Installing ".concat(response.plugin_name));
+          setPercentage(20);
+          var pluginData = new FormData();
+          pluginData.append('action', 'tutormate_install_plugins');
+          pluginData.append('security', tutormate.ajax_nonce);
+          pluginData.append('selected', selectedDemo);
+          pluginData.append('activating', false);
+          doAjax(pluginData);
+        } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
+          setProgress("Activating ".concat(response.plugin_name));
+          setPercentage(40);
+
+          var _pluginData = new FormData();
+
+          _pluginData.append('action', 'tutormate_install_plugins');
+
+          _pluginData.append('security', tutormate.ajax_nonce);
+
+          _pluginData.append('selected', selectedDemo);
+
+          _pluginData.append('activating', true);
+
+          _pluginData.append('activated', true);
+
+          doAjax(_pluginData);
+        } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
           setPercentage(60);
           var contentData = new FormData();
@@ -266,7 +292,7 @@ function App() {
           doAjax(contentData);
         } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
           setProgress(tutormate.customizer_progress);
-          setPercentage(90);
+          setPercentage(80);
           var customizerData = new FormData();
           customizerData.append('action', 'tutormate_import_customizer_data');
           customizerData.append('security', tutormate.ajax_nonce);
@@ -286,6 +312,8 @@ function App() {
             setImportCompleted(true);
           }, 2000);
         }
+      } else {
+        console.log('Something went wrong. Please try again.');
       }
     };
 
@@ -603,8 +631,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

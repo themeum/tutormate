@@ -112,7 +112,6 @@ class OneClickDemoImport {
 		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_plugin_with_filter_data' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-
 	}
 
 	/**
@@ -223,8 +222,10 @@ class OneClickDemoImport {
 				require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 			}
 
-			foreach( $info['plugins'] as $key => $plugin ) {
+			foreach ( $info['plugins'] as $key => $plugin ) {
+				
 				if ( 'not active' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+					
 					$api = plugins_api(
 						'plugin_information',
 						array(
@@ -245,12 +246,25 @@ class OneClickDemoImport {
 							),
 						)
 					);
+					
 					if ( ! is_wp_error( $api ) ) {
 
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
+
+						if ( isset( $_POST['installing'] ) ) {
+							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling' ) );
+						}
+
 						$installed = $upgrader->install( $api->download_link );
+						
 						if ( $installed ) {
+							
 							$activate = activate_plugin( $plugin['path'], '', false, true );
+
+							if ( isset( $_POST['activating'] ) ) {
+								wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
+							}
+							
 							if ( is_wp_error( $activate ) ) {
 								$install = false;
 							}
@@ -261,7 +275,11 @@ class OneClickDemoImport {
 						$install = false;
 					}
 				} elseif ( 'installed' === $plugin['state'] ) {
+					
 					$activate = activate_plugin( $plugin['path'], '', false, true );
+
+					wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
+					
 					if ( is_wp_error( $activate ) ) {
 						$install = false;
 					}
@@ -271,6 +289,8 @@ class OneClickDemoImport {
 
 		if ( false === $install ) {
 			wp_send_json_error();
+		} elseif ( isset( $_POST['activated'] ) ) {
+			wp_send_json( array( 'status' => 'pluginSuccess' ) );
 		} else {
 			wp_send_json( array( 'status' => 'pluginSuccess' ) );
 		}
