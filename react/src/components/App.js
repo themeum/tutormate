@@ -2,7 +2,8 @@ const { __ } = wp.i18n;
 const { useState } = wp.element;
 const { RadioControl } = wp.components;
 
-import Preloader from './preloader';
+import Preloader from './Preloader';
+import RadioField from './RadioField';
 
 let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set( importFiles.map( ( item ) => item.categories ).flat() )];
@@ -175,8 +176,13 @@ function App() {
 						</button>
 					</div>
 					<div className="modal-body">
-						<RadioControl
+						{/* <RadioControl
 							label={__('Select Builder', 'tutormate')}
+							selected={builder}
+							options={builderOptions}
+							onChange={(value) => selectedBuilder(value)}
+						/> */}
+						<RadioField 
 							selected={builder}
 							options={builderOptions}
 							onChange={(value) => selectedBuilder(value)}
@@ -186,11 +192,11 @@ function App() {
 						</p>
 						{'elementor' === builder &&
 							elementorPlugins && elementorPlugins.map((item, index) => {
-								return (<strong key={index}>{item.title} - {item.state}</strong>)
+								return (<div className={item.state} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 							})}
 						{'gutenberg' === builder &&
 							gutenbergPlugins && gutenbergPlugins.map((item, index) => {
-								return (<strong key={index}>{item.title} - {item.state}</strong>)
+								return (<div className={item.state} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 							})}
 					</div>
 					{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
@@ -207,7 +213,6 @@ function App() {
 
 	// Component - ListItems
 	const ListItems = ({ listItems }) => {
-		console.log(listItems);
 		return (
 			<ul className="list-container">
 				{listItems.length > 0 ? (
@@ -218,10 +223,9 @@ function App() {
 								<div className="header">
 									<div className="title">{import_file_name}</div>
 									<div className="icons">
-										{
-											builders.map( (builder, index) => builder === 'gutenberg' ? 
-												(<img src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon"/>) : 
-												(<img src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon"/>) )
+										{builders.map( (builder, index) => builder === 'gutenberg' ? 
+											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon"/>) : 
+											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon"/>) )
 										}
 									</div>
 								</div>

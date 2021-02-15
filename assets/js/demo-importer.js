@@ -95,7 +95,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preloader */ "./react/src/components/preloader.js");
+/* harmony import */ var _Preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Preloader */ "./react/src/components/Preloader.js");
+/* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -119,6 +120,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var __ = wp.i18n.__;
 var useState = wp.element.useState;
 var RadioControl = wp.components.RadioControl;
+
 
 var importFiles = tutormate.import_files;
 var allCategories = ["all"].concat(_toConsumableArray(new Set(importFiles.map(function (item) {
@@ -369,21 +371,22 @@ function App() {
       }
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
-    }, /*#__PURE__*/React.createElement(RadioControl, {
-      label: __('Select Builder', 'tutormate'),
+    }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_1__["default"], {
       selected: builder,
       options: builderOptions,
       onChange: function onChange(value) {
         return selectedBuilder(value);
       }
     }), /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
-      return /*#__PURE__*/React.createElement("strong", {
+      return /*#__PURE__*/React.createElement("div", {
+        className: item.state,
         key: index
-      }, item.title, " - ", item.state);
+      }, /*#__PURE__*/React.createElement("strong", null, item.title), " ", /*#__PURE__*/React.createElement("span", null, item.state));
     }), 'gutenberg' === builder && gutenbergPlugins && gutenbergPlugins.map(function (item, index) {
-      return /*#__PURE__*/React.createElement("strong", {
+      return /*#__PURE__*/React.createElement("div", {
+        className: item.state,
         key: index
-      }, item.title, " - ", item.state);
+      }, /*#__PURE__*/React.createElement("strong", null, item.title), " ", /*#__PURE__*/React.createElement("span", null, item.state));
     })), demoNotice && /*#__PURE__*/React.createElement("div", {
       className: "notices"
     }, /*#__PURE__*/React.createElement("span", {
@@ -412,7 +415,6 @@ function App() {
 
   var ListItems = function ListItems(_ref2) {
     var listItems = _ref2.listItems;
-    console.log(listItems);
     return /*#__PURE__*/React.createElement("ul", {
       className: "list-container"
     }, listItems.length > 0 ? listItems.map(function (item, index) {
@@ -432,9 +434,11 @@ function App() {
         className: "icons"
       }, builders.map(function (builder, index) {
         return builder === 'gutenberg' ? /*#__PURE__*/React.createElement("img", {
+          key: index,
           src: "".concat(tutormate.tutormate_url, "/assets/images/qubely.png"),
           alt: "icon"
         }) : /*#__PURE__*/React.createElement("img", {
+          key: index,
           src: "".concat(tutormate.tutormate_url, "/assets/images/").concat(builder, ".png"),
           alt: "icon"
         });
@@ -477,7 +481,7 @@ function App() {
   }, /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem,
     selectedIndex: selectedIndex
-  }), fetching && /*#__PURE__*/React.createElement(_preloader__WEBPACK_IMPORTED_MODULE_0__["default"], {
+  }), fetching && /*#__PURE__*/React.createElement(_Preloader__WEBPACK_IMPORTED_MODULE_0__["default"], {
     status: progress,
     percentage: percentage
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
@@ -525,16 +529,16 @@ function App() {
 
 /***/ }),
 
-/***/ "./react/src/components/preloader.js":
+/***/ "./react/src/components/Preloader.js":
 /*!*******************************************!*\
-  !*** ./react/src/components/preloader.js ***!
+  !*** ./react/src/components/Preloader.js ***!
   \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _progressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./progressBar */ "./react/src/components/progressBar.js");
+/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressBar */ "./react/src/components/ProgressBar.js");
 
 
 var Preloader = function Preloader(_ref) {
@@ -553,7 +557,7 @@ var Preloader = function Preloader(_ref) {
     d: "M11.2419 15.5432C11.3104 15.9115 11.5646 16.2515 11.9378 16.2844C12.4683 16.3312 12.7358 16.0446 12.8421 15.2042C13.4971 9.97255 17.848 6.38031 22.8304 6.81427C23.6258 6.8866 23.9766 7.10358 23.9766 8.01972C24 10.8164 23.9532 13.5648 22.7135 16.1445C20.3041 21.2074 15.2281 24.0281 10.1521 23.1361C4.93571 22.244 0.748576 17.6874 0.140389 12.1665C3.81768e-05 10.8164 0.0936054 9.44216 3.81838e-05 8.06794C-0.0467454 7.1518 0.350915 6.91071 1.14624 6.83838C5.94156 6.40442 10.269 9.8279 11.0878 14.7461C11.1405 15.0181 11.1933 15.2823 11.2419 15.5432ZM20.0234 12.1424C20.0702 11.1298 19.3217 10.2619 18.3626 10.1895C17.3802 10.1172 16.538 10.8646 16.4445 11.8772C16.3509 12.9621 17.1228 13.8541 18.1521 13.8782C19.1345 13.9264 19.9533 13.1549 20.0234 12.1424ZM5.80121 13.9023C6.78366 13.9023 7.57898 13.0826 7.60238 12.07C7.62577 11.0092 6.76027 10.1654 5.73103 10.2136C4.74858 10.2619 4.00004 11.0816 4.02343 12.1183C4.02343 13.1308 4.79536 13.9264 5.80121 13.9023Z"
   })), /*#__PURE__*/React.createElement("div", {
     className: "status-texts"
-  }, status), /*#__PURE__*/React.createElement(_progressBar__WEBPACK_IMPORTED_MODULE_0__["default"], {
+  }, status), /*#__PURE__*/React.createElement(_ProgressBar__WEBPACK_IMPORTED_MODULE_0__["default"], {
     percentage: percentage
   }));
 };
@@ -562,9 +566,9 @@ var Preloader = function Preloader(_ref) {
 
 /***/ }),
 
-/***/ "./react/src/components/progressBar.js":
+/***/ "./react/src/components/ProgressBar.js":
 /*!*********************************************!*\
-  !*** ./react/src/components/progressBar.js ***!
+  !*** ./react/src/components/ProgressBar.js ***!
   \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -594,6 +598,37 @@ var ProgressBar = function ProgressBar(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ProgressBar);
+
+/***/ }),
+
+/***/ "./react/src/components/RadioField.js":
+/*!********************************************!*\
+  !*** ./react/src/components/RadioField.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var RadioField = function RadioField(_ref) {
+  var selected = _ref.selected,
+      options = _ref.options,
+      onChange = _ref.onChange;
+  return /*#__PURE__*/React.createElement("div", null, options && options.map(function (option, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "radio",
+      name: "builder",
+      id: option.value,
+      checked: selected
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: option.value
+    }, /*#__PURE__*/React.createElement("span", null, option.value)));
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (RadioField);
 
 /***/ }),
 
@@ -631,8 +666,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })
