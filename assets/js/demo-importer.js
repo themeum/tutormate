@@ -290,6 +290,19 @@ function App() {
           contentData.append('security', tutormate.ajax_nonce);
           contentData.append('selected', selectedDemo);
           doAjax(contentData);
+        } else if ('undefined' !== response.status && 'newAJAX' === response.status) {
+          setProgress(tutormate.content_progress);
+          setPercentage(60);
+
+          var _contentData = new FormData();
+
+          _contentData.append('action', 'tutormate_import_demo_data');
+
+          _contentData.append('security', tutormate.ajax_nonce);
+
+          _contentData.append('selected', selectedDemo);
+
+          doAjax(_contentData);
         } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
           setProgress(tutormate.customizer_progress);
           setPercentage(80);
