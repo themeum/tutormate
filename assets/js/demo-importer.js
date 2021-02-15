@@ -364,7 +364,7 @@ function App() {
       className: "modal-content"
     }, /*#__PURE__*/React.createElement("div", {
       className: "modal-head"
-    }, /*#__PURE__*/React.createElement("h3", null, __('Demo Details', 'tutormate')), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("h3", null, __('Select Builder', 'tutormate')), /*#__PURE__*/React.createElement("button", {
       className: "close-btn",
       onClick: function onClick() {
         return toggleModalState();
@@ -377,17 +377,19 @@ function App() {
       onChange: function onChange(value) {
         return selectedBuilder(value);
       }
-    }), /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "pluginstatus"
+    }, /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
       return /*#__PURE__*/React.createElement("div", {
-        className: item.state,
+        className: "".concat(item.state),
         key: index
       }, /*#__PURE__*/React.createElement("strong", null, item.title), " ", /*#__PURE__*/React.createElement("span", null, item.state));
     }), 'gutenberg' === builder && gutenbergPlugins && gutenbergPlugins.map(function (item, index) {
       return /*#__PURE__*/React.createElement("div", {
-        className: item.state,
+        className: "".concat(item.state),
         key: index
       }, /*#__PURE__*/React.createElement("strong", null, item.title), " ", /*#__PURE__*/React.createElement("span", null, item.state));
-    })), demoNotice && /*#__PURE__*/React.createElement("div", {
+    }))), demoNotice && /*#__PURE__*/React.createElement("div", {
       className: "notices"
     }, /*#__PURE__*/React.createElement("span", {
       style: {
@@ -614,9 +616,13 @@ var RadioField = function RadioField(_ref) {
   var selected = _ref.selected,
       options = _ref.options,
       onChange = _ref.onChange;
-  return /*#__PURE__*/React.createElement("div", null, options && options.map(function (option, index) {
+  console.log(options && options);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "radio-field-wrapper"
+  }, options && options.map(function (option, index) {
     return /*#__PURE__*/React.createElement("div", {
-      key: index
+      key: index,
+      className: "radio-field-item"
     }, /*#__PURE__*/React.createElement("input", {
       type: "radio",
       name: "builder",
@@ -624,7 +630,13 @@ var RadioField = function RadioField(_ref) {
       checked: selected
     }), /*#__PURE__*/React.createElement("label", {
       htmlFor: option.value
-    }, /*#__PURE__*/React.createElement("span", null, option.value)));
+    }, option.value === 'gutenberg' ? /*#__PURE__*/React.createElement("img", {
+      src: "".concat(tutormate.tutormate_url, "/assets/images/qubely.png"),
+      alt: "icon"
+    }) : /*#__PURE__*/React.createElement("img", {
+      src: "".concat(tutormate.tutormate_url, "/assets/images/").concat(option.value, ".png"),
+      alt: "icon"
+    }), /*#__PURE__*/React.createElement("span", null, option.value)));
   }));
 };
 

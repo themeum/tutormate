@@ -170,7 +170,7 @@ function App() {
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
 					<div className="modal-head">
-						<h3>{__('Demo Details', 'tutormate')}</h3>
+						<h3>{__('Select Builder', 'tutormate')}</h3>
 						<button className="close-btn" onClick={() => toggleModalState()}>
 							+
 						</button>
@@ -187,17 +187,19 @@ function App() {
 							options={builderOptions}
 							onChange={(value) => selectedBuilder(value)}
 						/>
-						<p>
-							{__('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')}
-						</p>
-						{'elementor' === builder &&
-							elementorPlugins && elementorPlugins.map((item, index) => {
-								return (<div className={item.state} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
-							})}
-						{'gutenberg' === builder &&
-							gutenbergPlugins && gutenbergPlugins.map((item, index) => {
-								return (<div className={item.state} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
-							})}
+						<div className="pluginstatus">
+							<p>
+								{__('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')}
+							</p>
+							{'elementor' === builder &&
+								elementorPlugins && elementorPlugins.map((item, index) => {
+									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
+								})}
+							{'gutenberg' === builder &&
+								gutenbergPlugins && gutenbergPlugins.map((item, index) => {
+									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
+								})}
+						</div>
 					</div>
 					{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
 					<div className="modal-footer">
