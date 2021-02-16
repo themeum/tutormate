@@ -225,7 +225,7 @@ class OneClickDemoImport {
 
 			foreach ( $info['plugins'] as $key => $plugin ) {
 				
-				if ( 'not active' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+				if ( 'not installed' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
 					
 					$api = plugins_api(
 						'plugin_information',

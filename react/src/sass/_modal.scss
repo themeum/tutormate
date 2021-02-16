@@ -98,16 +98,7 @@
                         color: #5FAC23;
                     }
                 }
-                &.not.active {// warning '\e95f'
-                    &:before {
-                        content: '\e95f';
-                        color: #ffb200;
-                    }
-                    span{
-                        color: #ffb200;
-                    }
-                }
-                &.installed {// cross '\e914'
+                &.not.installed {// cross '\e914'
                     &:before {
                         content: '\e914';
                         transform: rotate(45deg);
@@ -117,6 +108,15 @@
                     }
                     span{
                         color: #F44321;
+                    }
+                }
+				 &.installed {// warning '\e95f'
+                    &:before {
+                        content: '\e95f';
+                        color: #ffb200;
+                    }
+                    span{
+                        color: #ffb200;
                     }
                 }
             }

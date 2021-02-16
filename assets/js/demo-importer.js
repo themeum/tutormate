@@ -387,9 +387,7 @@ function App() {
     }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_1__["default"], {
       selected: builder,
       options: builderOptions,
-      onChange: function onChange(value) {
-        return selectedBuilder(value);
-      }
+      selectedBuilder: selectedBuilder
     }), /*#__PURE__*/React.createElement("div", {
       className: "pluginstatus"
     }, /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
@@ -628,8 +626,13 @@ __webpack_require__.r(__webpack_exports__);
 var RadioField = function RadioField(_ref) {
   var selected = _ref.selected,
       options = _ref.options,
-      onChange = _ref.onChange;
-  console.log(options && options);
+      selectedBuilder = _ref.selectedBuilder;
+
+  var updateRadioValue = function updateRadioValue(event) {
+    var radioInput = event.target.value;
+    selectedBuilder(radioInput);
+  };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "radio-field-wrapper"
   }, options && options.map(function (option, index) {
@@ -640,7 +643,11 @@ var RadioField = function RadioField(_ref) {
       type: "radio",
       name: "builder",
       id: option.value,
-      checked: selected
+      value: option.value,
+      checked: option.value === selected ? true : false,
+      onChange: function onChange(event) {
+        return updateRadioValue(event);
+      }
     }), /*#__PURE__*/React.createElement("label", {
       htmlFor: option.value
     }, option.value === 'gutenberg' ? /*#__PURE__*/React.createElement("img", {
@@ -691,8 +698,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

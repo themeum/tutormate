@@ -1,12 +1,23 @@
-const RadioField = ({selected, options, onChange}) => {
-    console.log(options && options);
+const RadioField = ({selected, options, selectedBuilder}) => {
+    
+    const updateRadioValue = (event) => {
+        const radioInput = event.target.value;
+        selectedBuilder(radioInput);
+    }
 
     return (
         <div className="radio-field-wrapper">
             {
                 options && options.map((option, index) => (
                     <div key={index} className="radio-field-item">
-                        <input type="radio" name="builder" id={option.value} checked={selected}/>
+                        <input 
+                            type="radio" 
+                            name="builder" 
+                            id={option.value} 
+                            value={option.value}
+                            checked={option.value === selected ? true : false}
+                            onChange={(event) => updateRadioValue(event)}
+                        />
                         <label htmlFor={option.value}>
                             {
                                 option.value === 'gutenberg' ? 

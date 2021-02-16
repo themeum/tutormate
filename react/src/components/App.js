@@ -193,7 +193,7 @@ function App() {
 						<RadioField 
 							selected={builder}
 							options={builderOptions}
-							onChange={(value) => selectedBuilder(value)}
+							selectedBuilder={selectedBuilder}
 						/>
 						<div className="pluginstatus">
 							<p>

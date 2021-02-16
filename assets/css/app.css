@@ -552,16 +552,7 @@ input[type=search i]::-webkit-search-cancel-button {
   color: #5FAC23;
 }
 
-.modal-content .modal-body .pluginstatus > div.not.active:before {
-  content: "\E95F";
-  color: #ffb200;
-}
-
-.modal-content .modal-body .pluginstatus > div.not.active span {
-  color: #ffb200;
-}
-
-.modal-content .modal-body .pluginstatus > div.installed:before {
+.modal-content .modal-body .pluginstatus > div.not.installed:before {
   content: "\E914";
   transform: rotate(45deg);
   display: inline-block;
@@ -569,8 +560,17 @@ input[type=search i]::-webkit-search-cancel-button {
   color: #F44321;
 }
 
-.modal-content .modal-body .pluginstatus > div.installed span {
+.modal-content .modal-body .pluginstatus > div.not.installed span {
   color: #F44321;
+}
+
+.modal-content .modal-body .pluginstatus > div.installed:before {
+  content: "\E95F";
+  color: #ffb200;
+}
+
+.modal-content .modal-body .pluginstatus > div.installed span {
+  color: #ffb200;
 }
 
 .modal-content .modal-body .pluginstatus > p {
