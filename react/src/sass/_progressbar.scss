@@ -1,0 +1,37 @@
+/* ProgressBar */
+.progress-wrapper {
+	max-width: 350px;
+	width: 100%;
+	margin-top: 15px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.progress {
+	background-color: transparent;
+	border-radius: 20px;
+	margin-bottom: 15px;
+	height: 10px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);
+}
+
+.progress-status {
+	--color-white: #ffffff;
+	background: var(--color-white);
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	height: 100%;
+	width: 0;
+	transition: 0.2s linear;
+}
+
+span.status-text {
+	color: #ffffff;
+	margin-top: 15px;
+}

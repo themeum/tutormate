@@ -1,4 +1,4 @@
-import ProgressBar from './progressBar';
+import ProgressBar from './ProgressBar';
 const Preloader = ({status, percentage}) => {
 	return (
 	<div className="svg-preloader">
