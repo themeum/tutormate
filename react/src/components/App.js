@@ -281,7 +281,7 @@ function App() {
 					<div className="header-top">
 						<div className="logo-version">
 							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} alt="tutor starter logo"/>
-							<span>&nbsp; v{'1.0.0'}</span>
+							<span>&nbsp; v{tutormate.theme_version}</span>
 						</div>
 						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate')}</p>
 					</div>
