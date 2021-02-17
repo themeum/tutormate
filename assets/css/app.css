@@ -660,43 +660,6 @@ span.status-text {
   margin-top: 15px;
 }
 
-.installation-screen .modal-content {
-  min-width: 320px;
-}
-
-.installation-status {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.installation-status .progress-status {
-  background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
-}
-
-.installation-status .progress {
-  background: #E3E7EC;
-  height: 8px;
-  border-radius: 5px;
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.installation-status .percentage {
-  margin-left: 8px;
-  font-size: 12px;
-}
-
-.plugin-status {
-  display: flex;
-  align-items: center;
-}
-
-.circle-progress {
-  display: inline-flex;
-  margin-right: 5px;
-}
-
 /* Preloader */
 
 @-webkit-keyframes preLoading {
@@ -826,5 +789,86 @@ span.status-text {
   font-size: 14px;
   color: #000000;
   text-transform: capitalize;
+}
+
+.installation-screen .modal-content {
+  min-width: 320px;
+}
+
+.installation-screen .modal-body {
+  padding-top: 0;
+  margin-top: -10px;
+}
+
+.installation-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 23px;
+}
+
+.installation-status .progress-status {
+  background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
+}
+
+.installation-status .progress {
+  background: #E3E7EC;
+  height: 8px;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.installation-status .percentage {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.plugin-item {
+  display: flex;
+  align-items: center;
+}
+
+.plugin-item .title {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D2427;
+}
+
+.plugin-item:not(:last-child) {
+  margin-bottom: 11px;
+}
+
+.plugin-item svg#svg-circle {
+  --dashArr: 44;
+  width: 16px;
+  height: 16px;
+}
+
+.plugin-item svg#svg-circle circle:not(.circle-full) {
+  position: absolute;
+  fill: none;
+  stroke-width: 2;
+  transform: translate(1px, -1px) rotate(-90deg);
+  transform-origin: center center;
+  stroke-dasharray: var(--dashArr);
+}
+
+.plugin-item svg#svg-circle circle.bg {
+  stroke-dashoffset: 0;
+  stroke: #E3E7EC;
+}
+
+.plugin-item svg#svg-circle circle.fg {
+  stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
+  stroke: #5FAC23;
+  -webkit-animation: percent 1.5s linear;
+          animation: percent 1.5s linear;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.plugin-item svg#svg-circle circle.circle-full {
+  transform: translate(1px, 1px);
 }
 
