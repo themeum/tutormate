@@ -2,6 +2,7 @@ const { __ } = wp.i18n;
 const { useState } = wp.element;
 const { RadioControl } = wp.components;
 
+import Installation from './Installation';
 import Preloader from './Preloader';
 import RadioField from './RadioField';
 
@@ -274,7 +275,8 @@ function App() {
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching && <Preloader status={ progress } percentage={ percentage } /> }
+			{/* { fetching && <Preloader status={ progress } percentage={ percentage } /> } */}
+			{ <Installation status={ progress } percentage={ 50 } /> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
