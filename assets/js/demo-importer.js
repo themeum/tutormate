@@ -195,6 +195,21 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
+  var _useState27 = useState(''),
+      _useState28 = _slicedToArray(_useState27, 2),
+      pluginName = _useState28[0],
+      setPluginName = _useState28[1];
+
+  var _useState29 = useState(0),
+      _useState30 = _slicedToArray(_useState29, 2),
+      pluginProgress = _useState30[0],
+      setPluginProgress = _useState30[1];
+
+  var _useState31 = useState([]),
+      _useState32 = _slicedToArray(_useState31, 2),
+      plugins = _useState32[0],
+      setPlugins = _useState32[1];
+
   var resData;
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -263,6 +278,9 @@ function App() {
         if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
           setProgress("Installing ".concat(response.plugin_name));
           setPercentage(20);
+          setPluginName(response.plugin_name);
+          setPluginProgress(30);
+          setPlugins(response.plugins);
           var pluginData = new FormData();
           pluginData.append('action', 'tutormate_install_plugins');
           pluginData.append('security', tutormate.ajax_nonce);
@@ -286,9 +304,12 @@ function App() {
           _pluginData.append('activated', true);
 
           doAjax(_pluginData);
+          setPluginName(response.plugin_name);
+          setPluginProgress(60);
         } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
           setPercentage(60);
+          setPluginProgress(100);
           var contentData = new FormData();
           contentData.append('action', 'tutormate_import_demo_data');
           contentData.append('security', tutormate.ajax_nonce);
@@ -496,9 +517,12 @@ function App() {
   }, /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem,
     selectedIndex: selectedIndex
-  }), /*#__PURE__*/React.createElement(_Installation__WEBPACK_IMPORTED_MODULE_0__["default"], {
+  }), fetching && /*#__PURE__*/React.createElement(_Installation__WEBPACK_IMPORTED_MODULE_0__["default"], {
     status: progress,
-    percentage: 50
+    percentage: percentage,
+    plugins: plugins,
+    pluginName: pluginName,
+    pluginProgress: pluginProgress
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
@@ -571,13 +595,21 @@ var useState = wp.element.useState;
 
 var Installation = function Installation(_ref) {
   var status = _ref.status,
-      percentage = _ref.percentage;
+      percentage = _ref.percentage,
+      plugins = _ref.plugins,
+      pluginName = _ref.pluginName,
+      pluginProgress = _ref.pluginProgress;
 
-  var _useState = useState(70),
+  var _useState = useState(pluginProgress),
       _useState2 = _slicedToArray(_useState, 2),
       circleProgress = _useState2[0],
       setCircleProgress = _useState2[1];
 
+  console.log({
+    plugins: plugins,
+    pluginName: pluginName,
+    pluginProgress: pluginProgress
+  });
   return /*#__PURE__*/React.createElement("div", {
     className: "installation-screen modal-wrapper active"
   }, /*#__PURE__*/React.createElement("div", {
@@ -600,69 +632,40 @@ var Installation = function Installation(_ref) {
     className: "percentage"
   }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
     className: "plugin-status"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "plugin-item"
-  }, circleProgress < 100 ? /*#__PURE__*/React.createElement("svg", {
-    id: "svg-circle"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "bg",
-    cx: "7",
-    cy: "7",
-    r: "7"
-  }), /*#__PURE__*/React.createElement("circle", {
-    style: {
-      strokeDashoffset: "calc(var(--dashArr) - (var(--dashArr) * ".concat(circleProgress, ") / 100)")
-    },
-    className: "fg",
-    cx: "7",
-    cy: "7",
-    r: "7"
-  })) : /*#__PURE__*/React.createElement("svg", {
-    id: "svg-circle"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "circle-full",
-    cx: "7",
-    cy: "7",
-    r: "7",
-    fill: "#5FAC23"
-  }), /*#__PURE__*/React.createElement("path", {
-    className: "check-mark",
-    d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
-    fill: "#fff"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "title"
-  }, "Tutor LMS")), /*#__PURE__*/React.createElement("div", {
-    className: "plugin-item"
-  }, circleProgress < 100 ? /*#__PURE__*/React.createElement("svg", {
-    id: "svg-circle"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "bg",
-    cx: "7",
-    cy: "7",
-    r: "7"
-  }), /*#__PURE__*/React.createElement("circle", {
-    style: {
-      strokeDashoffset: "calc(var(--dashArr) - (var(--dashArr) * ".concat(circleProgress, ") / 100)")
-    },
-    className: "fg",
-    cx: "7",
-    cy: "7",
-    r: "7"
-  })) : /*#__PURE__*/React.createElement("svg", {
-    id: "svg-circle"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "circle-full",
-    cx: "7",
-    cy: "7",
-    r: "7",
-    fill: "#5FAC23"
-  }), /*#__PURE__*/React.createElement("path", {
-    className: "check-mark",
-    d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
-    fill: "#fff"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "title"
-  }, "Tutor LMS"))))));
+  }, plugins.map(function (plugin) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "plugin-item"
+    }, pluginProgress < 100 ? /*#__PURE__*/React.createElement("svg", {
+      id: "svg-circle"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "bg",
+      cx: "7",
+      cy: "7",
+      r: "7"
+    }), /*#__PURE__*/React.createElement("circle", {
+      style: {
+        strokeDashoffset: "calc(var(--dashArr) - (var(--dashArr) * ".concat(pluginProgress, ") / 100)")
+      },
+      className: "fg",
+      cx: "7",
+      cy: "7",
+      r: "7"
+    })) : /*#__PURE__*/React.createElement("svg", {
+      id: "svg-circle"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "circle-full",
+      cx: "7",
+      cy: "7",
+      r: "7",
+      fill: "#5FAC23"
+    }), /*#__PURE__*/React.createElement("path", {
+      className: "check-mark",
+      d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+      fill: "#fff"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "title"
+    }, plugin.title ? plugin.title : "Loading ..."));
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);

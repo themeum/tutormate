@@ -253,7 +253,7 @@ class OneClickDemoImport {
 						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 						if ( isset( $_POST['installing'] ) ) {
-							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling' ) );
+							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling', 'plugins' => $info['plugins'] ) );
 						}
 
 						$installed = $upgrader->install( $api->download_link );
