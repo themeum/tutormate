@@ -361,32 +361,40 @@ function App() {
 
   var AfterImport = function AfterImport() {
     return /*#__PURE__*/React.createElement("div", {
-      className: "modal-wrapper active"
+      className: "installation-complete modal-wrapper active"
     }, /*#__PURE__*/React.createElement("div", {
       className: "modal-content"
     }, /*#__PURE__*/React.createElement("div", {
       className: "modal-head"
-    }, /*#__PURE__*/React.createElement("h3", null, __('All Done!', 'tutormate')), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("button", {
       className: "close-btn",
       onClick: function onClick() {
         return setImportCompleted(false);
       }
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
-    }, /*#__PURE__*/React.createElement("p", null, __('Demo import has been completed successfully!', 'tutormate')), /*#__PURE__*/React.createElement("p", null, __('Visit', 'tutormate'), " ", /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "56",
+      height: "56",
+      viewBox: "0 0 56 56",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M28 56C12.5611 56 0 43.4389 0 28C0 12.5611 12.5611 0 28 0C43.4389 0 56 12.5611 56 28C56 43.4389 43.4389 56 28 56Z",
+      fill: "#C3E678"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M41.0667 46.6667C25.6278 46.6667 13.0667 34.1056 13.0667 18.6667C13.0667 12.2041 15.289 6.26248 18.9807 1.51855C7.959 5.28401 0 15.7194 0 28C0 43.4389 12.5611 56 28 56C36.9763 56 44.9585 51.7372 50.086 45.1482C47.2513 46.1167 44.2249 46.6667 41.0667 46.6667Z",
+      fill: "#A5D76E"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M22.2068 42.4828C21.7126 42.4828 21.2182 42.2941 20.8414 41.917L9.25522 30.3308C8.50086 29.577 8.50086 28.354 9.25522 27.6001C10.0086 26.8458 11.2325 26.8458 11.9859 27.6001L22.2069 37.8206L42.0829 17.9449C42.8363 17.1906 44.0602 17.1906 44.8136 17.9449C45.5679 18.6987 45.5679 19.9217 44.8136 20.6756L23.5721 41.917C23.1954 42.2941 22.7009 42.4828 22.2068 42.4828Z",
+      fill: "white"
+    })), /*#__PURE__*/React.createElement("h3", null, __('Thank You!', 'tutormate')), /*#__PURE__*/React.createElement("p", null, __('Visit', 'tutormate'), " ", /*#__PURE__*/React.createElement("a", {
       href: tutormate.site_url,
       target: "__blank"
     }, __('Site', 'tutormate')), " ", __('or go to', 'tutormate'), " ", /*#__PURE__*/React.createElement("a", {
       href: tutormate.admin_url,
       target: "__blank"
-    }, __('Dashboard', 'tutormate')))), /*#__PURE__*/React.createElement("div", {
-      className: "modal-footer"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "btn outline-btn",
-      onClick: function onClick() {
-        return setImportCompleted(false);
-      }
-    }, "Close"))));
+    }, __('Dashboard', 'tutormate'))))));
   }; // Component - PopupModal
 
 
@@ -577,39 +585,12 @@ function App() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressBar */ "./react/src/components/ProgressBar.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var useState = wp.element.useState;
-
-
 var Installation = function Installation(_ref) {
   var status = _ref.status,
       percentage = _ref.percentage,
       plugins = _ref.plugins,
       pluginName = _ref.pluginName,
       pluginProgress = _ref.pluginProgress;
-
-  var _useState = useState(pluginProgress),
-      _useState2 = _slicedToArray(_useState, 2),
-      circleProgress = _useState2[0],
-      setCircleProgress = _useState2[1];
-
-  console.log({
-    plugins: plugins,
-    pluginName: pluginName,
-    pluginProgress: pluginProgress
-  });
   return /*#__PURE__*/React.createElement("div", {
     className: "installation-screen modal-wrapper active"
   }, /*#__PURE__*/React.createElement("div", {

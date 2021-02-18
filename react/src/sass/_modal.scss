@@ -162,3 +162,26 @@
 		}
 	}
 }
+
+.installation-complete{
+	.modal-content {
+		min-width: 320px;
+		min-height: 230px;
+		.modal-body {
+			p {
+				text-align: center;
+			}
+			h3{
+				font-size: 22px;
+				font-weight: 600;
+				margin-top: 5px;
+			}
+			p,a{
+				color: rgb(37 39 50 / 55%);
+			}
+		}
+	}
+	.modal-head {
+		justify-content: flex-end;
+	}
+}

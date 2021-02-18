@@ -621,6 +621,30 @@ input[type=search i]::-webkit-search-cancel-button {
   margin-right: 20px;
 }
 
+.installation-complete .modal-content {
+  min-width: 320px;
+  min-height: 230px;
+}
+
+.installation-complete .modal-content .modal-body p {
+  text-align: center;
+}
+
+.installation-complete .modal-content .modal-body h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.installation-complete .modal-content .modal-body p,
+.installation-complete .modal-content .modal-body a {
+  color: rgba(37, 39, 50, 0.55);
+}
+
+.installation-complete .modal-head {
+  justify-content: flex-end;
+}
+
 /* ProgressBar */
 
 .progress-wrapper {

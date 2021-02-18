@@ -1,11 +1,4 @@
-const { useState } = wp.element;
-import ProgressBar from "./ProgressBar";
-
 const Installation = ({status, percentage, plugins, pluginName, pluginProgress}) => {
-    const [circleProgress, setCircleProgress] = useState(pluginProgress);
-
-    console.log({plugins, pluginName, pluginProgress})
-
     return (
         <div className="installation-screen modal-wrapper active">
             <div className="modal-content">
