@@ -1,9 +1,7 @@
 const { __ } = wp.i18n;
 const { useState } = wp.element;
-const { RadioControl } = wp.components;
 
 import Installation from './Installation';
-import Preloader from './Preloader';
 import RadioField from './RadioField';
 
 let importFiles = tutormate.import_files;
@@ -23,11 +21,8 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
-	const [pluginName, setPluginName] = useState('');
 	const [pluginProgress, setPluginProgress] = useState(0);
 	const [plugins, setPlugins] = useState([]);
-
-	let resData;
 
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
 		return { label: item.toUpperCase(), value: item };
@@ -66,7 +61,7 @@ function App() {
 		setSelectedDemo( selected );
 		setModalState( !modalState );
 		setFetching( true );
-		setProgress( tutormate.plugin_progress );
+		setProgress( 'Your site is installing...' );
 		setPercentage( 10) ;
 		var data = new FormData();
 		data.append( 'action', 'tutormate_install_plugins' );
@@ -84,10 +79,9 @@ function App() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
 				if ( 'undefined' !== response.status && 'pluginInstalling' === response.status ) {
-					setProgress( `Installing ${response.plugin_name}` );
+					setProgress( tutormate.plugin_progress );
 					setPercentage( 20 );
-					setPluginName(response.plugin_name);
-					setPluginProgress(30);
+					setPluginProgress(10);
 					setPlugins(response.plugins);
 					let pluginData = new FormData();
 					pluginData.append( 'action', 'tutormate_install_plugins' );
@@ -95,9 +89,11 @@ function App() {
 					pluginData.append( 'selected', selectedDemo );
 					pluginData.append( 'activating', false );
 					doAjax( pluginData );
+					setPluginProgress(30);
 				} else if ( 'undefined' !== response.status && 'pluginActivating' === response.status ) {
-					setProgress( `Activating ${response.plugin_name}` );
+					setProgress( tutormate.plugin_progress );
 					setPercentage( 40 );
+					setPluginProgress(55);
 					let pluginData = new FormData();
 					pluginData.append( 'action', 'tutormate_install_plugins' );
 					pluginData.append( 'security', tutormate.ajax_nonce );
@@ -105,8 +101,7 @@ function App() {
 					pluginData.append( 'activating', true );
 					pluginData.append( 'activated', true );
 					doAjax( pluginData );
-					setPluginName(response.plugin_name);
-					setPluginProgress(60);
+					setPluginProgress(70);
 				} else if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
@@ -194,12 +189,6 @@ function App() {
 						</button>
 					</div>
 					<div className="modal-body">
-						{/* <RadioControl
-							label={__('Select Builder', 'tutormate')}
-							selected={builder}
-							options={builderOptions}
-							onChange={(value) => selectedBuilder(value)}
-						/> */}
 						<RadioField 
 							selected={builder}
 							options={builderOptions}
@@ -284,8 +273,7 @@ function App() {
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{/* { fetching && <Preloader status={ progress } percentage={ percentage } /> } */}
-			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginName={pluginName} pluginProgress={pluginProgress} /> }
+			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginProgress={pluginProgress} /> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
