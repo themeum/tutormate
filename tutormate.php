@@ -14,6 +14,15 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Load tutormate text domain for translation
+ */
+add_action( 'init', 'tutormate_language_load' );
+
+function tutormate_language_load() {
+	load_plugin_textdomain( 'tutormate', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
+/**
  * Main plugin class with initialization tasks.
  */
 class TUTORMATE_Plugin {
