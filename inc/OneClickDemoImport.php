@@ -135,7 +135,7 @@ class OneClickDemoImport {
 		$this->plugin_page_setup = apply_filters( 'tutormate_plugin_page_setup', array(
 			'parent_slug' => 'tutorstarter',
 			'page_title'  => esc_html__( 'Tutor Starter Demo Import' , 'tutormate' ),
-			'menu_title'  => esc_html__( 'Demo Import' , 'tutormate' ),
+			'menu_title'  => esc_html__( 'Starter Sites' , 'tutormate' ),
 			'capability'  => 'import',
 			'menu_slug'   => 'tutorstarter-demo-import',
 		) );

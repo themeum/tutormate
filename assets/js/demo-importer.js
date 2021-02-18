@@ -96,8 +96,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Installation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Installation */ "./react/src/components/Installation.js");
-/* harmony import */ var _Preloader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Preloader */ "./react/src/components/Preloader.js");
-/* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
+/* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -120,8 +119,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var __ = wp.i18n.__;
 var useState = wp.element.useState;
-var RadioControl = wp.components.RadioControl;
-
 
 
 var importFiles = tutormate.import_files;
@@ -195,22 +192,16 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
-  var _useState27 = useState(''),
+  var _useState27 = useState(0),
       _useState28 = _slicedToArray(_useState27, 2),
-      pluginName = _useState28[0],
-      setPluginName = _useState28[1];
+      pluginProgress = _useState28[0],
+      setPluginProgress = _useState28[1];
 
-  var _useState29 = useState(0),
+  var _useState29 = useState([]),
       _useState30 = _slicedToArray(_useState29, 2),
-      pluginProgress = _useState30[0],
-      setPluginProgress = _useState30[1];
+      plugins = _useState30[0],
+      setPlugins = _useState30[1];
 
-  var _useState31 = useState([]),
-      _useState32 = _slicedToArray(_useState31, 2),
-      plugins = _useState32[0],
-      setPlugins = _useState32[1];
-
-  var resData;
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
       label: item.toUpperCase(),
@@ -256,7 +247,7 @@ function App() {
     setSelectedDemo(selected);
     setModalState(!modalState);
     setFetching(true);
-    setProgress(tutormate.plugin_progress);
+    setProgress('Your site is installing...');
     setPercentage(10);
     var data = new FormData();
     data.append('action', 'tutormate_install_plugins');
@@ -276,10 +267,9 @@ function App() {
         var response = JSON.parse(this.responseText);
 
         if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
-          setProgress("Installing ".concat(response.plugin_name));
+          setProgress(tutormate.plugin_progress);
           setPercentage(20);
-          setPluginName(response.plugin_name);
-          setPluginProgress(30);
+          setPluginProgress(10);
           setPlugins(response.plugins);
           var pluginData = new FormData();
           pluginData.append('action', 'tutormate_install_plugins');
@@ -287,9 +277,11 @@ function App() {
           pluginData.append('selected', selectedDemo);
           pluginData.append('activating', false);
           doAjax(pluginData);
+          setPluginProgress(30);
         } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
-          setProgress("Activating ".concat(response.plugin_name));
+          setProgress(tutormate.plugin_progress);
           setPercentage(40);
+          setPluginProgress(55);
 
           var _pluginData = new FormData();
 
@@ -304,8 +296,7 @@ function App() {
           _pluginData.append('activated', true);
 
           doAjax(_pluginData);
-          setPluginName(response.plugin_name);
-          setPluginProgress(60);
+          setPluginProgress(70);
         } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
           setPercentage(60);
@@ -415,7 +406,7 @@ function App() {
       }
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
-    }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_1__["default"], {
       selected: builder,
       options: builderOptions,
       selectedBuilder: selectedBuilder
@@ -529,7 +520,6 @@ function App() {
     status: progress,
     percentage: percentage,
     plugins: plugins,
-    pluginName: pluginName,
     pluginProgress: pluginProgress
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
@@ -585,11 +575,12 @@ function App() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var __ = wp.i18n.__;
+
 var Installation = function Installation(_ref) {
   var status = _ref.status,
       percentage = _ref.percentage,
       plugins = _ref.plugins,
-      pluginName = _ref.pluginName,
       pluginProgress = _ref.pluginProgress;
   return /*#__PURE__*/React.createElement("div", {
     className: "installation-screen modal-wrapper active"
@@ -597,7 +588,7 @@ var Installation = function Installation(_ref) {
     className: "modal-content"
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-head"
-  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, "Hold on a moment"), " Your site is installing...")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, __('Hold on a moment', 'tutormate')), " ", status)), /*#__PURE__*/React.createElement("div", {
     className: "modal-body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "installation-status"
@@ -613,10 +604,10 @@ var Installation = function Installation(_ref) {
     className: "percentage"
   }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
     className: "plugin-status"
-  }, plugins.map(function (plugin) {
+  }, plugins.map(function (plugin, index) {
     return /*#__PURE__*/React.createElement("div", {
       className: "plugin-item"
-    }, pluginProgress < 100 ? /*#__PURE__*/React.createElement("svg", {
+    }, pluginProgress < 100 && 'not installed' === plugin.state ? /*#__PURE__*/React.createElement("svg", {
       id: "svg-circle"
     }, /*#__PURE__*/React.createElement("circle", {
       className: "bg",
@@ -645,71 +636,11 @@ var Installation = function Installation(_ref) {
       fill: "#fff"
     })), /*#__PURE__*/React.createElement("div", {
       className: "title"
-    }, plugin.title ? plugin.title : "Loading ..."));
+    }, plugin.title ? plugin.title : __('Loading ...', 'tutormate')));
   })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);
-
-/***/ }),
-
-/***/ "./react/src/components/Preloader.js":
-/*!*******************************************!*\
-  !*** ./react/src/components/Preloader.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressBar */ "./react/src/components/ProgressBar.js");
-
-
-var Preloader = function Preloader(_ref) {
-  var status = _ref.status,
-      percentage = _ref.percentage;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "svg-preloader"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "status-texts"
-  }, status), /*#__PURE__*/React.createElement(_ProgressBar__WEBPACK_IMPORTED_MODULE_0__["default"], {
-    percentage: percentage
-  }));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Preloader);
-
-/***/ }),
-
-/***/ "./react/src/components/ProgressBar.js":
-/*!*********************************************!*\
-  !*** ./react/src/components/ProgressBar.js ***!
-  \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var ProgressBar = function ProgressBar(_ref) {
-  var percentage = _ref.percentage;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "progress-wrapper"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "progress"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "progress-status",
-    style: {
-      width: "".concat(percentage, "%"),
-      opacity: 1
-    }
-  })), 100 === percentage ? /*#__PURE__*/React.createElement("span", {
-    className: "status-text"
-  }, "Completed") : /*#__PURE__*/React.createElement("span", {
-    className: "status-text"
-  }, percentage, "%"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (ProgressBar);
 
 /***/ }),
 
