@@ -64,12 +64,64 @@
         circle.fg {
             stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
             stroke: #5FAC23;
-            animation: percent 1.5s linear;
-            animation-delay: 1s;
+            // animation: spinning 1.5s linear infinite;
+            // animation-delay: 1s;
         }
+
         circle.circle-full {
             transform: translate(1px, 1px);
         }
+
+        path.check-mark {
+            transform: translate(0px, 1px);
+            animation: scaleDown .5s ease-in-out;
+        }
+    }
+}
+
+
+@keyframes scaleDown {
+    from{
+        transform: translate(0px, 1px) scale(2.5);
+        transform-origin: center center;
+    }
+    to{
+        transform: translate(0px, 1px) scale(1);
+        transform-origin: center center;
+    }
+}
+
+// Spinner
+svg.svg-spinner {
+    animation: rotate 2s linear infinite;
+    width: 14px;
+    height: 14px;
+
+    & .path {
+        stroke: #60ac23;
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
     }
 
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
 }

@@ -608,21 +608,22 @@ var Installation = function Installation(_ref) {
     return /*#__PURE__*/React.createElement("div", {
       className: "plugin-item"
     }, pluginProgress < 100 && 'not installed' === plugin.state ? /*#__PURE__*/React.createElement("svg", {
-      id: "svg-circle"
+      "class": "svg-spinner",
+      viewBox: "0 0 50 50"
     }, /*#__PURE__*/React.createElement("circle", {
-      className: "bg",
-      cx: "7",
-      cy: "7",
-      r: "7"
-    }), /*#__PURE__*/React.createElement("circle", {
-      style: {
-        strokeDashoffset: "calc(var(--dashArr) - (var(--dashArr) * ".concat(pluginProgress, ") / 100)")
-      },
-      className: "fg",
-      cx: "7",
-      cy: "7",
-      r: "7"
-    })) : /*#__PURE__*/React.createElement("svg", {
+      "class": "path",
+      cx: "25",
+      cy: "25",
+      r: "20",
+      fill: "none",
+      "stroke-width": "5"
+    })) // <svg id="svg-circle">
+    //     <circle className="bg" cx="7" cy="7" r="7"></circle>
+    //     <circle style={{strokeDashoffset: `calc(var(--dashArr) - (var(--dashArr) * ${pluginProgress}) / 100)`}} className="fg" cx="7" cy="7" r="7"></circle>
+    // </svg> 
+    :
+    /*#__PURE__*/
+    React.createElement("svg", {
       id: "svg-circle"
     }, /*#__PURE__*/React.createElement("circle", {
       className: "circle-full",

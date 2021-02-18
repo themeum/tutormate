@@ -886,13 +886,99 @@ span.status-text {
 .plugin-item svg#svg-circle circle.fg {
   stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
   stroke: #5FAC23;
-  -webkit-animation: percent 1.5s linear;
-          animation: percent 1.5s linear;
-  -webkit-animation-delay: 1s;
-          animation-delay: 1s;
 }
 
 .plugin-item svg#svg-circle circle.circle-full {
   transform: translate(1px, 1px);
+}
+
+.plugin-item svg#svg-circle path.check-mark {
+  transform: translate(0px, 1px);
+  -webkit-animation: scaleDown 0.5s ease-in-out;
+          animation: scaleDown 0.5s ease-in-out;
+}
+
+@-webkit-keyframes scaleDown {
+  from {
+    transform: translate(0px, 1px) scale(2.5);
+    transform-origin: center center;
+  }
+
+  to {
+    transform: translate(0px, 1px) scale(1);
+    transform-origin: center center;
+  }
+}
+
+@keyframes scaleDown {
+  from {
+    transform: translate(0px, 1px) scale(2.5);
+    transform-origin: center center;
+  }
+
+  to {
+    transform: translate(0px, 1px) scale(1);
+    transform-origin: center center;
+  }
+}
+
+svg.svg-spinner {
+  -webkit-animation: rotate 2s linear infinite;
+          animation: rotate 2s linear infinite;
+  width: 14px;
+  height: 14px;
+}
+
+svg.svg-spinner .path {
+  stroke: #60ac23;
+  stroke-linecap: round;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite;
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
 }
 
