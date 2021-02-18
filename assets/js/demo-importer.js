@@ -95,8 +95,9 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Preloader */ "./react/src/components/Preloader.js");
-/* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
+/* harmony import */ var _Installation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Installation */ "./react/src/components/Installation.js");
+/* harmony import */ var _Preloader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Preloader */ "./react/src/components/Preloader.js");
+/* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -120,6 +121,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var __ = wp.i18n.__;
 var useState = wp.element.useState;
 var RadioControl = wp.components.RadioControl;
+
 
 
 var importFiles = tutormate.import_files;
@@ -193,6 +195,21 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
+  var _useState27 = useState(''),
+      _useState28 = _slicedToArray(_useState27, 2),
+      pluginName = _useState28[0],
+      setPluginName = _useState28[1];
+
+  var _useState29 = useState(0),
+      _useState30 = _slicedToArray(_useState29, 2),
+      pluginProgress = _useState30[0],
+      setPluginProgress = _useState30[1];
+
+  var _useState31 = useState([]),
+      _useState32 = _slicedToArray(_useState31, 2),
+      plugins = _useState32[0],
+      setPlugins = _useState32[1];
+
   var resData;
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -261,6 +278,9 @@ function App() {
         if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
           setProgress("Installing ".concat(response.plugin_name));
           setPercentage(20);
+          setPluginName(response.plugin_name);
+          setPluginProgress(30);
+          setPlugins(response.plugins);
           var pluginData = new FormData();
           pluginData.append('action', 'tutormate_install_plugins');
           pluginData.append('security', tutormate.ajax_nonce);
@@ -284,9 +304,12 @@ function App() {
           _pluginData.append('activated', true);
 
           doAjax(_pluginData);
+          setPluginName(response.plugin_name);
+          setPluginProgress(60);
         } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
           setPercentage(60);
+          setPluginProgress(100);
           var contentData = new FormData();
           contentData.append('action', 'tutormate_import_demo_data');
           contentData.append('security', tutormate.ajax_nonce);
@@ -384,7 +407,7 @@ function App() {
       }
     }, "+")), /*#__PURE__*/React.createElement("div", {
       className: "modal-body"
-    }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }, /*#__PURE__*/React.createElement(_RadioField__WEBPACK_IMPORTED_MODULE_2__["default"], {
       selected: builder,
       options: builderOptions,
       selectedBuilder: selectedBuilder
@@ -494,9 +517,12 @@ function App() {
   }, /*#__PURE__*/React.createElement(PopupModal, {
     clickedItem: clickedItem,
     selectedIndex: selectedIndex
-  }), fetching && /*#__PURE__*/React.createElement(_Preloader__WEBPACK_IMPORTED_MODULE_0__["default"], {
+  }), fetching && /*#__PURE__*/React.createElement(_Installation__WEBPACK_IMPORTED_MODULE_0__["default"], {
     status: progress,
-    percentage: percentage
+    percentage: percentage,
+    plugins: plugins,
+    pluginName: pluginName,
+    pluginProgress: pluginProgress
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
@@ -542,6 +568,110 @@ function App() {
 
 /***/ }),
 
+/***/ "./react/src/components/Installation.js":
+/*!**********************************************!*\
+  !*** ./react/src/components/Installation.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressBar */ "./react/src/components/ProgressBar.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useState = wp.element.useState;
+
+
+var Installation = function Installation(_ref) {
+  var status = _ref.status,
+      percentage = _ref.percentage,
+      plugins = _ref.plugins,
+      pluginName = _ref.pluginName,
+      pluginProgress = _ref.pluginProgress;
+
+  var _useState = useState(pluginProgress),
+      _useState2 = _slicedToArray(_useState, 2),
+      circleProgress = _useState2[0],
+      setCircleProgress = _useState2[1];
+
+  console.log({
+    plugins: plugins,
+    pluginName: pluginName,
+    pluginProgress: pluginProgress
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "installation-screen modal-wrapper active"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-content"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-head"
+  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, "Hold on a moment"), " Your site is installing...")), /*#__PURE__*/React.createElement("div", {
+    className: "modal-body"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "installation-status"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "progress-status",
+    style: {
+      width: "".concat(percentage, "%"),
+      opacity: 1
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "percentage"
+  }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "plugin-status"
+  }, plugins.map(function (plugin) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "plugin-item"
+    }, pluginProgress < 100 ? /*#__PURE__*/React.createElement("svg", {
+      id: "svg-circle"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "bg",
+      cx: "7",
+      cy: "7",
+      r: "7"
+    }), /*#__PURE__*/React.createElement("circle", {
+      style: {
+        strokeDashoffset: "calc(var(--dashArr) - (var(--dashArr) * ".concat(pluginProgress, ") / 100)")
+      },
+      className: "fg",
+      cx: "7",
+      cy: "7",
+      r: "7"
+    })) : /*#__PURE__*/React.createElement("svg", {
+      id: "svg-circle"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "circle-full",
+      cx: "7",
+      cy: "7",
+      r: "7",
+      fill: "#5FAC23"
+    }), /*#__PURE__*/React.createElement("path", {
+      className: "check-mark",
+      d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+      fill: "#fff"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "title"
+    }, plugin.title ? plugin.title : "Loading ..."));
+  })))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Installation);
+
+/***/ }),
+
 /***/ "./react/src/components/Preloader.js":
 /*!*******************************************!*\
   !*** ./react/src/components/Preloader.js ***!
@@ -559,16 +689,7 @@ var Preloader = function Preloader(_ref) {
       percentage = _ref.percentage;
   return /*#__PURE__*/React.createElement("div", {
     className: "svg-preloader"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "150",
-    height: "150",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M12.0235 12.0699C9.47376 7.00699 5.59072 4.78896 0.163818 5.31936C0.163818 3.70406 0.163818 2.13697 0.163818 0.377015C8.04686 3.14955 15.9065 3.14955 23.8363 0.304688C23.8363 2.01643 23.8363 3.58351 23.8363 5.29525C21.3334 5.00595 18.9942 5.34347 16.8188 6.57303C14.6434 7.80259 13.1229 9.65899 12.0235 12.0699Z"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M11.2419 15.5432C11.3104 15.9115 11.5646 16.2515 11.9378 16.2844C12.4683 16.3312 12.7358 16.0446 12.8421 15.2042C13.4971 9.97255 17.848 6.38031 22.8304 6.81427C23.6258 6.8866 23.9766 7.10358 23.9766 8.01972C24 10.8164 23.9532 13.5648 22.7135 16.1445C20.3041 21.2074 15.2281 24.0281 10.1521 23.1361C4.93571 22.244 0.748576 17.6874 0.140389 12.1665C3.81768e-05 10.8164 0.0936054 9.44216 3.81838e-05 8.06794C-0.0467454 7.1518 0.350915 6.91071 1.14624 6.83838C5.94156 6.40442 10.269 9.8279 11.0878 14.7461C11.1405 15.0181 11.1933 15.2823 11.2419 15.5432ZM20.0234 12.1424C20.0702 11.1298 19.3217 10.2619 18.3626 10.1895C17.3802 10.1172 16.538 10.8646 16.4445 11.8772C16.3509 12.9621 17.1228 13.8541 18.1521 13.8782C19.1345 13.9264 19.9533 13.1549 20.0234 12.1424ZM5.80121 13.9023C6.78366 13.9023 7.57898 13.0826 7.60238 12.07C7.62577 11.0092 6.76027 10.1654 5.73103 10.2136C4.74858 10.2619 4.00004 11.0816 4.02343 12.1183C4.02343 13.1308 4.79536 13.9264 5.80121 13.9023Z"
-  })), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "status-texts"
   }, status), /*#__PURE__*/React.createElement(_ProgressBar__WEBPACK_IMPORTED_MODULE_0__["default"], {
     percentage: percentage
@@ -591,10 +712,7 @@ __webpack_require__.r(__webpack_exports__);
 var ProgressBar = function ProgressBar(_ref) {
   var percentage = _ref.percentage;
   return /*#__PURE__*/React.createElement("div", {
-    className: "progress-wrapper",
-    style: {
-      marginBottom: "20px"
-    }
+    className: "progress-wrapper"
   }, /*#__PURE__*/React.createElement("div", {
     className: "progress"
   }, /*#__PURE__*/React.createElement("div", {
@@ -698,8 +816,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

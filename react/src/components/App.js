@@ -2,6 +2,7 @@ const { __ } = wp.i18n;
 const { useState } = wp.element;
 const { RadioControl } = wp.components;
 
+import Installation from './Installation';
 import Preloader from './Preloader';
 import RadioField from './RadioField';
 
@@ -22,6 +23,9 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
+	const [pluginName, setPluginName] = useState('');
+	const [pluginProgress, setPluginProgress] = useState(0);
+	const [plugins, setPlugins] = useState([]);
 
 	let resData;
 
@@ -82,6 +86,9 @@ function App() {
 				if ( 'undefined' !== response.status && 'pluginInstalling' === response.status ) {
 					setProgress( `Installing ${response.plugin_name}` );
 					setPercentage( 20 );
+					setPluginName(response.plugin_name);
+					setPluginProgress(30);
+					setPlugins(response.plugins);
 					let pluginData = new FormData();
 					pluginData.append( 'action', 'tutormate_install_plugins' );
 					pluginData.append( 'security', tutormate.ajax_nonce );
@@ -98,9 +105,12 @@ function App() {
 					pluginData.append( 'activating', true );
 					pluginData.append( 'activated', true );
 					doAjax( pluginData );
+					setPluginName(response.plugin_name);
+					setPluginProgress(60);
 				} else if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
+					setPluginProgress(100)
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
@@ -274,7 +284,8 @@ function App() {
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching && <Preloader status={ progress } percentage={ percentage } /> }
+			{/* { fetching && <Preloader status={ progress } percentage={ percentage } /> } */}
+			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginName={pluginName} pluginProgress={pluginProgress} /> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
