@@ -18,6 +18,8 @@ wp-content/themes/twenty*/
 node_modules/
 vendor/
 .DS_Store
+assets/.DS_Store
+assets/dist/.DS_Store
 
 # ignore log files and databases
 *.log

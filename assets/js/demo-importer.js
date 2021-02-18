@@ -351,7 +351,7 @@ function App() {
           }, 2000);
         }
       } else {
-        console.log('Something went wrong. Please try again.');
+        console.log('In Progress.');
       }
     };
 
