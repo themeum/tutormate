@@ -1024,7 +1024,7 @@ function App() {
 
   var pluginInstall = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected, builder) {
-      var data;
+      var plugins, totalPlugins, increment, i, res, responseData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -1032,40 +1032,54 @@ function App() {
               setSelectedDemo(selected);
               setModalState(!modalState);
               setFetching(true);
-              setProgress('Your site is installing...'); // setPercentage( 10) ;
+              setProgress('Your site is installing...');
+              /** @TODO: Update this plugins array dynamically */
 
-              data = new FormData();
-              data.append('action', 'tutormate_install_plugins'); // data.append( 'action', 'tutormate_individual_install_plugins');
+              plugins = ['tutor', 'qubely', 'woocommerce'];
+              totalPlugins = plugins.length;
+              increment = Math.ceil(100 / totalPlugins);
+              i = 0;
 
-              data.append('security', tutormate.ajax_nonce);
-              data.append('selected', selected);
-              data.append('builder', builder);
-              data.append('installing', true);
-              doAjax(data); // const plugins = ['tutor', 'qubely', 'woocommerce'];
-              // let totalPlugins = plugins.length;
-              // let increment = Math.ceil(100/totalPlugins);
-              // for (let i = 0; i < plugins.length; i++) {
-              // 	const res = await installationAjax({
-              // 		action: 'tutormate_individual_install_plugins',
-              // 		security: tutormate.ajax_nonce,
-              // 		selected,
-              // 		builder,
-              // 		installing: true,
-              // 		plugin: plugins[i]
-              // 	});
-              // 	const responseData = await res.json();
-              // 	if (responseData.status === 'success') {
-              // 		setPercentage(val => {
-              // 			val = Math.min(100, val + increment);
-              // 			return val;
-              // 		});
-              // 	} else if (responseData.status === 'error') {
-              // 		totalPlugins -= 1;
-              // 		increment = Math.ceil(100/totalPlugins);
-              // 	}
-              // }
+            case 8:
+              if (!(i < plugins.length)) {
+                _context.next = 19;
+                break;
+              }
+
+              _context.next = 11;
+              return installationAjax({
+                action: 'tutormate_individual_install_plugins',
+                security: tutormate.ajax_nonce,
+                selected: selected,
+                builder: builder,
+                installing: true,
+                plugin: plugins[i]
+              });
 
             case 11:
+              res = _context.sent;
+              _context.next = 14;
+              return res.json();
+
+            case 14:
+              responseData = _context.sent;
+
+              if (responseData.status === 'success') {
+                setPercentage(function (val) {
+                  val = Math.min(100, val + increment);
+                  return val;
+                });
+              } else if (responseData.status === 'error') {
+                totalPlugins -= 1;
+                increment = Math.ceil(100 / totalPlugins);
+              }
+
+            case 16:
+              i++;
+              _context.next = 8;
+              break;
+
+            case 19:
             case "end":
               return _context.stop();
           }
