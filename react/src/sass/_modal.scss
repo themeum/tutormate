@@ -121,7 +121,7 @@
                 }
             }
             > p {
-                margin-bottom: 6px;
+                margin-bottom: 10px;
             }
 		}
 	}
@@ -156,6 +156,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	padding: 30px !important;
 	.btn {
 		&:not(:last-child) {
 			margin-right: 20px;
@@ -168,6 +169,7 @@
 		min-width: 320px;
 		min-height: 230px;
 		.modal-body {
+			padding-top: 5px;
 			p {
 				text-align: center;
 			}

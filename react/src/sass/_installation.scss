@@ -3,8 +3,9 @@
 		min-width: 320px;
 	}
     .modal-body {
-        padding-top: 0;
         margin-top: -10px;
+        padding-top: 0;
+        padding-bottom: 27px;
     }
 }
 
@@ -12,20 +13,47 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 23px;
-	
-	.progress-status {
-		background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
-	}
-	.progress {
+
+    /* ProgressBar */
+    .progress-wrapper {
+        max-width: 350px;
+        width: 100%;
+        margin-top: 15px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .progress {
+        background-color: transparent;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        height: 10px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);
 		background: #E3E7EC;
 		height: 8px;
 		border-radius: 5px;
 		width: 100%;
 		margin-bottom: 0;
 	}
+
 	.percentage {
 		margin-left: 8px;
 		font-size: 12px;
+	}
+
+    .progress-status {
+        border-radius: 20px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        height: 100%;
+        width: 0;
+        transition: 0.2s linear;
+		background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
 	}
 }
 
@@ -105,6 +133,7 @@ svg.svg-spinner {
 
 }
 
+// Spinner Animation
 @keyframes rotate {
     100% {
         transform: rotate(360deg);
