@@ -108,6 +108,7 @@ class OneClickDemoImport {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_tutormate_import_demo_data', array( $this, 'import_demo_data_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_install_plugins', array( $this, 'install_plugins_ajax_callback' ) );
+		add_action( 'wp_ajax_tutormate_individual_install_plugins', array( $this, 'install_plugins_individual_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_import_customizer_data', array( $this, 'import_customizer_data_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup_plugin_with_filter_data' ) );
@@ -295,6 +296,110 @@ class OneClickDemoImport {
 		} else {
 			wp_send_json( array( 'plugins' => $info['plugins'], 'status' => 'pluginSuccess' ) );
 		}
+	}
+
+	public function install_plugins_individual_ajax_callback() {
+		Helpers::verify_ajax_call();
+
+		if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['selected'] ) ) {
+			wp_send_json_error();
+		}
+		// Get selected file index or set it to 0.
+		$selected_index = ! empty ( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
+		$selected_plugin = $_POST['plugin'];
+		$info = $this->import_files[ $selected_index ];
+
+
+		// $plugin = array_filter($info['plugins'], function($item) {
+		// 	return $item['slug'] === $selected_plugin;
+		// });
+
+		$plugin = null;
+
+		for ($i = 0; $i < count($info['plugins']); $i++) {
+			if ($info['plugins'][$i]['slug'] === $selected_plugin) {
+				$plugin = $info['plugins'][$i];
+				break;
+			}
+		}
+
+		if (!empty($plugin)) {
+
+			if ( ! function_exists( 'plugins_api' ) ) {
+				require_once ( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+			}
+			if ( ! class_exists( 'WP_Upgrader' ) ) {
+				require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+			}
+
+			if ( 'not installed' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+			
+			
+				$api = plugins_api(
+					'plugin_information',
+					array(
+						'slug' => $plugin['slug'],
+						'fields' => array(
+							'short_description' => false,
+							'sections' => false,
+							'requires' => false,
+							'rating' => false,
+							'ratings' => false,
+							'downloaded' => false,
+							'last_updated' => false,
+							'added' => false,
+							'tags' => false,
+							'compatibility' => false,
+							'homepage' => false,
+							'donate_link' => false,
+						),
+					)
+				);
+	
+				if ( ! is_wp_error( $api ) ) {
+	
+					$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
+					$installed = $upgrader->install( $api->download_link );
+					
+
+					if ( $installed ) {
+						$activate = activate_plugin( $plugin['path'], '', false, true );
+						wp_send_json( array( 'message' => $plugin['title'] . ' installed and activated', 'status' => 'success' ) );
+
+						if ( is_wp_error( $activate ) ) {
+							$install = false;
+							// wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
+						}
+					} else {
+						$install = false;
+						// wp_send_json( array( 'message' => $plugin['title'] . ' is not installed!', 'status' => 'error' ) );
+					}
+				} else {
+					$install = false;
+					// wp_send_json( array( 'message' => 'Something went wrong!', 'status' => 'error' ) );
+				}
+				
+			} elseif ( 'installed' === $plugin['state'] ) {
+				
+				$activate = activate_plugin( $plugin['path'], '', false, true );
+	
+				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'status' => 'success' ) );
+				
+				if ( is_wp_error( $activate ) ) {
+					$install = false;
+					// wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
+				}
+			}
+		} else {
+			$install = false;
+			// wp_send_json(['message' => 'Plugin not found!', 'status' => 'error']);
+		}
+
+		if (!$install) {
+			wp_send_json(['plugin_name' => $selected_plugin, 'status' => 'error']);
+		}
+
+		wp_send_json(['message' => 'Everything is fair and lovely!', 'status' => 'ok']);
 	}
 
 	/**

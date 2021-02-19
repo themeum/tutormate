@@ -57,19 +57,59 @@ function App() {
 		setBuilder( builder );
 	}
 
-	const pluginInstall = ( selected, builder ) => {
+	const pluginInstall = async ( selected, builder ) => {
 		setSelectedDemo( selected );
 		setModalState( !modalState );
 		setFetching( true );
 		setProgress( 'Your site is installing...' );
-		setPercentage( 10) ;
+		// setPercentage( 10) ;
 		var data = new FormData();
 		data.append( 'action', 'tutormate_install_plugins' );
+		// data.append( 'action', 'tutormate_individual_install_plugins');
 		data.append( 'security', tutormate.ajax_nonce );
 		data.append( 'selected', selected );
 		data.append( 'builder', builder );
 		data.append( 'installing', true );
+
 		doAjax( data );
+		// const plugins = ['tutor', 'qubely', 'woocommerce'];
+		// let totalPlugins = plugins.length;
+		// let increment = Math.ceil(100/totalPlugins);
+
+		// for (let i = 0; i < plugins.length; i++) {
+
+		// 	const res = await installationAjax({
+		// 		action: 'tutormate_individual_install_plugins',
+		// 		security: tutormate.ajax_nonce,
+		// 		selected,
+		// 		builder,
+		// 		installing: true,
+		// 		plugin: plugins[i]
+		// 	});
+			
+		// 	const responseData = await res.json();
+
+		// 	if (responseData.status === 'success') {
+		// 		setPercentage(val => {
+		// 			val = Math.min(100, val + increment);
+		// 			return val;
+		// 		});
+		// 	} else if (responseData.status === 'error') {
+		// 		totalPlugins -= 1;
+		// 		increment = Math.ceil(100/totalPlugins);
+		// 	}
+		// }
+
+	}
+
+	const installationAjax = async (data) => {
+		return fetch(tutormate.ajax_url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams(data)
+		});
 	}
 
 	const doAjax = ( data ) => {
