@@ -149,7 +149,8 @@
 	span{
 		font-size: 13px;
 		color: #82848C;
-		display: block;
+		display: flex;
+		align-items: center;
 	}
 }
 .modal-footer {

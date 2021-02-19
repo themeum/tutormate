@@ -105,7 +105,8 @@ function App() {
 				} else if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
 					setProgress( tutormate.content_progress );
 					setPercentage( 60 );
-					setPluginProgress(100)
+					setPlugins(response.plugins);
+					setPluginProgress(100);
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
@@ -113,7 +114,7 @@ function App() {
 					doAjax( contentData );
 				} else if ( 'undefined' !== response.status && 'newAJAX' === response.status ) {
 					setProgress( tutormate.content_progress );
-					setPercentage( 60 );
+					setPercentage( 70 );
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
@@ -134,12 +135,8 @@ function App() {
 					doAjax( afterImportData );
 					setProgress( tutormate.all_done_progress );
 					setPercentage( 100 );
-					setTimeout( () => {
-						setFetching( false );
-					}, 1000 )
-					setTimeout( () => {
-						setImportCompleted( true );
-					}, 2000 )
+					setFetching( false );
+					setImportCompleted( true );
 				}
 			} else {
 				console.log( 'In Progress.' );

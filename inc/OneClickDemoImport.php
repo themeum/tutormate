@@ -181,7 +181,7 @@ class OneClickDemoImport {
 
 			wp_localize_script( 'tutormate-demo-importer', 'tutormate',
 				array(
-					'site_url'            => site_url(),
+					'site_url'            => home_url(),
 					'admin_url'           => admin_url(),
 					'tutormate_url'		  => TUTORMATE_URL,
 					'ajax_url'            => admin_url( 'admin-ajax.php' ),
@@ -291,9 +291,9 @@ class OneClickDemoImport {
 		if ( false === $install ) {
 			wp_send_json_error();
 		} elseif ( isset( $_POST['activated'] ) ) {
-			wp_send_json( array( 'status' => 'pluginSuccess' ) );
+			wp_send_json( array( 'plugins' => $info['plugins'], 'status' => 'pluginSuccess' ) );
 		} else {
-			wp_send_json( array( 'status' => 'pluginSuccess' ) );
+			wp_send_json( array( 'plugins' => $info['plugins'], 'status' => 'pluginSuccess' ) );
 		}
 	}
 
