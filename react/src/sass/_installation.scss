@@ -1,6 +1,7 @@
 .installation-screen{
 	.modal-content {
 		min-width: 320px;
+        min-height: 200px;
 	}
     .modal-body {
         margin-top: -10px;
@@ -66,6 +67,12 @@
 		font-weight: 500;
 		color: #1D2427;
 	}
+    .title-notactive {
+		margin-left: 5px;
+		font-size: 14px;
+		font-weight: 500;
+		color: #707172;
+	}
     &:not(:last-child) {
         margin-bottom: 11px;
     }
@@ -107,6 +114,32 @@
     }
 }
 
+ // Circle Progressbar
+ svg.svg-circle-solo {
+    --dashArr: 44;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    
+    circle.bg {
+        stroke-dashoffset: 0;
+        stroke: #E3E7EC;
+    }
+    
+    circle.fg {
+        stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
+        stroke: #5FAC23;
+    }
+
+    circle.circle-full {
+        transform: translate(1px, 1px);
+    }
+
+    path.check-mark {
+        transform: translate(0px, 1px);
+        animation: scaleDown .5s ease-in-out;
+    }
+}
 
 @keyframes scaleDown {
     from{
@@ -133,7 +166,25 @@ svg.svg-spinner {
 
 }
 
+<<<<<<< HEAD
 // Spinner Animation
+=======
+// Spinner Alone
+svg.svg-spinner-solo {
+    animation: rotate 2s linear infinite;
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+
+    & .path {
+        stroke: #60ac23;
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
+    }
+
+}
+
+>>>>>>> b978b9a59cee1c5368483c39ad6c30cd112de5e6
 @keyframes rotate {
     100% {
         transform: rotate(360deg);

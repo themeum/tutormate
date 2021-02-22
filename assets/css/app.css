@@ -608,7 +608,8 @@ input[type=search i]::-webkit-search-cancel-button {
 .modal-head span {
   font-size: 13px;
   color: #82848C;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .modal-footer {
@@ -706,6 +707,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .installation-screen .modal-content {
   min-width: 320px;
+  min-height: 200px;
 }
 
 .installation-screen .modal-body {
@@ -774,6 +776,13 @@ input[type=search i]::-webkit-search-cancel-button {
   color: #1D2427;
 }
 
+.plugin-item .title-notactive {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #707172;
+}
+
 .plugin-item:not(:last-child) {
   margin-bottom: 11px;
 }
@@ -813,6 +822,33 @@ input[type=search i]::-webkit-search-cancel-button {
           animation: scaleDown 0.5s ease-in-out;
 }
 
+svg.svg-circle-solo {
+  --dashArr: 44;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+svg.svg-circle-solo circle.bg {
+  stroke-dashoffset: 0;
+  stroke: #E3E7EC;
+}
+
+svg.svg-circle-solo circle.fg {
+  stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
+  stroke: #5FAC23;
+}
+
+svg.svg-circle-solo circle.circle-full {
+  transform: translate(1px, 1px);
+}
+
+svg.svg-circle-solo path.check-mark {
+  transform: translate(0px, 1px);
+  -webkit-animation: scaleDown 0.5s ease-in-out;
+          animation: scaleDown 0.5s ease-in-out;
+}
+
 @-webkit-keyframes scaleDown {
   from {
     transform: translate(0px, 1px) scale(2.5);
@@ -845,6 +881,21 @@ svg.svg-spinner {
 }
 
 svg.svg-spinner .path {
+  stroke: #60ac23;
+  stroke-linecap: round;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite;
+}
+
+svg.svg-spinner-solo {
+  -webkit-animation: rotate 2s linear infinite;
+          animation: rotate 2s linear infinite;
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+}
+
+svg.svg-spinner-solo .path {
   stroke: #60ac23;
   stroke-linecap: round;
   -webkit-animation: dash 1.5s ease-in-out infinite;

@@ -300,6 +300,7 @@ function App() {
         } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
           setProgress(tutormate.content_progress);
           setPercentage(60);
+          setPlugins(response.plugins);
           setPluginProgress(100);
           var contentData = new FormData();
           contentData.append('action', 'tutormate_import_demo_data');
@@ -308,7 +309,7 @@ function App() {
           doAjax(contentData);
         } else if ('undefined' !== response.status && 'newAJAX' === response.status) {
           setProgress(tutormate.content_progress);
-          setPercentage(60);
+          setPercentage(70);
 
           var _contentData = new FormData();
 
@@ -334,12 +335,8 @@ function App() {
           doAjax(afterImportData);
           setProgress(tutormate.all_done_progress);
           setPercentage(100);
-          setTimeout(function () {
-            setFetching(false);
-          }, 1000);
-          setTimeout(function () {
-            setImportCompleted(true);
-          }, 2000);
+          setFetching(false);
+          setImportCompleted(true);
         }
       } else {
         console.log('In Progress.');
@@ -582,13 +579,44 @@ var Installation = function Installation(_ref) {
       percentage = _ref.percentage,
       plugins = _ref.plugins,
       pluginProgress = _ref.pluginProgress;
+
+  var SVGLoader = function SVGLoader() {
+    if (100 !== percentage) {
+      return /*#__PURE__*/React.createElement("svg", {
+        className: "svg-spinner-solo",
+        viewBox: "0 0 50 50"
+      }, /*#__PURE__*/React.createElement("circle", {
+        className: "path",
+        cx: "25",
+        cy: "25",
+        r: "20",
+        fill: "none",
+        strokeWidth: "5"
+      }));
+    } else {
+      return /*#__PURE__*/React.createElement("svg", {
+        className: "svg-circle-solo"
+      }, /*#__PURE__*/React.createElement("circle", {
+        className: "circle-full",
+        cx: "7",
+        cy: "7",
+        r: "7",
+        fill: "#5FAC23"
+      }), /*#__PURE__*/React.createElement("path", {
+        className: "check-mark",
+        d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+        fill: "#fff"
+      }));
+    }
+  };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "installation-screen modal-wrapper active"
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-content"
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-head"
-  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, __('Hold on a moment', 'tutormate')), " ", status)), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, __('Hold on a moment', 'tutormate'), " ", /*#__PURE__*/React.createElement(SVGLoader, null)), " ", status)), /*#__PURE__*/React.createElement("div", {
     className: "modal-body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "installation-status"
@@ -606,24 +634,19 @@ var Installation = function Installation(_ref) {
     className: "plugin-status"
   }, plugins.map(function (plugin, index) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "plugin-item"
+      className: "plugin-item",
+      key: index
     }, pluginProgress < 100 && 'not installed' === plugin.state ? /*#__PURE__*/React.createElement("svg", {
-      "class": "svg-spinner",
+      className: "svg-spinner",
       viewBox: "0 0 50 50"
     }, /*#__PURE__*/React.createElement("circle", {
-      "class": "path",
+      className: "path",
       cx: "25",
       cy: "25",
       r: "20",
       fill: "none",
-      "stroke-width": "5"
-    })) // <svg id="svg-circle">
-    //     <circle className="bg" cx="7" cy="7" r="7"></circle>
-    //     <circle style={{strokeDashoffset: `calc(var(--dashArr) - (var(--dashArr) * ${pluginProgress}) / 100)`}} className="fg" cx="7" cy="7" r="7"></circle>
-    // </svg> 
-    :
-    /*#__PURE__*/
-    React.createElement("svg", {
+      strokeWidth: "5"
+    })) : /*#__PURE__*/React.createElement("svg", {
       id: "svg-circle"
     }, /*#__PURE__*/React.createElement("circle", {
       className: "circle-full",
@@ -636,7 +659,7 @@ var Installation = function Installation(_ref) {
       d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
       fill: "#fff"
     })), /*#__PURE__*/React.createElement("div", {
-      className: "title"
+      className: 'not installed' === plugin.state ? 'title-notactive' : 'title'
     }, plugin.title ? plugin.title : __('Loading ...', 'tutormate')));
   })))));
 };
@@ -729,8 +752,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })
