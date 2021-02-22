@@ -386,6 +386,8 @@ class OneClickDemoImport {
 					$install = false;
 					wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
 				}
+			} else {
+				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 			}
 		} else {
 			$install = false;

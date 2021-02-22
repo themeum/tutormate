@@ -1,8 +1,8 @@
-.installation-screen{
-	.modal-content {
-		min-width: 320px;
+.installation-screen {
+    .modal-content {
+        min-width: 320px;
         min-height: 200px;
-	}
+    }
     .modal-body {
         padding-top: 0;
         margin-top: -10px;
@@ -10,41 +10,41 @@
 }
 
 .installation-status {
-	display: flex;
-	align-items: center;
-	margin-bottom: 23px;
-	
-	.progress-status {
-		background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
-	}
-	.progress {
-		background: #E3E7EC;
-		height: 8px;
-		border-radius: 5px;
-		width: 100%;
-		margin-bottom: 0;
-	}
-	.percentage {
-		margin-left: 8px;
-		font-size: 12px;
-	}
+    display: flex;
+    align-items: center;
+    margin-bottom: 23px;
+
+    .progress-status {
+        background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
+    }
+    .progress {
+        background: #e3e7ec;
+        height: 8px;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .percentage {
+        margin-left: 8px;
+        font-size: 12px;
+    }
 }
 
-.plugin-item{
+.plugin-item {
     display: flex;
-	align-items: center;
+    align-items: center;
     .title {
-		margin-left: 5px;
-		font-size: 14px;
-		font-weight: 500;
-		color: #1D2427;
-	}
+        margin-left: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1d2427;
+    }
     .title-notactive {
-		margin-left: 5px;
-		font-size: 14px;
-		font-weight: 500;
-		color: #707172;
-	}
+        margin-left: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #707172;
+    }
     &:not(:last-child) {
         margin-bottom: 11px;
     }
@@ -62,15 +62,17 @@
             transform-origin: center center;
             stroke-dasharray: var(--dashArr);
         }
-        
+
         circle.bg {
             stroke-dashoffset: 0;
-            stroke: #E3E7EC;
+            stroke: #e3e7ec;
         }
-        
+
         circle.fg {
-            stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
-            stroke: #5FAC23;
+            stroke-dashoffset: calc(
+                var(--dashArr) - (var(--dashArr) * 30) / 100
+            );
+            stroke: #5fac23;
             // animation: spinning 1.5s linear infinite;
             // animation-delay: 1s;
         }
@@ -81,26 +83,26 @@
 
         path.check-mark {
             transform: translate(0px, 1px);
-            animation: scaleDown .5s ease-in-out;
+            animation: scaleDown 0.5s ease-in-out;
         }
     }
 }
 
- // Circle Progressbar
- svg.svg-circle-solo {
+// Circle Progressbar
+svg.svg-circle-solo {
     --dashArr: 44;
     width: 16px;
     height: 16px;
     margin-left: 5px;
-    
+
     circle.bg {
         stroke-dashoffset: 0;
-        stroke: #E3E7EC;
+        stroke: #e3e7ec;
     }
-    
+
     circle.fg {
         stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
-        stroke: #5FAC23;
+        stroke: #5fac23;
     }
 
     circle.circle-full {
@@ -109,16 +111,16 @@
 
     path.check-mark {
         transform: translate(0px, 1px);
-        animation: scaleDown .5s ease-in-out;
+        animation: scaleDown 0.5s ease-in-out;
     }
 }
 
 @keyframes scaleDown {
-    from{
+    from {
         transform: translate(0px, 1px) scale(2.5);
         transform-origin: center center;
     }
-    to{
+    to {
         transform: translate(0px, 1px) scale(1);
         transform-origin: center center;
     }
@@ -135,7 +137,6 @@ svg.svg-spinner {
         stroke-linecap: round;
         animation: dash 1.5s ease-in-out infinite;
     }
-
 }
 
 // Spinner Alone
@@ -150,7 +151,6 @@ svg.svg-spinner-solo {
         stroke-linecap: round;
         animation: dash 1.5s ease-in-out infinite;
     }
-
 }
 
 @keyframes rotate {

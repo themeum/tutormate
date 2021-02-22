@@ -975,18 +975,13 @@ function App() {
 
   var _useState27 = useState(''),
       _useState28 = _slicedToArray(_useState27, 2),
-      pluginStatus = _useState28[0],
-      setPluginStatus = _useState28[1];
+      pluginSlug = _useState28[0],
+      setPluginSlug = _useState28[1];
 
-  var _useState29 = useState(''),
+  var _useState29 = useState([]),
       _useState30 = _slicedToArray(_useState29, 2),
-      pluginResponse = _useState30[0],
-      setPluginResponse = _useState30[1];
-
-  var _useState31 = useState([]),
-      _useState32 = _slicedToArray(_useState31, 2),
-      plugins = _useState32[0],
-      setPlugins = _useState32[1];
+      plugins = _useState30[0],
+      setPlugins = _useState30[1];
 
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -1077,8 +1072,7 @@ function App() {
                   val = Math.min(60, val + increment);
                   return val;
                 });
-                setPluginResponse(responseData);
-                setPluginStatus(responseData.status);
+                setPluginSlug(responseData.plugin_slug);
               } else if (responseData.status === 'error') {
                 totalPlugins -= 1;
                 increment = Math.ceil(60 / totalPlugins);
@@ -1353,8 +1347,7 @@ function App() {
     status: progress,
     percentage: percentage,
     plugins: plugins,
-    pluginStatus: pluginStatus,
-    pluginResponse: pluginResponse
+    pluginSlug: pluginSlug
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
@@ -1416,8 +1409,7 @@ var Installation = function Installation(_ref) {
   var status = _ref.status,
       percentage = _ref.percentage,
       plugins = _ref.plugins,
-      pluginStatus = _ref.pluginStatus,
-      pluginResponse = _ref.pluginResponse;
+      pluginSlug = _ref.pluginSlug;
 
   var SVGLoader = function SVGLoader() {
     if (100 !== percentage) {
@@ -1471,33 +1463,36 @@ var Installation = function Installation(_ref) {
     className: "percentage"
   }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
     className: "plugin-status"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "plugin-item"
-  }, /*#__PURE__*/React.createElement(Fragment, null, 'success' === pluginStatus ? /*#__PURE__*/React.createElement("svg", {
-    id: "svg-circle"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "circle-full",
-    cx: "7",
-    cy: "7",
-    r: "7",
-    fill: "#5FAC23"
-  }), /*#__PURE__*/React.createElement("path", {
-    className: "check-mark",
-    d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
-    fill: "#fff"
-  })) : /*#__PURE__*/React.createElement("svg", {
-    className: "svg-spinner",
-    viewBox: "0 0 50 50"
-  }, /*#__PURE__*/React.createElement("circle", {
-    className: "path",
-    cx: "25",
-    cy: "25",
-    r: "20",
-    fill: "none",
-    strokeWidth: "5"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "title"
-  }, pluginResponse.message ? pluginResponse.message : __('Loading...', 'tutormate'))))))));
+  }, plugins.map(function (plugin, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "plugin-item",
+      key: index
+    }, /*#__PURE__*/React.createElement(Fragment, null, plugin.slug === pluginSlug ? /*#__PURE__*/React.createElement("svg", {
+      id: "svg-circle"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "circle-full",
+      cx: "7",
+      cy: "7",
+      r: "7",
+      fill: "#5FAC23"
+    }), /*#__PURE__*/React.createElement("path", {
+      className: "check-mark",
+      d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+      fill: "#fff"
+    })) : /*#__PURE__*/React.createElement("svg", {
+      className: "svg-spinner",
+      viewBox: "0 0 50 50"
+    }, /*#__PURE__*/React.createElement("circle", {
+      className: "path",
+      cx: "25",
+      cy: "25",
+      r: "20",
+      fill: "none",
+      strokeWidth: "5"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "title"
+    }, plugin.title ? plugin.title : __('Loading...', 'tutormate'))));
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);
@@ -1588,8 +1583,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

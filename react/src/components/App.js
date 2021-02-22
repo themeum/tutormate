@@ -23,8 +23,7 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
-	const [pluginStatus, setPluginStatus] = useState('');
-	const [pluginResponse, setPluginResponse] = useState('');
+	const [pluginSlug, setPluginSlug] = useState('');
 	const [plugins, setPlugins] = useState([]);
 
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
@@ -91,8 +90,7 @@ function App() {
 					val = Math.min(60, val + increment);
 					return val;
 				});
-				setPluginResponse(responseData);
-				setPluginStatus(responseData.status);
+				setPluginSlug(responseData.plugin_slug);
 			} else if (responseData.status === 'error') {
 				totalPlugins -= 1;
 				increment = Math.ceil(60/totalPlugins);
@@ -281,7 +279,7 @@ function App() {
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginStatus={pluginStatus} pluginResponse={pluginResponse} /> }
+			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginSlug={pluginSlug} /> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>

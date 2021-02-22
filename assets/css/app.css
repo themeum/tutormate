@@ -469,7 +469,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content {
   max-width: 472px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 1px rgba(9, 30, 66, 0.31), 0px 4px 8px rgba(9, 30, 66, 0.25);
   border-radius: 3px;
 }
@@ -481,7 +481,7 @@ input[type=search i]::-webkit-search-cancel-button {
 .modal-content .close-btn {
   border: none;
   background: transparent;
-  color: #42526E;
+  color: #42526e;
   font-size: 30px;
   line-height: 0.6;
   font-family: sans-serif;
@@ -524,7 +524,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content .modal-body .pluginstatus > div strong {
   font-size: 14px;
-  color: #1D2427;
+  color: #1d2427;
   margin-right: 3px;
   font-weight: 500;
 }
@@ -537,36 +537,40 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content .modal-body .pluginstatus > div.active:before,
 .modal-content .modal-body .pluginstatus > div.installed:before {
-  font-family: "tutor" !important;
-  font-size: 10px;
+  font-family: "dashicons" !important;
+  font-size: 18px;
   margin-right: 5px;
   opacity: 0.8;
 }
 
 .modal-content .modal-body .pluginstatus > div.active:before {
-  content: "\E90F";
-  color: #5FAC23;
+  content: "\F147";
+  color: #5fac23;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .modal-content .modal-body .pluginstatus > div.active span {
-  color: #5FAC23;
+  color: #5fac23;
 }
 
 .modal-content .modal-body .pluginstatus > div.not.installed:before {
-  content: "\E914";
-  transform: rotate(45deg);
+  content: "\F335";
+  font-size: 18px;
+  color: #f44321;
   display: inline-block;
-  font-size: 12px;
-  color: #F44321;
+  vertical-align: middle;
 }
 
 .modal-content .modal-body .pluginstatus > div.not.installed span {
-  color: #F44321;
+  color: #f44321;
 }
 
 .modal-content .modal-body .pluginstatus > div.installed:before {
-  content: "\E95F";
+  content: "\F534";
   color: #ffb200;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .modal-content .modal-body .pluginstatus > div.installed span {
@@ -607,7 +611,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-head span {
   font-size: 13px;
-  color: #82848C;
+  color: #82848c;
   display: flex;
   align-items: center;
 }
@@ -833,11 +837,11 @@ span.status-text {
 }
 
 .installation-status .progress-status {
-  background: linear-gradient(270deg, #5FAC23 0%, #97D766 100%);
+  background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
 }
 
 .installation-status .progress {
-  background: #E3E7EC;
+  background: #e3e7ec;
   height: 8px;
   border-radius: 5px;
   width: 100%;
@@ -858,7 +862,7 @@ span.status-text {
   margin-left: 5px;
   font-size: 14px;
   font-weight: 500;
-  color: #1D2427;
+  color: #1d2427;
 }
 
 .plugin-item .title-notactive {
@@ -889,12 +893,12 @@ span.status-text {
 
 .plugin-item svg#svg-circle circle.bg {
   stroke-dashoffset: 0;
-  stroke: #E3E7EC;
+  stroke: #e3e7ec;
 }
 
 .plugin-item svg#svg-circle circle.fg {
-  stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
-  stroke: #5FAC23;
+  stroke-dashoffset: calc( var(--dashArr) - (var(--dashArr) * 30) / 100 );
+  stroke: #5fac23;
 }
 
 .plugin-item svg#svg-circle circle.circle-full {
@@ -916,12 +920,12 @@ svg.svg-circle-solo {
 
 svg.svg-circle-solo circle.bg {
   stroke-dashoffset: 0;
-  stroke: #E3E7EC;
+  stroke: #e3e7ec;
 }
 
 svg.svg-circle-solo circle.fg {
   stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
-  stroke: #5FAC23;
+  stroke: #5fac23;
 }
 
 svg.svg-circle-solo circle.circle-full {
