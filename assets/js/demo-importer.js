@@ -904,6 +904,8 @@ var importFiles = tutormate.import_files;
 var allCategories = ["all"].concat(_toConsumableArray(new Set(importFiles.map(function (item) {
   return item.categories;
 }).flat())));
+var elementorPlugins = builderplugins.elementor_plugins;
+var gutenbergPlugins = builderplugins.gutenberg_plugins;
 
 function App() {
   var _useState = useState(''),
@@ -971,15 +973,20 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
-  var _useState27 = useState(0),
+  var _useState27 = useState(''),
       _useState28 = _slicedToArray(_useState27, 2),
-      pluginProgress = _useState28[0],
-      setPluginProgress = _useState28[1];
+      pluginStatus = _useState28[0],
+      setPluginStatus = _useState28[1];
 
-  var _useState29 = useState([]),
+  var _useState29 = useState(''),
       _useState30 = _slicedToArray(_useState29, 2),
-      plugins = _useState30[0],
-      setPlugins = _useState30[1];
+      pluginResponse = _useState30[0],
+      setPluginResponse = _useState30[1];
+
+  var _useState31 = useState([]),
+      _useState32 = _slicedToArray(_useState31, 2),
+      plugins = _useState32[0],
+      setPlugins = _useState32[1];
 
   var builderOptions = builderList.length > 0 && builderList.map(function (item) {
     return {
@@ -1023,8 +1030,8 @@ function App() {
   };
 
   var pluginInstall = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected, builder) {
-      var plugins, totalPlugins, increment, i, res, responseData;
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected, builder, plugins) {
+      var pluginArray, selectedPlugins, totalPlugins, increment, i, res, responseData, contentData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -1033,53 +1040,65 @@ function App() {
               setModalState(!modalState);
               setFetching(true);
               setProgress('Your site is installing...');
-              /** @TODO: Update this plugins array dynamically */
-
-              plugins = ['tutor', 'qubely', 'woocommerce'];
-              totalPlugins = plugins.length;
-              increment = Math.ceil(100 / totalPlugins);
+              pluginArray = plugins.length > 0 && plugins.map(function (plugin) {
+                return plugin.slug;
+              });
+              selectedPlugins = pluginArray;
+              totalPlugins = selectedPlugins.length;
+              increment = Math.ceil(60 / totalPlugins);
               i = 0;
 
-            case 8:
-              if (!(i < plugins.length)) {
-                _context.next = 19;
+            case 9:
+              if (!(i < selectedPlugins.length)) {
+                _context.next = 20;
                 break;
               }
 
-              _context.next = 11;
+              _context.next = 12;
               return installationAjax({
                 action: 'tutormate_individual_install_plugins',
                 security: tutormate.ajax_nonce,
                 selected: selected,
                 builder: builder,
                 installing: true,
-                plugin: plugins[i]
+                plugin: selectedPlugins[i]
               });
 
-            case 11:
+            case 12:
               res = _context.sent;
-              _context.next = 14;
+              _context.next = 15;
               return res.json();
 
-            case 14:
+            case 15:
               responseData = _context.sent;
 
               if (responseData.status === 'success') {
                 setPercentage(function (val) {
-                  val = Math.min(100, val + increment);
+                  val = Math.min(60, val + increment);
                   return val;
                 });
+                setPluginResponse(responseData);
+                setPluginStatus(responseData.status);
               } else if (responseData.status === 'error') {
                 totalPlugins -= 1;
-                increment = Math.ceil(100 / totalPlugins);
+                increment = Math.ceil(60 / totalPlugins);
               }
 
-            case 16:
+            case 17:
               i++;
-              _context.next = 8;
+              _context.next = 9;
               break;
 
-            case 19:
+            case 20:
+              setProgress(tutormate.content_progress);
+              setPercentage(65);
+              contentData = new FormData();
+              contentData.append('action', 'tutormate_import_demo_data');
+              contentData.append('security', tutormate.ajax_nonce);
+              contentData.append('selected', selectedDemo);
+              doAjax(contentData);
+
+            case 27:
             case "end":
               return _context.stop();
           }
@@ -1087,7 +1106,7 @@ function App() {
       }, _callee);
     }));
 
-    return function pluginInstall(_x, _x2) {
+    return function pluginInstall(_x, _x2, _x3) {
       return _ref.apply(this, arguments);
     };
   }();
@@ -1114,7 +1133,7 @@ function App() {
       }, _callee2);
     }));
 
-    return function installationAjax(_x3) {
+    return function installationAjax(_x4) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -1127,75 +1146,31 @@ function App() {
       if (this.readyState == 4 && this.status == 200) {
         var response = JSON.parse(this.responseText);
 
-        if ('undefined' !== response.status && 'pluginInstalling' === response.status) {
-          setProgress(tutormate.plugin_progress);
-          setPercentage(20);
-          setPluginProgress(10);
-          setPlugins(response.plugins);
-          var pluginData = new FormData();
-          pluginData.append('action', 'tutormate_install_plugins');
-          pluginData.append('security', tutormate.ajax_nonce);
-          pluginData.append('selected', selectedDemo);
-          pluginData.append('activating', false);
-          doAjax(pluginData);
-          setPluginProgress(30);
-        } else if ('undefined' !== response.status && 'pluginActivating' === response.status) {
-          setProgress(tutormate.plugin_progress);
-          setPercentage(40);
-          setPluginProgress(55);
-
-          var _pluginData = new FormData();
-
-          _pluginData.append('action', 'tutormate_install_plugins');
-
-          _pluginData.append('security', tutormate.ajax_nonce);
-
-          _pluginData.append('selected', selectedDemo);
-
-          _pluginData.append('activating', true);
-
-          _pluginData.append('activated', true);
-
-          doAjax(_pluginData);
-          setPluginProgress(70);
-        } else if ('undefined' !== response.status && 'pluginSuccess' === response.status) {
+        if ('undefined' !== response.status && 'newAJAX' === response.status) {
           setProgress(tutormate.content_progress);
-          setPercentage(60);
-          setPlugins(response.plugins);
-          setPluginProgress(100);
+          setPercentage(75);
           var contentData = new FormData();
           contentData.append('action', 'tutormate_import_demo_data');
           contentData.append('security', tutormate.ajax_nonce);
           contentData.append('selected', selectedDemo);
           doAjax(contentData);
-        } else if ('undefined' !== response.status && 'newAJAX' === response.status) {
-          setProgress(tutormate.content_progress);
-          setPercentage(70);
-
-          var _contentData = new FormData();
-
-          _contentData.append('action', 'tutormate_import_demo_data');
-
-          _contentData.append('security', tutormate.ajax_nonce);
-
-          _contentData.append('selected', selectedDemo);
-
-          doAjax(_contentData);
         } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
           setProgress(tutormate.customizer_progress);
-          setPercentage(80);
+          setPercentage(85);
           var customizerData = new FormData();
           customizerData.append('action', 'tutormate_import_customizer_data');
           customizerData.append('security', tutormate.ajax_nonce);
           customizerData.append('wp_customize', 'on');
           doAjax(customizerData);
+          setProgress(tutormate.all_done_progress);
+          setPercentage(100);
         } else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
+          setProgress(tutormate.all_done_progress);
+          setPercentage(100);
           var afterImportData = new FormData();
           afterImportData.append('action', 'tutormate_after_import_data');
           afterImportData.append('security', tutormate.ajax_nonce);
           doAjax(afterImportData);
-          setProgress(tutormate.all_done_progress);
-          setPercentage(100);
           setFetching(false);
           setImportCompleted(true);
         }
@@ -1249,8 +1224,6 @@ function App() {
 
   var PopupModal = function PopupModal(_ref3) {
     var selectedIndex = _ref3.selectedIndex;
-    var elementorPlugins = builderplugins.elementor_plugins;
-    var gutenbergPlugins = builderplugins.gutenberg_plugins;
     return /*#__PURE__*/React.createElement("div", {
       className: "modal-wrapper ".concat(!modalState ? "" : "active")
     }, /*#__PURE__*/React.createElement("div", {
@@ -1271,11 +1244,13 @@ function App() {
     }), /*#__PURE__*/React.createElement("div", {
       className: "pluginstatus"
     }, /*#__PURE__*/React.createElement("p", null, __('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')), 'elementor' === builder && elementorPlugins && elementorPlugins.map(function (item, index) {
+      setPlugins(elementorPlugins);
       return /*#__PURE__*/React.createElement("div", {
         className: "".concat(item.state),
         key: index
       }, /*#__PURE__*/React.createElement("strong", null, item.title), " ", /*#__PURE__*/React.createElement("span", null, item.state));
     }), 'gutenberg' === builder && gutenbergPlugins && gutenbergPlugins.map(function (item, index) {
+      setPlugins(gutenbergPlugins);
       return /*#__PURE__*/React.createElement("div", {
         className: "".concat(item.state),
         key: index
@@ -1300,7 +1275,7 @@ function App() {
     }, "Cancel"), /*#__PURE__*/React.createElement("button", {
       className: "btn btn-primary",
       onClick: function onClick() {
-        return pluginInstall(selectedIndex, builder);
+        return pluginInstall(selectedIndex, builder, plugins);
       }
     }, __('Import Now', 'tutormate')))));
   }; // Component - ListItems
@@ -1378,7 +1353,8 @@ function App() {
     status: progress,
     percentage: percentage,
     plugins: plugins,
-    pluginProgress: pluginProgress
+    pluginStatus: pluginStatus,
+    pluginResponse: pluginResponse
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
@@ -1434,12 +1410,14 @@ function App() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var __ = wp.i18n.__;
+var Fragment = wp.element.Fragment;
 
 var Installation = function Installation(_ref) {
   var status = _ref.status,
       percentage = _ref.percentage,
       plugins = _ref.plugins,
-      pluginProgress = _ref.pluginProgress;
+      pluginStatus = _ref.pluginStatus,
+      pluginResponse = _ref.pluginResponse;
 
   var SVGLoader = function SVGLoader() {
     if (100 !== percentage) {
@@ -1493,36 +1471,33 @@ var Installation = function Installation(_ref) {
     className: "percentage"
   }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
     className: "plugin-status"
-  }, plugins.map(function (plugin, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "plugin-item",
-      key: index
-    }, pluginProgress < 100 && 'not installed' === plugin.state ? /*#__PURE__*/React.createElement("svg", {
-      className: "svg-spinner",
-      viewBox: "0 0 50 50"
-    }, /*#__PURE__*/React.createElement("circle", {
-      className: "path",
-      cx: "25",
-      cy: "25",
-      r: "20",
-      fill: "none",
-      strokeWidth: "5"
-    })) : /*#__PURE__*/React.createElement("svg", {
-      id: "svg-circle"
-    }, /*#__PURE__*/React.createElement("circle", {
-      className: "circle-full",
-      cx: "7",
-      cy: "7",
-      r: "7",
-      fill: "#5FAC23"
-    }), /*#__PURE__*/React.createElement("path", {
-      className: "check-mark",
-      d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
-      fill: "#fff"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: 'not installed' === plugin.state ? 'title-notactive' : 'title'
-    }, plugin.title ? plugin.title : __('Loading ...', 'tutormate')));
-  })))));
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "plugin-item"
+  }, /*#__PURE__*/React.createElement(Fragment, null, 'success' === pluginStatus ? /*#__PURE__*/React.createElement("svg", {
+    id: "svg-circle"
+  }, /*#__PURE__*/React.createElement("circle", {
+    className: "circle-full",
+    cx: "7",
+    cy: "7",
+    r: "7",
+    fill: "#5FAC23"
+  }), /*#__PURE__*/React.createElement("path", {
+    className: "check-mark",
+    d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+    fill: "#fff"
+  })) : /*#__PURE__*/React.createElement("svg", {
+    className: "svg-spinner",
+    viewBox: "0 0 50 50"
+  }, /*#__PURE__*/React.createElement("circle", {
+    className: "path",
+    cx: "25",
+    cy: "25",
+    r: "20",
+    fill: "none",
+    strokeWidth: "5"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "title"
+  }, pluginResponse.message ? pluginResponse.message : __('Loading...', 'tutormate'))))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);

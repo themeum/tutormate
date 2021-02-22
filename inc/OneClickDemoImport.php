@@ -312,14 +312,14 @@ class OneClickDemoImport {
 
 		$plugin = null;
 
-		for ($i = 0; $i < count($info['plugins']); $i++) {
-			if ($info['plugins'][$i]['slug'] === $selected_plugin) {
+		for ( $i = 0; $i < count( $info['plugins'] ); $i++ ) {
+			if ( $info['plugins'][$i]['slug'] === $selected_plugin ) {
 				$plugin = $info['plugins'][$i];
 				break;
 			}
 		}
 
-		if (!empty($plugin)) {
+		if ( ! empty( $plugin ) ) {
 
 			if ( ! function_exists( 'plugins_api' ) ) {
 				require_once ( ABSPATH . 'wp-admin/includes/plugin-install.php' );
@@ -357,11 +357,11 @@ class OneClickDemoImport {
 					$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 					// Add `overwrite_package` option true to force update.
-					$installed = $upgrader->install( $api->download_link , ['overwrite_package' => true]);
+					$installed = $upgrader->install( $api->download_link , array( 'overwrite_package' => true ) );
 
 					if ( $installed ) {
 						$activate = activate_plugin( $plugin['path'], '', false, true );
-						wp_send_json( array( 'message' => $plugin['title'] . ' installed and activated', 'status' => 'success' ) );
+						wp_send_json( array( 'message' => $plugin['title'] . ' activated', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 
 						if ( is_wp_error( $activate ) ) {
 							$install = false;
@@ -380,7 +380,7 @@ class OneClickDemoImport {
 				
 				$activate = activate_plugin( $plugin['path'], '', false, true );
 	
-				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'status' => 'success' ) );
+				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 				
 				if ( is_wp_error( $activate ) ) {
 					$install = false;
@@ -389,10 +389,10 @@ class OneClickDemoImport {
 			}
 		} else {
 			$install = false;
-			wp_send_json(['message' => 'Plugin not found!', 'status' => 'error']);
+			wp_send_json( array( 'message' => 'Plugin not found!', 'status' => 'error' ) );
 		}
 
-		wp_send_json(['message' => 'Everything is fair and lovely!', 'status' => 'ok']);
+		wp_send_json( array( 'message' => 'All plugins are installed and activated', 'status' => 'ok' ) );
 	}
 
 	/**
