@@ -166,9 +166,6 @@ svg.svg-spinner {
 
 }
 
-<<<<<<< HEAD
-// Spinner Animation
-=======
 // Spinner Alone
 svg.svg-spinner-solo {
     animation: rotate 2s linear infinite;
@@ -184,7 +181,6 @@ svg.svg-spinner-solo {
 
 }
 
->>>>>>> b978b9a59cee1c5368483c39ad6c30cd112de5e6
 @keyframes rotate {
     100% {
         transform: rotate(360deg);

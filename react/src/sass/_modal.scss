@@ -72,10 +72,12 @@
                 font-weight: 500;
                 line-height: 1.61;
                 margin-bottom: 4px;
+				display: flex;
+				align-items: center;
                 strong {
                     font-size: 14px;
                     color: #1D2427;
-                    margin-right: 3px;
+                    margin-right: 7px;
                     font-weight: 500;
                 }
                 span{
@@ -83,37 +85,42 @@
                     opacity: 0.5;
                     text-transform: capitalize;
                 }
-                &.active:before , &.installed:before{
+                &.active:before , &.installed:before, &.not.installed:before{
                     font-family: 'tutor' !important;
-                    font-size: 10px;
+                    font-family: 'dashicons' !important;
+                    font-size: 16px;
                     margin-right: 5px;
                     opacity: 0.8;
+					width: 15px;
+					display: flex;
+					justify-content: center;
                 }
-                &.active { // check-mark '\e90f'
+                &.active { 
                     &:before {
-                        content: '\e90f';
+                        content: '\e90f';// check-mark '\e90f' tutor
+                        content: '\f147';// check-mark  '\f147' dashicons 
                         color: #5FAC23;
                     }
                     span{
                         color: #5FAC23;
                     }
                 }
-                &.not.installed {// cross '\e914'
+                &.not.installed {
                     &:before {
-                        content: '\e914';
-                        transform: rotate(45deg);
-                        display: inline-block;
-                        font-size: 12px;
+                        content: '\e914'; // cross '\e914'  tutor
+						content: '\f335'; // cross  '\f335' dashicons
                         color: #F44321;
                     }
                     span{
                         color: #F44321;
                     }
                 }
-				 &.installed {// warning '\e95f'
+				 &.installed {
                     &:before {
-                        content: '\e95f';
+                        content: '\e95f'; // warning '\e95f' tutor
+                        content: '\f534'; // warning '\f534' dashicons
                         color: #ffb200;
+						font-size: 12px;
                     }
                     span{
                         color: #ffb200;

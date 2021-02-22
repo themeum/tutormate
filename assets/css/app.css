@@ -520,12 +520,14 @@ input[type=search i]::-webkit-search-cancel-button {
   font-weight: 500;
   line-height: 1.61;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .modal-content .modal-body .pluginstatus > div strong {
   font-size: 14px;
   color: #1D2427;
-  margin-right: 3px;
+  margin-right: 7px;
   font-weight: 500;
 }
 
@@ -536,15 +538,21 @@ input[type=search i]::-webkit-search-cancel-button {
 }
 
 .modal-content .modal-body .pluginstatus > div.active:before,
-.modal-content .modal-body .pluginstatus > div.installed:before {
+.modal-content .modal-body .pluginstatus > div.installed:before,
+.modal-content .modal-body .pluginstatus > div.not.installed:before {
   font-family: "tutor" !important;
-  font-size: 10px;
+  font-family: "dashicons" !important;
+  font-size: 16px;
   margin-right: 5px;
   opacity: 0.8;
+  width: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .modal-content .modal-body .pluginstatus > div.active:before {
   content: "\E90F";
+  content: "\F147";
   color: #5FAC23;
 }
 
@@ -554,9 +562,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content .modal-body .pluginstatus > div.not.installed:before {
   content: "\E914";
-  transform: rotate(45deg);
-  display: inline-block;
-  font-size: 12px;
+  content: "\F335";
   color: #F44321;
 }
 
@@ -566,7 +572,9 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content .modal-body .pluginstatus > div.installed:before {
   content: "\E95F";
+  content: "\F534";
   color: #ffb200;
+  font-size: 12px;
 }
 
 .modal-content .modal-body .pluginstatus > div.installed span {
