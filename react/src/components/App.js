@@ -6,6 +6,8 @@ import RadioField from './RadioField';
 
 let importFiles = tutormate.import_files;
 const allCategories = ["all", ...new Set( importFiles.map( ( item ) => item.categories ).flat() )];
+const elementorPlugins = builderplugins.elementor_plugins;
+const gutenbergPlugins = builderplugins.gutenberg_plugins;
 
 function App() {
 	const [progress, setProgress] = useState('');
@@ -19,9 +21,9 @@ function App() {
 	const [builder, setBuilder] = useState('gutenberg');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
-	const[demoNotice, setDemoNotice] = useState('');
+	const [demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
-	const [pluginProgress, setPluginProgress] = useState(0);
+	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
 
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
@@ -57,19 +59,70 @@ function App() {
 		setBuilder( builder );
 	}
 
-	const pluginInstall = ( selected, builder ) => {
+	const pluginInstall = async ( selected, builder, plugins ) => {
 		setSelectedDemo( selected );
 		setModalState( !modalState );
 		setFetching( true );
 		setProgress( 'Your site is installing...' );
-		setPercentage( 10) ;
-		var data = new FormData();
-		data.append( 'action', 'tutormate_install_plugins' );
-		data.append( 'security', tutormate.ajax_nonce );
-		data.append( 'selected', selected );
-		data.append( 'builder', builder );
-		data.append( 'installing', true );
-		doAjax( data );
+		
+		let pluginArray = plugins.length > 0 && plugins.map( plugin => {
+				return plugin.slug;
+			} );
+
+		const selectedPlugins = pluginArray;
+		let totalPlugins = selectedPlugins.length;
+		let increment = Math.ceil(60/totalPlugins);
+		for ( let i = 0; i < selectedPlugins.length; i++ ) {
+
+			const res = await installationAjax({
+				action: 'tutormate_individual_install_plugins',
+				security: tutormate.ajax_nonce,
+				selected,
+				builder,
+				installing: true,
+				plugin: selectedPlugins[i]
+			});
+			
+			const responseData = await res.json();
+
+			if (responseData.status === 'success') {
+				setPercentage(val => {
+					val = Math.min(60, val + increment);
+					return val;
+				});
+				setPluginInfo(prevData => {
+					return {
+						...prevData,
+						[responseData.plugin_name]: {
+							title: responseData.plugin_name,
+							responseStatus: responseData.status,
+							pluginState: plugins.find(plugin => plugin.slug === responseData.plugin_slug && plugin.state === 'active') ? 'active' : 'inactive'
+						}
+					}
+				});
+			} else if (responseData.status === 'error') {
+				totalPlugins -= 1;
+				increment = Math.ceil(60/totalPlugins);
+			}
+		}
+
+		setProgress( tutormate.content_progress );
+		setPercentage( 65 );
+		let contentData = new FormData();
+		contentData.append( 'action', 'tutormate_import_demo_data' );
+		contentData.append( 'security', tutormate.ajax_nonce );
+		contentData.append( 'selected', selectedDemo );
+		doAjax( contentData );
+	}
+
+	const installationAjax = async (data) => {
+		return fetch(tutormate.ajax_url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams(data)
+		});
 	}
 
 	const doAjax = ( data ) => {
@@ -78,43 +131,9 @@ function App() {
 		request.onreadystatechange = function() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
-				if ( 'undefined' !== response.status && 'pluginInstalling' === response.status ) {
-					setProgress( tutormate.plugin_progress );
-					setPercentage( 20 );
-					setPluginProgress(10);
-					setPlugins(response.plugins);
-					let pluginData = new FormData();
-					pluginData.append( 'action', 'tutormate_install_plugins' );
-					pluginData.append( 'security', tutormate.ajax_nonce );
-					pluginData.append( 'selected', selectedDemo );
-					pluginData.append( 'activating', false );
-					doAjax( pluginData );
-					setPluginProgress(30);
-				} else if ( 'undefined' !== response.status && 'pluginActivating' === response.status ) {
-					setProgress( tutormate.plugin_progress );
-					setPercentage( 40 );
-					setPluginProgress(55);
-					let pluginData = new FormData();
-					pluginData.append( 'action', 'tutormate_install_plugins' );
-					pluginData.append( 'security', tutormate.ajax_nonce );
-					pluginData.append( 'selected', selectedDemo );
-					pluginData.append( 'activating', true );
-					pluginData.append( 'activated', true );
-					doAjax( pluginData );
-					setPluginProgress(70);
-				} else if ( 'undefined' !== response.status && 'pluginSuccess' === response.status ) {
+				if ( 'undefined' !== response.status && 'newAJAX' === response.status ) {
 					setProgress( tutormate.content_progress );
-					setPercentage( 60 );
-					setPlugins(response.plugins);
-					setPluginProgress(100);
-					let contentData = new FormData();
-					contentData.append( 'action', 'tutormate_import_demo_data' );
-					contentData.append( 'security', tutormate.ajax_nonce );
-					contentData.append( 'selected', selectedDemo );
-					doAjax( contentData );
-				} else if ( 'undefined' !== response.status && 'newAJAX' === response.status ) {
-					setProgress( tutormate.content_progress );
-					setPercentage( 70 );
+					setPercentage( 75 );
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
@@ -122,19 +141,20 @@ function App() {
 					doAjax( contentData );
 				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
 					setProgress( tutormate.customizer_progress );
-					setPercentage( 80 );
+					setPercentage( 85 );
 					let customizerData = new FormData();
 					customizerData.append( 'action', 'tutormate_import_customizer_data' );
 					customizerData.append( 'security', tutormate.ajax_nonce );
 					customizerData.append( 'wp_customize', 'on' );
 					doAjax( customizerData );
+					setProgress( tutormate.all_done_progress );
+					setPercentage( 100 );
 				} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
+					setProgress( tutormate.all_done_progress );
 					let afterImportData = new FormData();
 					afterImportData.append( 'action', 'tutormate_after_import_data' );
 					afterImportData.append( 'security', tutormate.ajax_nonce );
 					doAjax( afterImportData );
-					setProgress( tutormate.all_done_progress );
-					setPercentage( 100 );
 					setFetching( false );
 					setImportCompleted( true );
 				}
@@ -171,8 +191,6 @@ function App() {
 
 	// Component - PopupModal
 	const PopupModal = ({ selectedIndex }) => {
-		const elementorPlugins = builderplugins.elementor_plugins;
-		const gutenbergPlugins = builderplugins.gutenberg_plugins;
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
@@ -194,10 +212,12 @@ function App() {
 							</p>
 							{'elementor' === builder &&
 								elementorPlugins && elementorPlugins.map((item, index) => {
+									setPlugins( elementorPlugins )
 									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 								})}
 							{'gutenberg' === builder &&
 								gutenbergPlugins && gutenbergPlugins.map((item, index) => {
+									setPlugins( gutenbergPlugins )
 									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 								})}
 						</div>
@@ -207,7 +227,7 @@ function App() {
 						<button className="btn btn-outline" onClick={() => toggleModalState()}>
 							Cancel
 						</button>
-						<button className="btn btn-primary" onClick={() => pluginInstall(selectedIndex, builder)}>{__('Import Now', 'tutormate')}</button>
+						<button className="btn btn-primary" onClick={() => pluginInstall(selectedIndex, builder, plugins)}>{__('Import Now', 'tutormate')}</button>
 					</div>
 				</div>
 			</div>
@@ -262,12 +282,12 @@ function App() {
 			</ul>
 		);
 	};
-
+	
 	return (
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginProgress={pluginProgress} /> }
+			{ fetching  && <Installation status={ progress } percentage={ percentage } plugins={plugins} pluginInfo={pluginInfo}/> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>
