@@ -25,6 +25,8 @@
 /* Modal Content  */
 .modal-content {
     max-width: 472px;
+    min-width: 320px;
+    min-height: 230px;
     background: #ffffff;
     box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
     border-radius: 3px;
@@ -80,7 +82,7 @@
                 }
                 span {
                     font-size: 12px;
-                    opacity: 0.5;
+                    opacity: 0.8;
                     text-transform: capitalize;
                 }
                 &.active:before,
@@ -118,7 +120,7 @@
                 &.installed {
                     // warning '\e95f'
                     &:before {
-                        content: "\f534";
+                        content: "\f14c";
                         color: #ffb200;
                         display: inline-block;
                         vertical-align: middle;

@@ -23,7 +23,7 @@ function App() {
 	const [listItems, setListItems] = useState(importFiles);
 	const[demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
-	const [pluginSlug, setPluginSlug] = useState('');
+	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
 
 	let builderOptions = builderList.length > 0 && builderList.map( item => {
@@ -72,8 +72,8 @@ function App() {
 		const selectedPlugins = pluginArray;
 		let totalPlugins = selectedPlugins.length;
 		let increment = Math.ceil(60/totalPlugins);
-
 		for ( let i = 0; i < selectedPlugins.length; i++ ) {
+
 			const res = await installationAjax({
 				action: 'tutormate_individual_install_plugins',
 				security: tutormate.ajax_nonce,
@@ -90,7 +90,16 @@ function App() {
 					val = Math.min(60, val + increment);
 					return val;
 				});
-				setPluginSlug(responseData.plugin_slug);
+				setPluginInfo(prevData => {
+					return {
+						...prevData,
+						[responseData.plugin_slug]: {
+							title: responseData.plugin_slug,
+							responseStatus: responseData.status,
+							pluginState: plugins.find(plugin => plugin.slug === responseData.plugin_slug && plugin.state === 'active') ? 'active' : 'inactive'
+						}
+					}
+				});
 			} else if (responseData.status === 'error') {
 				totalPlugins -= 1;
 				increment = Math.ceil(60/totalPlugins);
@@ -142,7 +151,6 @@ function App() {
 					setPercentage( 100 );
 				} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
 					setProgress( tutormate.all_done_progress );
-					setPercentage( 100 );
 					let afterImportData = new FormData();
 					afterImportData.append( 'action', 'tutormate_after_import_data' );
 					afterImportData.append( 'security', tutormate.ajax_nonce );
@@ -274,12 +282,12 @@ function App() {
 			</ul>
 		);
 	};
-
+	
 	return (
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching && <Installation status={ progress } percentage={ percentage } plugins={ plugins } pluginSlug={pluginSlug} /> }
+			{ fetching  && <Installation status={ progress } percentage={ percentage } plugins={plugins} pluginInfo={pluginInfo}/> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>

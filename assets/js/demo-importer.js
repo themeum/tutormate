@@ -872,6 +872,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RadioField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RadioField */ "./react/src/components/RadioField.js");
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -973,10 +979,10 @@ function App() {
       categories = _useState26[0],
       setCategories = _useState26[1];
 
-  var _useState27 = useState(''),
+  var _useState27 = useState({}),
       _useState28 = _slicedToArray(_useState27, 2),
-      pluginSlug = _useState28[0],
-      setPluginSlug = _useState28[1];
+      pluginInfo = _useState28[0],
+      setPluginInfo = _useState28[1];
 
   var _useState29 = useState([]),
       _useState30 = _slicedToArray(_useState29, 2),
@@ -1026,10 +1032,11 @@ function App() {
 
   var pluginInstall = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected, builder, plugins) {
-      var pluginArray, selectedPlugins, totalPlugins, increment, i, res, responseData, contentData;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      var pluginArray, selectedPlugins, totalPlugins, increment, _loop, i, contentData;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               setSelectedDemo(selected);
               setModalState(!modalState);
@@ -1041,49 +1048,72 @@ function App() {
               selectedPlugins = pluginArray;
               totalPlugins = selectedPlugins.length;
               increment = Math.ceil(60 / totalPlugins);
+              _loop = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop(i) {
+                var res, responseData;
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return installationAjax({
+                          action: 'tutormate_individual_install_plugins',
+                          security: tutormate.ajax_nonce,
+                          selected: selected,
+                          builder: builder,
+                          installing: true,
+                          plugin: selectedPlugins[i]
+                        });
+
+                      case 2:
+                        res = _context.sent;
+                        _context.next = 5;
+                        return res.json();
+
+                      case 5:
+                        responseData = _context.sent;
+
+                        if (responseData.status === 'success') {
+                          setPercentage(function (val) {
+                            val = Math.min(60, val + increment);
+                            return val;
+                          });
+                          setPluginInfo(function (prevData) {
+                            return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, responseData.plugin_slug, {
+                              title: responseData.plugin_slug,
+                              responseStatus: responseData.status,
+                              pluginState: plugins.find(function (plugin) {
+                                return plugin.slug === responseData.plugin_slug && plugin.state === 'active';
+                              }) ? 'active' : 'inactive'
+                            }));
+                          });
+                        } else if (responseData.status === 'error') {
+                          totalPlugins -= 1;
+                          increment = Math.ceil(60 / totalPlugins);
+                        }
+
+                      case 7:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _loop);
+              });
               i = 0;
 
-            case 9:
+            case 10:
               if (!(i < selectedPlugins.length)) {
-                _context.next = 20;
+                _context2.next = 15;
                 break;
               }
 
-              _context.next = 12;
-              return installationAjax({
-                action: 'tutormate_individual_install_plugins',
-                security: tutormate.ajax_nonce,
-                selected: selected,
-                builder: builder,
-                installing: true,
-                plugin: selectedPlugins[i]
-              });
+              return _context2.delegateYield(_loop(i), "t0", 12);
 
             case 12:
-              res = _context.sent;
-              _context.next = 15;
-              return res.json();
-
-            case 15:
-              responseData = _context.sent;
-
-              if (responseData.status === 'success') {
-                setPercentage(function (val) {
-                  val = Math.min(60, val + increment);
-                  return val;
-                });
-                setPluginSlug(responseData.plugin_slug);
-              } else if (responseData.status === 'error') {
-                totalPlugins -= 1;
-                increment = Math.ceil(60 / totalPlugins);
-              }
-
-            case 17:
               i++;
-              _context.next = 9;
+              _context2.next = 10;
               break;
 
-            case 20:
+            case 15:
               setProgress(tutormate.content_progress);
               setPercentage(65);
               contentData = new FormData();
@@ -1092,9 +1122,9 @@ function App() {
               contentData.append('selected', selectedDemo);
               doAjax(contentData);
 
-            case 27:
+            case 22:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
       }, _callee);
@@ -1107,11 +1137,11 @@ function App() {
 
   var installationAjax = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              return _context2.abrupt("return", fetch(tutormate.ajax_url, {
+              return _context3.abrupt("return", fetch(tutormate.ajax_url, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1121,7 +1151,7 @@ function App() {
 
             case 1:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
       }, _callee2);
@@ -1160,7 +1190,6 @@ function App() {
           setPercentage(100);
         } else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
           setProgress(tutormate.all_done_progress);
-          setPercentage(100);
           var afterImportData = new FormData();
           afterImportData.append('action', 'tutormate_after_import_data');
           afterImportData.append('security', tutormate.ajax_nonce);
@@ -1347,7 +1376,7 @@ function App() {
     status: progress,
     percentage: percentage,
     plugins: plugins,
-    pluginSlug: pluginSlug
+    pluginInfo: pluginInfo
   }), importCompleted && /*#__PURE__*/React.createElement(AfterImport, null), /*#__PURE__*/React.createElement("div", {
     className: "demo-importer-wrapper"
   }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
@@ -1402,14 +1431,24 @@ function App() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var __ = wp.i18n.__;
-var Fragment = wp.element.Fragment;
+var _wp$element = wp.element,
+    Fragment = _wp$element.Fragment,
+    useEffect = _wp$element.useEffect,
+    useRef = _wp$element.useRef;
 
 var Installation = function Installation(_ref) {
   var status = _ref.status,
       percentage = _ref.percentage,
       plugins = _ref.plugins,
-      pluginSlug = _ref.pluginSlug;
+      pluginInfo = _ref.pluginInfo;
+  var installedPlugins = useRef({});
 
   var SVGLoader = function SVGLoader() {
     if (100 !== percentage) {
@@ -1441,6 +1480,73 @@ var Installation = function Installation(_ref) {
     }
   };
 
+  useEffect(function () {
+    plugins.forEach(function (plugin) {
+      return installedPlugins.current = _objectSpread(_objectSpread({}, installedPlugins.current), _defineProperty({}, plugin.slug, false));
+    });
+  }, []);
+
+  var renderLoader = function renderLoader() {
+    if (Object.keys(pluginInfo).length) {
+      return plugins.map(function (plugin, index) {
+        var title = plugin.slug;
+
+        if (pluginInfo[title]) {
+          installedPlugins.current = _objectSpread(_objectSpread({}, installedPlugins.current), _defineProperty({}, title, true));
+        }
+
+        return /*#__PURE__*/React.createElement("div", {
+          className: "plugin-item",
+          key: index
+        }, /*#__PURE__*/React.createElement(Fragment, null, installedPlugins.current[title] ? /*#__PURE__*/React.createElement("svg", {
+          id: "svg-circle"
+        }, /*#__PURE__*/React.createElement("circle", {
+          className: "circle-full",
+          cx: "7",
+          cy: "7",
+          r: "7",
+          fill: "#5FAC23"
+        }), /*#__PURE__*/React.createElement("path", {
+          className: "check-mark",
+          d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
+          fill: "#fff"
+        })) : /*#__PURE__*/React.createElement("svg", {
+          className: "svg-spinner",
+          viewBox: "0 0 50 50"
+        }, /*#__PURE__*/React.createElement("circle", {
+          className: "path",
+          cx: "25",
+          cy: "25",
+          r: "20",
+          fill: "none",
+          strokeWidth: "5"
+        })), /*#__PURE__*/React.createElement("div", {
+          className: "title"
+        }, title ? title : __('Loading...', 'tutormate'))));
+      });
+    }
+
+    return plugins.map(function (_ref2, index) {
+      var title = _ref2.title;
+      return /*#__PURE__*/React.createElement("div", {
+        className: "plugin-item",
+        key: index
+      }, /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("svg", {
+        className: "svg-spinner",
+        viewBox: "0 0 50 50"
+      }, /*#__PURE__*/React.createElement("circle", {
+        className: "path",
+        cx: "25",
+        cy: "25",
+        r: "20",
+        fill: "none",
+        strokeWidth: "5"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "title"
+      }, title ? title : __('Loading...', 'tutormate'))));
+    });
+  };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "installation-screen modal-wrapper active"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1463,36 +1569,7 @@ var Installation = function Installation(_ref) {
     className: "percentage"
   }, percentage, "%")), /*#__PURE__*/React.createElement("div", {
     className: "plugin-status"
-  }, plugins.map(function (plugin, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "plugin-item",
-      key: index
-    }, /*#__PURE__*/React.createElement(Fragment, null, plugin.slug === pluginSlug ? /*#__PURE__*/React.createElement("svg", {
-      id: "svg-circle"
-    }, /*#__PURE__*/React.createElement("circle", {
-      className: "circle-full",
-      cx: "7",
-      cy: "7",
-      r: "7",
-      fill: "#5FAC23"
-    }), /*#__PURE__*/React.createElement("path", {
-      className: "check-mark",
-      d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
-      fill: "#fff"
-    })) : /*#__PURE__*/React.createElement("svg", {
-      className: "svg-spinner",
-      viewBox: "0 0 50 50"
-    }, /*#__PURE__*/React.createElement("circle", {
-      className: "path",
-      cx: "25",
-      cy: "25",
-      r: "20",
-      fill: "none",
-      strokeWidth: "5"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "title"
-    }, plugin.title ? plugin.title : __('Loading...', 'tutormate'))));
-  })))));
+  }, renderLoader()))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);
@@ -1583,8 +1660,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

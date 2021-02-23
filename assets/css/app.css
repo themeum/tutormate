@@ -469,6 +469,8 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content {
   max-width: 472px;
+  min-width: 320px;
+  min-height: 230px;
   background: #ffffff;
   box-shadow: 0px 0px 1px rgba(9, 30, 66, 0.31), 0px 4px 8px rgba(9, 30, 66, 0.25);
   border-radius: 3px;
@@ -531,7 +533,7 @@ input[type=search i]::-webkit-search-cancel-button {
 
 .modal-content .modal-body .pluginstatus > div span {
   font-size: 12px;
-  opacity: 0.5;
+  opacity: 0.8;
   text-transform: capitalize;
 }
 
@@ -567,7 +569,7 @@ input[type=search i]::-webkit-search-cancel-button {
 }
 
 .modal-content .modal-body .pluginstatus > div.installed:before {
-  content: "\F534";
+  content: "\F14C";
   color: #ffb200;
   display: inline-block;
   vertical-align: middle;
@@ -822,7 +824,7 @@ span.status-text {
 
 .installation-screen .modal-content {
   min-width: 320px;
-  min-height: 200px;
+  min-height: 230px;
 }
 
 .installation-screen .modal-body {
