@@ -1078,8 +1078,8 @@ function App() {
                             return val;
                           });
                           setPluginInfo(function (prevData) {
-                            return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, responseData.plugin_slug, {
-                              title: responseData.plugin_slug,
+                            return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, responseData.plugin_name, {
+                              title: responseData.plugin_name,
                               responseStatus: responseData.status,
                               pluginState: plugins.find(function (plugin) {
                                 return plugin.slug === responseData.plugin_slug && plugin.state === 'active';
@@ -1482,14 +1482,14 @@ var Installation = function Installation(_ref) {
 
   useEffect(function () {
     plugins.forEach(function (plugin) {
-      return installedPlugins.current = _objectSpread(_objectSpread({}, installedPlugins.current), _defineProperty({}, plugin.slug, false));
+      return installedPlugins.current = _objectSpread(_objectSpread({}, installedPlugins.current), _defineProperty({}, plugin.title, false));
     });
   }, []);
 
   var renderLoader = function renderLoader() {
     if (Object.keys(pluginInfo).length) {
       return plugins.map(function (plugin, index) {
-        var title = plugin.slug;
+        var title = plugin.title;
 
         if (pluginInfo[title]) {
           installedPlugins.current = _objectSpread(_objectSpread({}, installedPlugins.current), _defineProperty({}, title, true));

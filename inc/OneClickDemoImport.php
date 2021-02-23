@@ -107,7 +107,6 @@ class OneClickDemoImport {
 		add_action( 'admin_menu', array( $this, 'create_plugin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_tutormate_import_demo_data', array( $this, 'import_demo_data_ajax_callback' ) );
-		add_action( 'wp_ajax_tutormate_install_plugins', array( $this, 'install_plugins_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_individual_install_plugins', array( $this, 'install_plugins_individual_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_import_customizer_data', array( $this, 'import_customizer_data_ajax_callback' ) );
 		add_action( 'wp_ajax_tutormate_after_import_data', array( $this, 'after_all_import_data_ajax_callback' ) );
@@ -204,101 +203,6 @@ class OneClickDemoImport {
 	/**
 	 * AJAX callback to install a plugin.
 	 */
-	public function install_plugins_ajax_callback() {
-		Helpers::verify_ajax_call();
-
-		if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['selected'] ) ) {
-			wp_send_json_error();
-		}
-
-		// Get selected file index or set it to 0.
-		$selected_index = ! empty ( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
-		$info = $this->import_files[ $selected_index ];
-		$install = true;
-
-		if ( isset( $info['plugins'] ) && ! empty( $info['plugins'] ) ) {
-
-			if ( ! function_exists( 'plugins_api' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
-			}
-			if ( ! class_exists( 'WP_Upgrader' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-			}
-
-			foreach ( $info['plugins'] as $key => $plugin ) {
-				
-				if ( 'not installed' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
-					
-					$api = plugins_api(
-						'plugin_information',
-						array(
-							'slug' => $plugin['base'],
-							'fields' => array(
-								'short_description' => false,
-								'sections' => false,
-								'requires' => false,
-								'rating' => false,
-								'ratings' => false,
-								'downloaded' => false,
-								'last_updated' => false,
-								'added' => false,
-								'tags' => false,
-								'compatibility' => false,
-								'homepage' => false,
-								'donate_link' => false,
-							),
-						)
-					);
-					
-					if ( ! is_wp_error( $api ) ) {
-
-						$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-
-						if ( isset( $_POST['installing'] ) ) {
-							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginInstalling', 'plugins' => $info['plugins'] ) );
-						}
-
-						$installed = $upgrader->install( $api->download_link );
-						
-						if ( $installed ) {
-							
-							$activate = activate_plugin( $plugin['path'], '', false, true );
-
-							if ( isset( $_POST['activating'] ) ) {
-								wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
-							}
-							
-							if ( is_wp_error( $activate ) ) {
-								$install = false;
-							}
-						} else {
-							$install = false;
-						}
-					} else {
-						$install = false;
-					}
-				} elseif ( 'installed' === $plugin['state'] ) {
-					
-					$activate = activate_plugin( $plugin['path'], '', false, true );
-
-					wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'pluginActivating' ) );
-					
-					if ( is_wp_error( $activate ) ) {
-						$install = false;
-					}
-				}
-			}
-		}
-
-		if ( false === $install ) {
-			wp_send_json_error();
-		} elseif ( isset( $_POST['activated'] ) ) {
-			wp_send_json( array( 'plugins' => $info['plugins'], 'status' => 'pluginSuccess' ) );
-		} else {
-			wp_send_json( array( 'plugins' => $info['plugins'], 'status' => 'pluginSuccess' ) );
-		}
-	}
-
 	public function install_plugins_individual_ajax_callback() {
 		Helpers::verify_ajax_call();
 
@@ -361,11 +265,11 @@ class OneClickDemoImport {
 
 					if ( $installed ) {
 						$activate = activate_plugin( $plugin['path'], '', false, true );
-						wp_send_json( array( 'message' => $plugin['title'] . ' activated', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
+						wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 
 						if ( is_wp_error( $activate ) ) {
 							$install = false;
-							wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
+							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'error' ) );
 						}
 					} else {
 						$install = false;
@@ -380,14 +284,14 @@ class OneClickDemoImport {
 				
 				$activate = activate_plugin( $plugin['path'], '', false, true );
 	
-				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
+				wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 				
 				if ( is_wp_error( $activate ) ) {
 					$install = false;
 					wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
 				}
 			} else {
-				wp_send_json( array( 'message' => $plugin['title'] . ' is activated!', 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
+				wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 			}
 		} else {
 			$install = false;

@@ -23,13 +23,13 @@ const Installation = ({status, percentage, plugins, pluginInfo}) => {
     }
 
     useEffect(() => {
-        plugins.forEach(plugin => installedPlugins.current = {...installedPlugins.current, ...{[plugin.slug]: false}})
+        plugins.forEach(plugin => installedPlugins.current = {...installedPlugins.current, ...{[plugin.title]: false}})
     }, [])
 
     const renderLoader = () => {
         if ( Object.keys( pluginInfo ).length ) {
             return plugins.map( ( plugin, index ) => {
-                const {slug: title} = plugin;
+                const {title} = plugin;
                 if ( pluginInfo[title] ) {
                     installedPlugins.current = {...installedPlugins.current, ...{[title]: true}};
                 }

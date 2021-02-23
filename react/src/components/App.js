@@ -21,7 +21,7 @@ function App() {
 	const [builder, setBuilder] = useState('gutenberg');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
-	const[demoNotice, setDemoNotice] = useState('');
+	const [demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
 	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
@@ -93,8 +93,8 @@ function App() {
 				setPluginInfo(prevData => {
 					return {
 						...prevData,
-						[responseData.plugin_slug]: {
-							title: responseData.plugin_slug,
+						[responseData.plugin_name]: {
+							title: responseData.plugin_name,
 							responseStatus: responseData.status,
 							pluginState: plugins.find(plugin => plugin.slug === responseData.plugin_slug && plugin.state === 'active') ? 'active' : 'inactive'
 						}
