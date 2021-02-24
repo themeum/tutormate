@@ -1023,6 +1023,11 @@ function App() {
 
   var selectedBuilder = function selectedBuilder(builder) {
     setBuilder(builder);
+    var builderData = new FormData();
+    builderData.append('action', 'tutormate_builder_data');
+    builderData.append('security', tutormate.ajax_nonce);
+    builderData.append('builder', builder);
+    doAjax(builderData);
   };
 
   var pluginInstall = /*#__PURE__*/function () {

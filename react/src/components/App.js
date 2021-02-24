@@ -57,6 +57,12 @@ function App() {
 
 	const selectedBuilder = ( builder ) => {
 		setBuilder( builder );
+
+		let builderData = new FormData();
+		builderData.append( 'action', 'tutormate_builder_data' );
+		builderData.append( 'security', tutormate.ajax_nonce );
+		builderData.append( 'builder', builder );
+		doAjax( builderData );
 	}
 
 	const pluginInstall = async ( selected, builder, plugins ) => {

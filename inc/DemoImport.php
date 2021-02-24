@@ -82,6 +82,7 @@ class DemoImport {
 		add_filter( 'tutormate_import_files', array( $this, 'import_theme_demo' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
+		add_action( 'wp_ajax_tutormate_builder_data', array( $this, 'receive_builder_data' ) );
 		add_action( 'tutormate_enable_wp_customize_save_hooks', array( $this, 'save_customizer_data' ) );
         
         $this->woocommerce = array(
@@ -128,6 +129,13 @@ class DemoImport {
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
         );
+	}
+
+	/**
+	 * Receive builder data
+	 */
+	public function receive_builder_data() {
+		return true;
 	}
 
 	/**
