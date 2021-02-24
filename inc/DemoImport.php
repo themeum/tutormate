@@ -139,7 +139,7 @@ class DemoImport {
 	}
 
 	/**
-	 * Builder plugins
+	 * Elementor plugins
 	 */
 	public function elementor_plugins() {
 		return $this->is_elementor = array(

@@ -1138,9 +1138,10 @@ function App() {
               contentData.append('action', 'tutormate_import_demo_data');
               contentData.append('security', tutormate.ajax_nonce);
               contentData.append('selected', selectedDemo);
+              contentData.append('builder', builder);
               doAjax(contentData);
 
-            case 21:
+            case 22:
             case "end":
               return _context2.stop();
           }
@@ -1194,6 +1195,7 @@ function App() {
           contentData.append('action', 'tutormate_import_demo_data');
           contentData.append('security', tutormate.ajax_nonce);
           contentData.append('selected', selectedDemo);
+          contentData.append('builder', builder);
           doAjax(contentData);
         } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
           setPercentage(85);
@@ -1583,7 +1585,7 @@ var Installation = function Installation(_ref) {
     className: "modal-content"
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-head"
-  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, __('Hold on a moment', 'tutormate'), " ", /*#__PURE__*/React.createElement(SVGLoader, null)), "Your site is installing...")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("span", null, __('Hold on a moment', 'tutormate'), " ", /*#__PURE__*/React.createElement(SVGLoader, null)), __('Your site is installing...', 'tutormate'))), /*#__PURE__*/React.createElement("div", {
     className: "modal-body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "installation-status"
@@ -1617,7 +1619,7 @@ var Installation = function Installation(_ref) {
     className: "check-mark",
     d: "M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z",
     fill: "#fff"
-  })) : percentage >= 65 ? /*#__PURE__*/React.createElement("svg", {
+  })) : percentage >= 65 && percentage < 100 ? /*#__PURE__*/React.createElement("svg", {
     className: "svg-spinner",
     viewBox: "0 0 50 50"
   }, /*#__PURE__*/React.createElement("circle", {
@@ -1642,7 +1644,7 @@ var Installation = function Installation(_ref) {
     strokeWidth: "5"
   })), /*#__PURE__*/React.createElement("div", {
     className: percentage === 100 ? 'title' : 'title-notactive'
-  }, "Starter Content"))))));
+  }, "Demo Content"))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Installation);
@@ -1733,8 +1735,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

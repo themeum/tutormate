@@ -77,7 +77,7 @@ const Installation = ({percentage, pluginInfo}) => {
         <div className="installation-screen modal-wrapper active">
             <div className="modal-content">
                 <div className="modal-head">
-                    <h4><span>{ __( 'Hold on a moment', 'tutormate' ) } {<SVGLoader />}</span>Your site is installing...</h4>
+                    <h4><span>{ __( 'Hold on a moment', 'tutormate' ) } {<SVGLoader />}</span>{ __( 'Your site is installing...', 'tutormate' ) }</h4>
                 </div>
                 <div className="modal-body">
                     <div className="installation-status">
@@ -95,7 +95,7 @@ const Installation = ({percentage, pluginInfo}) => {
                                 <path className="check-mark" d="M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z" fill="#fff"></path>
                             </svg>)
                             :
-                           ( percentage >= 65 ?
+                           ( percentage >= 65 && percentage < 100 ?
                            <svg className="svg-spinner" viewBox="0 0 50 50">
                                 <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
                             </svg>
@@ -105,7 +105,7 @@ const Installation = ({percentage, pluginInfo}) => {
                             </svg>
                             )
                             }
-                            <div className={percentage === 100 ? 'title' : 'title-notactive'}>Starter Content</div>
+                            <div className={percentage === 100 ? 'title' : 'title-notactive'}>Demo Content</div>
                         </div>
                     </div>
                 </div>
