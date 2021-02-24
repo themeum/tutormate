@@ -30,7 +30,7 @@
     }
 }
 
-.plugin-item {
+.plugin-item, .demo-content {
     display: flex;
     align-items: center;
     .title {
@@ -47,6 +47,13 @@
     }
     &:not(:last-child) {
         margin-bottom: 11px;
+    }
+    .plugin-not-installed {
+        margin-right: -5px;
+        font-size: 18px;
+        color: red;
+        vertical-align: middle; 
+        display: inline-block;
     }
 
     // Circle Progressbar
