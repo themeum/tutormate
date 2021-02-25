@@ -1,9 +1,6 @@
 const { __ } = wp.i18n;
-const { Fragment, useEffect, useRef } = wp.element;
 
-const Installation = ({status, percentage, plugins, pluginInfo}) => {
-
-    const installedPlugins = useRef({});
+const Installation = ({percentage, pluginInfo}) => {
     
     const SVGLoader = () => {
          if ( 100 !== percentage ) {
@@ -19,60 +16,68 @@ const Installation = ({status, percentage, plugins, pluginInfo}) => {
                     <path className="check-mark" d="M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z" fill="#fff"></path>
                 </svg>
             )
-         } 
+        } 
     }
 
-    useEffect(() => {
-        plugins.forEach(plugin => installedPlugins.current = {...installedPlugins.current, ...{[plugin.title]: false}})
-    }, [])
-
     const renderLoader = () => {
-        if ( Object.keys( pluginInfo ).length ) {
-            return plugins.map( ( plugin, index ) => {
-                const {title} = plugin;
-                if ( pluginInfo[title] ) {
-                    installedPlugins.current = {...installedPlugins.current, ...{[title]: true}};
-                }
-
+        return Object.keys( pluginInfo ).map( pluginName => {
+            const plugin = pluginInfo[pluginName];
+            const { pluginState, responseStatus, title } = plugin;
+            if ( pluginState === 'active' ) {
                 return (
-                <div className="plugin-item" key={index}>
-                    <Fragment>
-                        {installedPlugins.current[title] ? (
+                    <div className="plugin-item" key={pluginName}>
+                        <svg id="svg-circle">
+                            <circle className="circle-full" cx="7" cy="7" r="7" fill="#5FAC23"></circle>
+                            <path className="check-mark" d="M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z" fill="#fff"></path>
+                        </svg>
+                        <div className='title'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
+                    </div>)
+            } else {
+                if ( responseStatus === 'initial' ) {
+                    return (
+                        <div className="plugin-item" key={ pluginName }>
+                            <svg className="svg-spinner" viewBox="0 0 50 50" style={{visibility: 'hidden'}}>
+                                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+                            </svg>
+                            <div className='title-notactive'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
+                        </div>
+                    )
+                } else if ( responseStatus === 'installing' ) {
+                    return (
+                        <div className="plugin-item" key={pluginName}>
+                            <svg className="svg-spinner" viewBox="0 0 50 50">
+                                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+                            </svg>
+                            <div className='title-notactive'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
+                        </div>
+                    )
+                } else if ( responseStatus === 'success' ) {
+                    return (
+                        <div className="plugin-item" key={pluginName}>
                             <svg id="svg-circle">
                                 <circle className="circle-full" cx="7" cy="7" r="7" fill="#5FAC23"></circle>
                                 <path className="check-mark" d="M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z" fill="#fff"></path>
                             </svg>
-                        ) : (
-                            <svg className="svg-spinner" viewBox="0 0 50 50">
-                                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
-                            </svg>
-                        )}
-                        <div className='title'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
-                    </Fragment>
-                </div>
-            )
-            })
-        } 
-        return plugins.map( ( {title}, index ) => {
-            return (
-            <div className="plugin-item" key={index}>
-                <Fragment>
-                    <svg className="svg-spinner" viewBox="0 0 50 50">
-                        <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
-                    </svg>
-                    <div className='title'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
-                </Fragment>
-            </div>
-        )
+                            <div className='title'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
+                        </div>
+                    )
+                } else if ( responseStatus === 'error' ) {
+                    return (
+                        <div className="plugin-item" key={pluginName}>
+                            <span class="dashicons dashicons-no-alt plugin-not-installed"></span>
+                            <div className='title'>{title ? title : __( 'Loading...', 'tutormate' )}</div>
+                        </div>
+                    )
+                }
+            }
         }) 
-        
     }
 
     return (
         <div className="installation-screen modal-wrapper active">
             <div className="modal-content">
                 <div className="modal-head">
-                    <h4><span>{ __( 'Hold on a moment', 'tutormate' ) } {<SVGLoader />}</span> { status }</h4>
+                    <h4><span>{ __( 'Hold on a moment', 'tutormate' ) } {<SVGLoader />}</span>{ __( 'Your site is installing...', 'tutormate' ) }</h4>
                 </div>
                 <div className="modal-body">
                     <div className="installation-status">
@@ -83,6 +88,25 @@ const Installation = ({status, percentage, plugins, pluginInfo}) => {
                     </div>
                     <div className="plugin-status">
                         {renderLoader()}
+                        <div className="demo-content" key="demo-importer">
+                            {percentage === 100 ?
+                            (<svg id="svg-circle" style={{marginRight: '-2px'}}>
+                                <circle className="circle-full" cx="7" cy="7" r="7" fill="#5FAC23"></circle>
+                                <path className="check-mark" d="M6.138 8.9714L3.9427 6.776 3 7.7187l3.138 3.138L12 4.9427l-.9427-.9426L6.138 8.9714z" fill="#fff"></path>
+                            </svg>)
+                            :
+                           ( percentage >= 65 && percentage < 100 ?
+                           <svg className="svg-spinner" viewBox="0 0 50 50">
+                                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+                            </svg>
+                            :
+                            <svg className="svg-spinner" viewBox="0 0 50 50" style={{visibility: 'hidden'}}>
+                                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+                            </svg>
+                            )
+                            }
+                            <div className={percentage === 100 ? 'title' : 'title-notactive'}>Demo Content</div>
+                        </div>
                     </div>
                 </div>
             </div>

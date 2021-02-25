@@ -82,6 +82,7 @@ class DemoImport {
 		add_filter( 'tutormate_import_files', array( $this, 'import_theme_demo' ) );
 		add_action( 'tutormate_after_import', array( $this, 'assign_defaults' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
+		add_action( 'wp_ajax_tutormate_builder_data', array( $this, 'receive_builder_data' ) );
 		add_action( 'tutormate_enable_wp_customize_save_hooks', array( $this, 'save_customizer_data' ) );
         
         $this->woocommerce = array(
@@ -131,7 +132,14 @@ class DemoImport {
 	}
 
 	/**
-	 * Builder plugins
+	 * Receive builder data
+	 */
+	public function receive_builder_data() {
+		return true;
+	}
+
+	/**
+	 * Elementor plugins
 	 */
 	public function elementor_plugins() {
 		return $this->is_elementor = array(
@@ -200,22 +208,24 @@ class DemoImport {
 
 			foreach ( $packs_list as $packs ) {
 
+				$category_list = array();
 				foreach ( $packs['categories'] as $category ) {
-					$category['name'];
+					array_push( $category_list, $category['name'] );
 				}
-
+				
+				$builder_list = array();
 				foreach ( $packs['builders'] as $builder ) {
-					$builder['slug'];
+					array_push( $builder_list, $builder['slug'] );
 				}
 
 				$list = array(
 					'import_file_name'           => $packs['name'],
-					'categories'                 => array( $category['name'] ),
+					'categories'                 => $category_list,
 					'import_file_url'            => 'elementor' === $this->builder ? $packs['elementor_content'] : $packs['content'],
 					'import_widget_file_url'     => 'elementor' === $this->builder ? $packs['elementor_widget'] : $packs['widget'],
 					'import_customizer_file_url' => 'elementor' === $this->builder ? $packs['elementor_customizer'] : $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
-					'builders'                   => array( $builder['slug'] ),
+					'builders'                   => $builder_list,
 					'plugins'                    => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
 					'preview_url'                => $packs['preview_url'],
 					'notice'                     => $packs['notices']

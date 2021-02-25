@@ -10,7 +10,7 @@ const elementorPlugins = builderplugins.elementor_plugins;
 const gutenbergPlugins = builderplugins.gutenberg_plugins;
 
 function App() {
-	const [progress, setProgress] = useState('');
+	
 	const [fetching, setFetching] = useState(false);
 	const [percentage, setPercentage] = useState(0);
 	const [importCompleted, setImportCompleted] = useState(false);
@@ -57,22 +57,49 @@ function App() {
 
 	const selectedBuilder = ( builder ) => {
 		setBuilder( builder );
+
+		let builderData = new FormData();
+		builderData.append( 'action', 'tutormate_builder_data' );
+		builderData.append( 'security', tutormate.ajax_nonce );
+		builderData.append( 'builder', builder );
+		doAjax( builderData );
 	}
 
 	const pluginInstall = async ( selected, builder, plugins ) => {
 		setSelectedDemo( selected );
 		setModalState( !modalState );
 		setFetching( true );
-		setProgress( 'Your site is installing...' );
 		
 		let pluginArray = plugins.length > 0 && plugins.map( plugin => {
 				return plugin.slug;
 			} );
 
+		plugins.forEach(({title, state}) => {
+			setPluginInfo((prevInfo) => ({
+				...prevInfo,
+				[title]: {
+					title,
+					responseStatus: 'initial',
+					pluginState: state
+				}
+			}));
+		})
+
 		const selectedPlugins = pluginArray;
 		let totalPlugins = selectedPlugins.length;
 		let increment = Math.ceil(60/totalPlugins);
 		for ( let i = 0; i < selectedPlugins.length; i++ ) {
+			const currentPluginName = selectedPlugins[i];
+			const currentPlugin = plugins.find(plugin => plugin.slug === currentPluginName);
+
+			setPluginInfo((prevInfo) => ({
+				...prevInfo,
+				[currentPlugin.title]: {
+					title: currentPlugin.title,
+					responseStatus: 'installing',
+					pluginState: currentPlugin.state
+				}
+			}));
 
 			const res = await installationAjax({
 				action: 'tutormate_individual_install_plugins',
@@ -80,7 +107,7 @@ function App() {
 				selected,
 				builder,
 				installing: true,
-				plugin: selectedPlugins[i]
+				plugin: currentPluginName
 			});
 			
 			const responseData = await res.json();
@@ -95,8 +122,8 @@ function App() {
 						...prevData,
 						[responseData.plugin_name]: {
 							title: responseData.plugin_name,
-							responseStatus: responseData.status,
-							pluginState: plugins.find(plugin => plugin.slug === responseData.plugin_slug && plugin.state === 'active') ? 'active' : 'inactive'
+							responseStatus: 'success',
+							pluginState: currentPlugin.state
 						}
 					}
 				});
@@ -106,12 +133,12 @@ function App() {
 			}
 		}
 
-		setProgress( tutormate.content_progress );
 		setPercentage( 65 );
 		let contentData = new FormData();
 		contentData.append( 'action', 'tutormate_import_demo_data' );
 		contentData.append( 'security', tutormate.ajax_nonce );
 		contentData.append( 'selected', selectedDemo );
+		contentData.append( 'builder', builder );
 		doAjax( contentData );
 	}
 
@@ -132,25 +159,22 @@ function App() {
 			if ( this.readyState == 4 && this.status == 200 ) {
 				let response = JSON.parse( this.responseText );
 				if ( 'undefined' !== response.status && 'newAJAX' === response.status ) {
-					setProgress( tutormate.content_progress );
 					setPercentage( 75 );
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
 					contentData.append( 'selected', selectedDemo );
+					contentData.append( 'builder', builder );
 					doAjax( contentData );
 				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
-					setProgress( tutormate.customizer_progress );
 					setPercentage( 85 );
 					let customizerData = new FormData();
 					customizerData.append( 'action', 'tutormate_import_customizer_data' );
 					customizerData.append( 'security', tutormate.ajax_nonce );
 					customizerData.append( 'wp_customize', 'on' );
 					doAjax( customizerData );
-					setProgress( tutormate.all_done_progress );
 					setPercentage( 100 );
 				} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
-					setProgress( tutormate.all_done_progress );
 					let afterImportData = new FormData();
 					afterImportData.append( 'action', 'tutormate_after_import_data' );
 					afterImportData.append( 'security', tutormate.ajax_nonce );
@@ -287,7 +311,7 @@ function App() {
 		<div className="demo-importer-ui">
 
 			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching  && <Installation status={ progress } percentage={ percentage } plugins={plugins} pluginInfo={pluginInfo}/> }
+			{ fetching  && <Installation percentage={ percentage } plugins={plugins} pluginInfo={pluginInfo}/> }
 			{ importCompleted && <AfterImport /> }
 			<div className="demo-importer-wrapper">
 				<header>

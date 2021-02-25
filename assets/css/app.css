@@ -745,36 +745,51 @@ input[type=search i]::-webkit-search-cancel-button {
   font-size: 12px;
 }
 
-.plugin-item {
+.plugin-item,
+.demo-content {
   display: flex;
   align-items: center;
 }
 
-.plugin-item .title {
+.plugin-item .title,
+.demo-content .title {
   margin-left: 5px;
   font-size: 14px;
   font-weight: 500;
   color: #1d2427;
 }
 
-.plugin-item .title-notactive {
+.plugin-item .title-notactive,
+.demo-content .title-notactive {
   margin-left: 5px;
   font-size: 14px;
   font-weight: 500;
   color: #707172;
 }
 
-.plugin-item:not(:last-child) {
+.plugin-item:not(:last-child),
+.demo-content:not(:last-child) {
   margin-bottom: 11px;
 }
 
-.plugin-item svg#svg-circle {
+.plugin-item .plugin-not-installed,
+.demo-content .plugin-not-installed {
+  margin-right: -5px;
+  font-size: 18px;
+  color: red;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.plugin-item svg#svg-circle,
+.demo-content svg#svg-circle {
   --dashArr: 44;
   width: 16px;
   height: 16px;
 }
 
-.plugin-item svg#svg-circle circle:not(.circle-full) {
+.plugin-item svg#svg-circle circle:not(.circle-full),
+.demo-content svg#svg-circle circle:not(.circle-full) {
   position: absolute;
   fill: none;
   stroke-width: 2;
@@ -783,21 +798,25 @@ input[type=search i]::-webkit-search-cancel-button {
   stroke-dasharray: var(--dashArr);
 }
 
-.plugin-item svg#svg-circle circle.bg {
+.plugin-item svg#svg-circle circle.bg,
+.demo-content svg#svg-circle circle.bg {
   stroke-dashoffset: 0;
   stroke: #e3e7ec;
 }
 
-.plugin-item svg#svg-circle circle.fg {
+.plugin-item svg#svg-circle circle.fg,
+.demo-content svg#svg-circle circle.fg {
   stroke-dashoffset: calc( var(--dashArr) - (var(--dashArr) * 30) / 100 );
   stroke: #5fac23;
 }
 
-.plugin-item svg#svg-circle circle.circle-full {
+.plugin-item svg#svg-circle circle.circle-full,
+.demo-content svg#svg-circle circle.circle-full {
   transform: translate(1px, 1px);
 }
 
-.plugin-item svg#svg-circle path.check-mark {
+.plugin-item svg#svg-circle path.check-mark,
+.demo-content svg#svg-circle path.check-mark {
   transform: translate(0px, 1px);
   -webkit-animation: scaleDown 0.5s ease-in-out;
           animation: scaleDown 0.5s ease-in-out;
