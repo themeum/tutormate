@@ -726,18 +726,39 @@ input[type=search i]::-webkit-search-cancel-button {
   display: flex;
   align-items: center;
   margin-bottom: 23px;
+  /* ProgressBar */
 }
 
-.installation-status .progress-status {
-  background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
+.installation-status .progress-wrapper {
+  max-width: 350px;
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .installation-status .progress {
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.05);
   background: #e3e7ec;
   height: 8px;
   border-radius: 5px;
   width: 100%;
   margin-bottom: 0;
+}
+
+.installation-status .progress-status {
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 0;
+  transition: 0.2s linear;
+  background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
 }
 
 .installation-status .percentage {
