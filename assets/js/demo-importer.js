@@ -1401,7 +1401,7 @@ function App() {
   }, /*#__PURE__*/React.createElement("img", {
     src: "".concat(tutormate.tutormate_url, "assets/images/tutor-starter-logo.png"),
     alt: "tutor starter logo"
-  }), /*#__PURE__*/React.createElement("span", null, "\xA0 v", tutormate.theme_version)), /*#__PURE__*/React.createElement("p", null, __('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate'))), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("span", null, "\xA0 v", tutormate.theme_version)), /*#__PURE__*/React.createElement("p", null, __('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate'))), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "nav-filter"
@@ -1735,8 +1735,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Volumes/Web/Projects/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/zaman/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })

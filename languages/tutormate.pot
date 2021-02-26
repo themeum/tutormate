@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T16:23:04+00:00\n"
+"POT-Creation-Date: 2021-02-26T11:03:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: tutormate\n"
@@ -446,13 +446,79 @@ msgid "No preview image."
 msgstr ""
 
 #: views/plugin-page.php:152
+#: assets/js/demo-importer.js:1380
 msgid "Import"
 msgstr ""
 
 #: views/plugin-page.php:154
+#: assets/js/demo-importer.js:1371
 msgid "Preview"
 msgstr ""
 
 #: views/plugin-page.php:168
 msgid "Importing, please wait!"
+msgstr ""
+
+#: assets/js/demo-importer.js:1254
+msgid "Thank You!"
+msgstr ""
+
+#: assets/js/demo-importer.js:1254
+msgid "Visit"
+msgstr ""
+
+#: assets/js/demo-importer.js:1257
+msgid "Site"
+msgstr ""
+
+#: assets/js/demo-importer.js:1257
+msgid "or go to"
+msgstr ""
+
+#: assets/js/demo-importer.js:1260
+msgid "Dashboard"
+msgstr ""
+
+#: assets/js/demo-importer.js:1272
+msgid "Select Builder"
+msgstr ""
+
+#: assets/js/demo-importer.js:1285
+msgid "The following plugins will be installed and activated for this demo if not already available:"
+msgstr ""
+
+#: assets/js/demo-importer.js:1303
+msgid "Important: "
+msgstr ""
+
+#: assets/js/demo-importer.js:1319
+msgid "Import Now"
+msgstr ""
+
+#: assets/js/demo-importer.js:1359
+msgid "Available for"
+msgstr ""
+
+#: assets/js/demo-importer.js:1383
+msgid "Nothing Found"
+msgstr ""
+
+#: assets/js/demo-importer.js:1404
+msgid "Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience."
+msgstr ""
+
+#: assets/js/demo-importer.js:1510
+#: assets/js/demo-importer.js:1531
+#: assets/js/demo-importer.js:1548
+#: assets/js/demo-importer.js:1567
+#: assets/js/demo-importer.js:1576
+msgid "Loading..."
+msgstr ""
+
+#: assets/js/demo-importer.js:1588
+msgid "Hold on a moment"
+msgstr ""
+
+#: assets/js/demo-importer.js:1588
+msgid "Your site is installing..."
 msgstr ""
