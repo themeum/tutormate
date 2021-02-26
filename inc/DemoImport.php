@@ -259,10 +259,10 @@ class DemoImport {
 		if ( 'Starter' === $selected_import['import_file_name'] ) {
 			// Set header logo in customizer.
 			set_theme_mod( 'custom_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
-			set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+			set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-footer.png' );
 
 			// Set footer logo in customizer.
-			set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+			set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-footer.png' );
 			set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
 		}
 
