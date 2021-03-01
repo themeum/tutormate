@@ -246,13 +246,12 @@ class DemoImport {
 	public function assign_defaults( $selected_import ) {
 		// Assign menus to their locations.
 		$primary   = get_term_by( 'name', 'Primary', 'nav_menu' );
-		$secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
+		//$secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
 
 		set_theme_mod(
 			'nav_menu_locations',
 			array(
 				'primary'   => $primary->term_id,
-				'secondary' => $secondary->term_id,
 			)
 		);
 
