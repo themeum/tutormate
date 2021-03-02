@@ -193,7 +193,7 @@ class DemoImport {
 			try {
 
 				$results    = wp_remote_get( $this->endpoint );
-				$packs_list = json_decode( $results['body'], true );
+				$packs_list = ! is_wp_error( $results ) ? json_decode( $results['body'], true ) : array();
 
 				if ( is_array( $packs_list ) || ! empty( $packs_list ) ) {
 					set_transient( 'tutorstarter_packs', $packs_list, 1 * HOUR_IN_SECONDS );
