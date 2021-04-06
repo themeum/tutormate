@@ -190,11 +190,6 @@ class OneClickDemoImport {
 					'wp_customize_on'     => apply_filters( 'tutormate_enable_wp_customize_save_hooks', true ),
 					'theme_screenshot'    => $theme->get_screenshot(),
 					'theme_version'       => $theme->get( 'Version' ),
-					'plugin_progress'     => esc_html__( 'Installing / Activating Required Plugins...', 'tutormate' ),
-					'content_progress'    => esc_html__( 'Importing Demo Content...', 'tutormate' ),
-					'widgets_progress'    => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
-					'customizer_progress' => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
-					'all_done_progress'   => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
 		}
