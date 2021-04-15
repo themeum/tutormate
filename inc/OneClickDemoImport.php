@@ -256,7 +256,7 @@ class OneClickDemoImport {
 					$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 					// Add `overwrite_package` option true to force update.
-					$installed = $upgrader->install( $api->download_link , array( 'overwrite_package' => true ) );
+					$installed = $upgrader->install( $api->download_link );
 
 					if ( $installed ) {
 						$activate = activate_plugin( $plugin['path'], '', false, true );
