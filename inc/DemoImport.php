@@ -270,6 +270,10 @@ class DemoImport {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $front_page_id->ID );
 		update_option( 'page_for_posts', $blog_page_id->ID );
+
+		// Forcefully run the tutor init hook, just in case.
+		deactivate_plugins( 'tutor/tutor.php' );
+		activate_plugin( 'tutor/tutor.php' );
 	}
 
 	/**
