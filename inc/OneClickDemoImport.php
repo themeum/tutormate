@@ -122,11 +122,11 @@ class OneClickDemoImport {
 	private function __clone() {}
 
 	/**
-	 * Private unserialize method to prevent unserializing of the *Singleton* instance.
+	 * Unserialize method to prevent unserializing of the *Singleton* instance.
 	 *
 	 * @return void
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Creates the plugin page and a submenu item in WP Appearance menu.
