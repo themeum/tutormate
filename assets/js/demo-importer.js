@@ -1137,7 +1137,7 @@ function App() {
               contentData = new FormData();
               contentData.append('action', 'tutormate_import_demo_data');
               contentData.append('security', tutormate.ajax_nonce);
-              contentData.append('selected', selectedDemo);
+              contentData.append('selected', selectedIndex);
               contentData.append('builder', builder);
               doAjax(contentData);
 
@@ -1194,7 +1194,7 @@ function App() {
           var contentData = new FormData();
           contentData.append('action', 'tutormate_import_demo_data');
           contentData.append('security', tutormate.ajax_nonce);
-          contentData.append('selected', selectedDemo);
+          contentData.append('selected', selectedIndex);
           contentData.append('builder', builder);
           doAjax(contentData);
         } else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
