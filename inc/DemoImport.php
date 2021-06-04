@@ -257,11 +257,15 @@ class DemoImport {
 
 		// Set header logo in customizer.
 		set_theme_mod( 'custom_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+		set_theme_mod( 'retina_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header@2x.png' );
 		set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+		set_theme_mod( 'retina_trans_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white@2x.png' );
 
 		// Set footer logo in customizer.
 		set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
-		set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+		set_theme_mod( 'footer_retina_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white@2x.png' );
+		set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+		set_theme_mod( 'footer_retina_trans_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header@2x.png' );
 		
 		// Assign front page.
 		$front_page_id = get_page_by_title( $selected_import['import_file_name'] );

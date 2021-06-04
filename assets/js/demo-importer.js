@@ -1400,6 +1400,7 @@ function App() {
     className: "logo-version"
   }, /*#__PURE__*/React.createElement("img", {
     src: "".concat(tutormate.tutormate_url, "assets/images/tutor-starter-logo.png"),
+    srcset: "".concat(tutormate.tutormate_url, "assets/images/logo@2x.png 2x"),
     alt: "tutor starter logo"
   }), /*#__PURE__*/React.createElement("span", null, "\xA0 v", tutormate.theme_version)), /*#__PURE__*/React.createElement("p", null, __('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate'))), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"
