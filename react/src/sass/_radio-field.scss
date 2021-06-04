@@ -3,19 +3,19 @@
 }
 
 .radio-field-item {
-    background: #FFFFFF;
-    border: 1px solid #E9EDEE;
+    background: #ffffff;
+    border: 1px solid #bababa;
     box-sizing: border-box;
-    border-radius: 3px;
-    margin-bottom: 16px;
+    border-radius: 6px;
+    margin-bottom: 25px;
     display: grid;
     grid-template-areas: "text radio";
     grid-template-columns: 1fr auto;
     align-items: center;
-    input[type=radio] {
+    input[type="radio"] {
         grid-area: radio;
-        background: linear-gradient(180deg, #F4F5F9 0%, #E3E6F2 99.52%);
-        border: 2px solid #0184FF;
+        background: #ffffff;
+        border: 2px solid #bababa;
         box-shadow: 0px 1px 0px rgb(22 29 37 / 5%);
         width: 18px;
         height: 18px;
@@ -24,11 +24,16 @@
         align-items: center;
         justify-content: center;
         margin-right: 15px;
-        &:checked::before {
-            width: 8px;
-            height: 8px;
-            background-color: #0184FF;
-            margin: 0;
+        &:checked {
+            background: #3e64de;
+            border: 2px solid #3e64de;
+
+            &::before {
+                width: 8px;
+                height: 8px;
+                background-color: #ffffff;
+                margin: 0;
+            }
         }
     }
     label {
@@ -40,7 +45,7 @@
         justify-content: flex-start;
         padding: 16px;
         padding-right: 0;
-        span{
+        span {
             font-size: 14px;
             color: #000000;
             text-transform: capitalize;
