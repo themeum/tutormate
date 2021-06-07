@@ -1718,8 +1718,8 @@ render( /*#__PURE__*/React.createElement(_components_App_js__WEBPACK_IMPORTED_MO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wp-tutormate/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
+__webpack_require__(/*! /Users/joomshaper/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/demo-importer.js */"./react/src/demo-importer.js");
+module.exports = __webpack_require__(/*! /Users/joomshaper/Local Sites/tutorstarter/app/public/wp-content/plugins/tutormate/react/src/sass/app.scss */"./react/src/sass/app.scss");
 
 
 /***/ })
