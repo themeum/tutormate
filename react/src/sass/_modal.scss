@@ -84,6 +84,8 @@
         padding: 30px;
         background: #f3f3f3;
         border-left: 1px solid #e8e8e8;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
         > div {
             text-align: left;
             font-weight: 500;
@@ -161,7 +163,33 @@
             }
         }
     }
+    @media (max-width: 767px){
+        max-height: unset;
+        height: auto;
+        flex-direction: column;
+
+        .modal-head h3{
+            font-size: 22px;
+        }
+        .modal-body, .pluginstatus {
+            padding: 20px;
+        }
+        .modal-footer .btn.btn-outline,
+        .modal-footer .btn.import-now {
+            padding: 8px 17px;
+        }
+        .modal-footer .btn:not(:last-child) {
+            margin-right: 10px;
+        }
+        .pluginstatus {
+            border-bottom-left-radius: 3px;
+        }
+        .radio-field-item {
+            margin-bottom: 15px;
+        }
+    }
 }
+
 .modal-head {
     display: flex;
     justify-content: space-between;
