@@ -1212,7 +1212,9 @@ function App() {
           afterImportData.append('action', 'tutormate_after_import_data');
           afterImportData.append('security', tutormate.ajax_nonce);
           doAjax(afterImportData);
-          setFetching(false);
+          setTimeout(function () {
+            setFetching(false);
+          }, 3000);
           setImportCompleted(true);
         }
       } else {
