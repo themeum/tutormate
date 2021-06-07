@@ -31,7 +31,7 @@
     height: 350px;
     background: #ffffff;
     box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
-    border-radius: 3px;
+    border-radius: 10px;
     // animation: fade 0.4s linear;
     > [class^="modal-"] {
         padding: 15px;
@@ -84,8 +84,8 @@
         padding: 30px;
         background: #f3f3f3;
         border-left: 1px solid #e8e8e8;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
         > div {
             text-align: left;
             font-weight: 500;
@@ -163,15 +163,16 @@
             }
         }
     }
-    @media (max-width: 767px){
+    @media (max-width: 767px) {
         max-height: unset;
         height: auto;
         flex-direction: column;
 
-        .modal-head h3{
+        .modal-head h3 {
             font-size: 22px;
         }
-        .modal-body, .pluginstatus {
+        .modal-body,
+        .pluginstatus {
             padding: 20px;
         }
         .modal-footer .btn.btn-outline,
@@ -182,7 +183,7 @@
             margin-right: 10px;
         }
         .pluginstatus {
-            border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 10px;
         }
         .radio-field-item {
             margin-bottom: 15px;

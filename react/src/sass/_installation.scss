@@ -4,7 +4,41 @@
         flex-direction: column;
         max-width: 410px;
         width: 400px;
-        min-height: 230px;
+        min-height: 410px;
+        height: auto;
+
+        .heading {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            background: #cbe9d5;
+            border-radius: 6px;
+            margin: 15px;
+            margin-bottom: 30px;
+
+            p {
+                color: #075a2a;
+                text-align: left;
+                padding-left: 50px;
+                margin-left: 8px;
+                font-weight: 300;
+            }
+
+            .success-heading {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                h3 {
+                    margin-left: 10px;
+                    color: #075a2a;
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+            }
+        }
     }
     .modal-head h4 {
         margin-top: 20px;
@@ -14,46 +48,31 @@
         margin-top: -10px;
         padding-top: 0;
         padding-bottom: 27px;
-    }
-}
 
-.installation-complete {
-    .modal-content {
-        display: flex;
-        flex-direction: column;
-        max-width: 410px;
-        width: 400px;
-        height: 200px;
-    }
-    .modal-head h4 {
-        padding: 0 15px;
-    }
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        //align-items: flex-start;
-        padding: 0 25px 25px 25px;
-        .heading {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 20px;
-            background: #cbe9d5;
-            border-radius: 6px;
-
-            h3 {
-                margin-left: 10px;
-                color: #075a2a;
-                font-size: 20px;
-                font-weight: bold;
-            }
-        }
         .complete {
-            width: 50%;
+            width: 150px;
+            margin-top: 30px;
+            padding: 8px 10px;
+
             a {
                 color: #ffffff;
                 text-decoration: none;
+                font-weight: 400;
+            }
+        }
+
+        .inactive {
+            background-color: rgba(87, 88, 110, 0.4);
+            width: 150px;
+            margin-top: 30px;
+            padding: 8px 10px;
+            cursor: not-allowed;
+
+            a {
+                cursor: not-allowed;
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: 400;
             }
         }
     }
@@ -89,14 +108,13 @@
         height: 100%;
         width: 0;
         transition: 0.2s linear;
-        background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
+        background: #1973aa;
     }
-    
+
     .percentage {
         margin-left: 8px;
         font-size: 12px;
     }
-
 }
 
 .plugin-item,

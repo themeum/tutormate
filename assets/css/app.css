@@ -483,7 +483,7 @@ input[type=search i]::-webkit-search-cancel-button {
   height: 350px;
   background: #ffffff;
   box-shadow: 0px 0px 1px rgba(9, 30, 66, 0.31), 0px 4px 8px rgba(9, 30, 66, 0.25);
-  border-radius: 3px;
+  border-radius: 10px;
 }
 
 .modal-content > [class^=modal-] {
@@ -540,8 +540,8 @@ input[type=search i]::-webkit-search-cancel-button {
   padding: 30px;
   background: #f3f3f3;
   border-left: 1px solid #e8e8e8;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .modal-content .pluginstatus > div {
@@ -646,7 +646,7 @@ input[type=search i]::-webkit-search-cancel-button {
   }
 
   .modal-content .pluginstatus {
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 10px;
   }
 
   .modal-content .radio-field-item {
@@ -783,7 +783,41 @@ input[type=search i]::-webkit-search-cancel-button {
   flex-direction: column;
   max-width: 410px;
   width: 400px;
-  min-height: 230px;
+  min-height: 410px;
+  height: auto;
+}
+
+.installation-screen .modal-content .heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  background: #cbe9d5;
+  border-radius: 6px;
+  margin: 15px;
+  margin-bottom: 30px;
+}
+
+.installation-screen .modal-content .heading p {
+  color: #075a2a;
+  text-align: left;
+  padding-left: 50px;
+  margin-left: 8px;
+  font-weight: 300;
+}
+
+.installation-screen .modal-content .heading .success-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.installation-screen .modal-content .heading .success-heading h3 {
+  margin-left: 10px;
+  color: #075a2a;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .installation-screen .modal-head h4 {
@@ -797,48 +831,31 @@ input[type=search i]::-webkit-search-cancel-button {
   padding-bottom: 27px;
 }
 
-.installation-complete .modal-content {
-  display: flex;
-  flex-direction: column;
-  max-width: 410px;
-  width: 400px;
-  height: 200px;
+.installation-screen .modal-body .complete {
+  width: 150px;
+  margin-top: 30px;
+  padding: 8px 10px;
 }
 
-.installation-complete .modal-head h4 {
-  padding: 0 15px;
-}
-
-.installation-complete .modal-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 0 25px 25px 25px;
-}
-
-.installation-complete .modal-body .heading {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-  background: #cbe9d5;
-  border-radius: 6px;
-}
-
-.installation-complete .modal-body .heading h3 {
-  margin-left: 10px;
-  color: #075a2a;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.installation-complete .modal-body .complete {
-  width: 50%;
-}
-
-.installation-complete .modal-body .complete a {
+.installation-screen .modal-body .complete a {
   color: #ffffff;
   text-decoration: none;
+  font-weight: 400;
+}
+
+.installation-screen .modal-body .inactive {
+  background-color: rgba(87, 88, 110, 0.4);
+  width: 150px;
+  margin-top: 30px;
+  padding: 8px 10px;
+  cursor: not-allowed;
+}
+
+.installation-screen .modal-body .inactive a {
+  cursor: not-allowed;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 400;
 }
 
 .installation-status {
@@ -872,7 +889,7 @@ input[type=search i]::-webkit-search-cancel-button {
   height: 100%;
   width: 0;
   transition: 0.2s linear;
-  background: linear-gradient(270deg, #5fac23 0%, #97d766 100%);
+  background: #1973aa;
 }
 
 .installation-status .percentage {
