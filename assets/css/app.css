@@ -783,7 +783,7 @@ input[type=search i]::-webkit-search-cancel-button {
   flex-direction: column;
   max-width: 410px;
   width: 400px;
-  min-height: 410px;
+  max-height: 410px;
   height: auto;
 }
 
@@ -797,6 +797,8 @@ input[type=search i]::-webkit-search-cancel-button {
   border-radius: 6px;
   margin: 15px;
   margin-bottom: 30px;
+  -webkit-animation: fadeIn 0.4s linear;
+          animation: fadeIn 0.4s linear;
 }
 
 .installation-screen .modal-content .heading p {
@@ -835,6 +837,7 @@ input[type=search i]::-webkit-search-cancel-button {
   width: 150px;
   margin-top: 30px;
   padding: 8px 10px;
+  background-color: #1973aa;
 }
 
 .installation-screen .modal-body .complete a {
@@ -849,6 +852,7 @@ input[type=search i]::-webkit-search-cancel-button {
   margin-top: 30px;
   padding: 8px 10px;
   cursor: not-allowed;
+  transition: 0.3s linear;
 }
 
 .installation-screen .modal-body .inactive a {
@@ -1097,6 +1101,26 @@ svg.svg-spinner-solo .path {
   100% {
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -124;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 

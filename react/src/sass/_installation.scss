@@ -4,7 +4,7 @@
         flex-direction: column;
         max-width: 410px;
         width: 400px;
-        min-height: 410px;
+        max-height: 410px;
         height: auto;
 
         .heading {
@@ -17,6 +17,7 @@
             border-radius: 6px;
             margin: 15px;
             margin-bottom: 30px;
+            animation: fadeIn .4s linear;
 
             p {
                 color: #075a2a;
@@ -53,7 +54,7 @@
             width: 150px;
             margin-top: 30px;
             padding: 8px 10px;
-
+            background-color: #1973aa;
             a {
                 color: #ffffff;
                 text-decoration: none;
@@ -67,6 +68,7 @@
             margin-top: 30px;
             padding: 8px 10px;
             cursor: not-allowed;
+            transition: 0.3s linear;
 
             a {
                 cursor: not-allowed;
@@ -267,4 +269,10 @@ svg.svg-spinner-solo {
         stroke-dasharray: 90, 150;
         stroke-dashoffset: -124;
     }
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0;}
+    to { opacity: 1; }
 }
