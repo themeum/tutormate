@@ -24,9 +24,11 @@
 
 /* Modal Content  */
 .modal-content {
-    max-width: 472px;
+    display: flex;
+    max-width: 700px;
     min-width: 320px;
-    min-height: 230px;
+    max-height: 406px;
+    height: 350px;
     background: #ffffff;
     box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
     border-radius: 3px;
@@ -43,10 +45,13 @@
         font-family: sans-serif;
         font-weight: 300;
         transform: rotate(45deg);
+        margin: -10px -10px 0 0;
     }
     .modal-body {
-        padding-left: 30px;
-        padding-right: 30px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 30px;
         text-align: center;
         .components-radio-control {
             text-align: left;
@@ -68,94 +73,107 @@
             margin-bottom: 5px;
             text-align: left;
         }
-        .pluginstatus {
-            > div {
-                text-align: left;
-                font-weight: 500;
-                line-height: 1.61;
-                margin-bottom: 4px;
-				display: flex;
-				align-items: center;
-                strong {
-                    font-size: 14px;
-                    color: #1d2427;
-                    margin-right: 3px;
-                    font-weight: 500;
-                }
-                span {
-                    font-size: 12px;
-                    opacity: 0.8;
-                    text-transform: capitalize;
-                }
-                &.active:before,
-                &.installed:before {
-                    font-family: "dashicons" !important;
-                    font-size: 18px;
-                    margin-right: 5px;
-                    opacity: 0.8;
-					width: 15px;
-					display: flex;
-					justify-content: center;
-                }
-                &.active {
-                    // check-mark '\e90f'
-                    &:before {
-                        content: "\f147";
-                        color: #5fac23;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                    span {
-                        color: #5fac23;
-                    }
-                }
-                &.not.installed {
-                    // cross '\e914'
-                    &:before {
-                        content: "\f335";
-                        font-size: 18px;
-                        color: #f44321;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                    span {
-                        color: #f44321;
-                    }
-                }
-                &.installed {
-                    // warning '\e95f'
-                    &:before {
-                        content: "\f14c";
-                        color: #ffb200;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                    span {
-                        color: #ffb200;
-                    }
-                }
-            }
-            > p {
-                margin-bottom: 10px;
-            }
-        }
     }
     .notices {
         padding: 10px 25px;
         margin-left: 5px;
     }
+
+    .pluginstatus {
+        flex: 0.7;
+        padding: 30px;
+        background: #f3f3f3;
+        border-left: 1px solid #e8e8e8;
+        > div {
+            text-align: left;
+            font-weight: 500;
+            line-height: 1.61;
+            margin-bottom: 4px;
+            strong {
+                font-size: 14px;
+                color: #1d2427;
+                margin-right: 3px;
+                font-weight: 500;
+            }
+            span {
+                font-size: 12px;
+                opacity: 0.8;
+                text-transform: capitalize;
+            }
+            &.active:before,
+            &.installed:before {
+                font-family: "dashicons" !important;
+                font-size: 18px;
+                margin-right: 5px;
+                opacity: 0.8;
+            }
+            &.active {
+                // check-mark '\e90f'
+                &:before {
+                    content: "\f147";
+                    color: #5fac23;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                span {
+                    color: #5fac23;
+                }
+            }
+            &.not.installed {
+                // cross '\e914'
+                &:before {
+                    content: "\f335";
+                    font-size: 18px;
+                    color: #f44321;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                span {
+                    color: #f44321;
+                }
+            }
+            &.installed {
+                // warning '\e95f'
+                &:before {
+                    content: "\f14c";
+                    color: #ffb200;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                span {
+                    color: #ffb200;
+                }
+            }
+        }
+        > p {
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 26px;
+        }
+
+        .pluginsheader {
+            h4 {
+                color: #161616;
+                font-size: 16px;
+                font-weight: 500;
+                margin: 0.5rem 0;
+            }
+        }
+    }
 }
 .modal-head {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
     h3,
     h4,
     h5 {
-        margin: 0.2rem 1rem;
+        margin: 0 0 1.5rem 0;
         line-height: 1.69;
-        color: #252732;
-        font-weight: 500;
+        color: #161616;
+        font-weight: 400;
     }
     h3 {
         font-size: 24px;

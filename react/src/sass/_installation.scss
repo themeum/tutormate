@@ -1,7 +1,14 @@
 .installation-screen {
     .modal-content {
-        min-width: 320px;
+        display: flex;
+        flex-direction: column;
+        max-width: 410px;
+        width: 400px;
         min-height: 230px;
+    }
+    .modal-head h4 {
+        margin-top: 20px;
+        padding: 0 15px;
     }
     .modal-body {
         margin-top: -10px;
@@ -10,18 +17,55 @@
     }
 }
 
+.installation-complete {
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        max-width: 410px;
+        width: 400px;
+        height: 200px;
+    }
+    .modal-head h4 {
+        padding: 0 15px;
+    }
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        //align-items: flex-start;
+        padding: 0 25px 25px 25px;
+        .heading {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px;
+            background: #cbe9d5;
+            border-radius: 6px;
+
+            h3 {
+                margin-left: 10px;
+                color: #075a2a;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+        .complete {
+            width: 50%;
+            a {
+                color: #ffffff;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
 .installation-status {
     display: flex;
     align-items: center;
     margin-bottom: 23px;
 
-    /* ProgressBar */
-    .progress-wrapper {
-        max-width: 350px;
-        width: 100%;
-        margin-top: 15px;
-        text-align: center;
-        font-size: 14px;
+    .progress-status {
+        background: #1973aa;
     }
 
     .progress {
@@ -55,7 +99,8 @@
 
 }
 
-.plugin-item, .demo-content {
+.plugin-item,
+.demo-content {
     display: flex;
     align-items: center;
     .title {
@@ -77,7 +122,7 @@
         margin-right: -5px;
         font-size: 18px;
         color: red;
-        vertical-align: middle; 
+        vertical-align: middle;
         display: inline-block;
     }
 

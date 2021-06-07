@@ -34,6 +34,10 @@ function App() {
 		setModalState( !modalState );
 	};
 
+	const visitSite = () => {
+
+	}
+
 	const filterItems = ( category ) => {
 		if ( 'all' === category ) {
 			setListItems( importFiles );
@@ -137,7 +141,7 @@ function App() {
 		let contentData = new FormData();
 		contentData.append( 'action', 'tutormate_import_demo_data' );
 		contentData.append( 'security', tutormate.ajax_nonce );
-		contentData.append( 'selected', selectedDemo );
+		contentData.append( 'selected', selectedIndex );
 		contentData.append( 'builder', builder );
 		doAjax( contentData );
 	}
@@ -163,7 +167,7 @@ function App() {
 					let contentData = new FormData();
 					contentData.append( 'action', 'tutormate_import_demo_data' );
 					contentData.append( 'security', tutormate.ajax_nonce );
-					contentData.append( 'selected', selectedDemo );
+					contentData.append( 'selected', selectedIndex );
 					contentData.append( 'builder', builder );
 					doAjax( contentData );
 				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
@@ -200,13 +204,14 @@ function App() {
 						</button>
 					</div>
 					<div className="modal-body">
-						<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M28 56C12.5611 56 0 43.4389 0 28C0 12.5611 12.5611 0 28 0C43.4389 0 56 12.5611 56 28C56 43.4389 43.4389 56 28 56Z" fill="#C3E678"/>
-							<path d="M41.0667 46.6667C25.6278 46.6667 13.0667 34.1056 13.0667 18.6667C13.0667 12.2041 15.289 6.26248 18.9807 1.51855C7.959 5.28401 0 15.7194 0 28C0 43.4389 12.5611 56 28 56C36.9763 56 44.9585 51.7372 50.086 45.1482C47.2513 46.1167 44.2249 46.6667 41.0667 46.6667Z" fill="#A5D76E"/>
-							<path d="M22.2068 42.4828C21.7126 42.4828 21.2182 42.2941 20.8414 41.917L9.25522 30.3308C8.50086 29.577 8.50086 28.354 9.25522 27.6001C10.0086 26.8458 11.2325 26.8458 11.9859 27.6001L22.2069 37.8206L42.0829 17.9449C42.8363 17.1906 44.0602 17.1906 44.8136 17.9449C45.5679 18.6987 45.5679 19.9217 44.8136 20.6756L23.5721 41.917C23.1954 42.2941 22.7009 42.4828 22.2068 42.4828Z" fill="white"/>
-						</svg>
-						<h3>{ __( 'Thank You!', 'tutormate' ) }</h3>
-						<p>{ __( 'Visit', 'tutormate' ) } <a href={tutormate.site_url} target="__blank">{__('Site', 'tutormate')}</a> {__('or go to', 'tutormate')} <a href={tutormate.admin_url} target="__blank">{__('Dashboard', 'tutormate')}</a></p>
+						<div className="heading">
+							<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M24 41C33.3888 41 41 33.3888 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 33.3888 14.6112 41 24 41ZM15.5663 24.8555C15.6107 24.9627 15.6747 25.0607 15.7552 25.1443L21.7787 31.1456C21.8582 31.2383 21.9567 31.3128 22.0675 31.3641C22.3046 31.462 22.5708 31.462 22.8079 31.3641C22.9187 31.3128 23.0172 31.2383 23.0967 31.1456L33.7628 20.535C33.8432 20.4514 33.9073 20.3535 33.9516 20.2463C34.0401 20.0074 34.0401 19.7447 33.9516 19.5058C33.9082 19.3981 33.844 19.3 33.7628 19.217L32.4226 17.9138C32.3442 17.8238 32.2476 17.7514 32.1391 17.7016C32.0305 17.6518 31.9126 17.6257 31.7932 17.6251C31.666 17.6235 31.5399 17.6487 31.423 17.6991C31.3103 17.7509 31.2085 17.8238 31.1231 17.9138L22.4451 26.5919L18.4023 22.5416C18.3145 22.451 18.2102 22.3781 18.095 22.3269C17.9784 22.2757 17.8521 22.2504 17.7247 22.2529C17.6073 22.2532 17.4912 22.2785 17.3841 22.3269C17.2729 22.3758 17.1742 22.4492 17.0954 22.5416L15.7552 23.8263C15.674 23.9093 15.6098 24.0074 15.5663 24.1151C15.4779 24.354 15.4779 24.6166 15.5663 24.8555Z" fill="#24A148"/>
+							</svg>
+
+							<h3>{ __( 'Import Successful!', 'tutormate' ) }</h3>
+						</div>
+						<button className="btn btn-primary import-now complete"><a href={tutormate.site_url} target="__blank">{__('View Your Site', 'tutormate')}</a></button>
 					</div>
 				</div>
 			</div>
@@ -218,40 +223,43 @@ function App() {
 		return (
 			<div className={`modal-wrapper ${!modalState ? "" : "active"}`}>
 				<div className="modal-content">
-					<div className="modal-head">
-						<h3>{__('Select Builder', 'tutormate')}</h3>
-						<button className="close-btn" onClick={() => toggleModalState()}>
-							+
-						</button>
-					</div>
 					<div className="modal-body">
-						<RadioField 
-							selected={builder}
-							options={builderOptions}
-							selectedBuilder={selectedBuilder}
-						/>
-						<div className="pluginstatus">
-							<p>
-								{__('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')}
-							</p>
-							{'elementor' === builder &&
-								elementorPlugins && elementorPlugins.map((item, index) => {
-									setPlugins( elementorPlugins )
-									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
-								})}
-							{'gutenberg' === builder &&
-								gutenbergPlugins && gutenbergPlugins.map((item, index) => {
-									setPlugins( gutenbergPlugins )
-									return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
-								})}
+						<div className="modal-head">
+							<h3>{__('Select Your Preferred Builder', 'tutormate')}</h3>
+						</div>
+						<div className="radio-container">
+							<RadioField 
+								selected={builder}
+								options={builderOptions}
+								selectedBuilder={selectedBuilder}
+							/>
+						</div>
+						{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
+						<div className="modal-footer">
+							<button className="btn btn-outline" onClick={() => toggleModalState()}>
+								Cancel
+							</button>
+							<button className="btn btn-primary import-now" onClick={() => pluginInstall(selectedIndex, builder, plugins)}>{__('Import Now', 'tutormate')}</button>
 						</div>
 					</div>
-					{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
-					<div className="modal-footer">
-						<button className="btn btn-outline" onClick={() => toggleModalState()}>
-							Cancel
-						</button>
-						<button className="btn btn-primary" onClick={() => pluginInstall(selectedIndex, builder, plugins)}>{__('Import Now', 'tutormate')}</button>
+					<div className="pluginstatus">
+						<div className="pluginsheader">
+							<h4>{__('Required Plugins', 'tutormate')}</h4>
+						</div>
+						<p>
+							{__('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')}
+						</p>
+						
+						{'elementor' === builder &&
+							elementorPlugins && elementorPlugins.map((item, index) => {
+								setPlugins( elementorPlugins )
+								return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
+							})}
+						{'gutenberg' === builder &&
+							gutenbergPlugins && gutenbergPlugins.map((item, index) => {
+								setPlugins( gutenbergPlugins )
+								return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
+							})}
 					</div>
 				</div>
 			</div>
@@ -317,10 +325,10 @@ function App() {
 				<header>
 					<div className="header-top">
 						<div className="logo-version">
-							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} alt="tutor starter logo"/>
+							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} srcset={`${tutormate.tutormate_url}assets/images/logo@2x.png 2x`} alt="tutor starter logo"/>
 							<span>&nbsp; v{tutormate.theme_version}</span>
 						</div>
-						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. It’s feature-rich, yet easy to use. Our design is centered around enhancing your experience', 'tutormate')}</p>
+						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate')}</p>
 					</div>
 					<div className="nav-container">
 						<div className="nav-filter">

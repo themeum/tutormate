@@ -122,11 +122,11 @@ class OneClickDemoImport {
 	private function __clone() {}
 
 	/**
-	 * Private unserialize method to prevent unserializing of the *Singleton* instance.
+	 * Unserialize method to prevent unserializing of the *Singleton* instance.
 	 *
 	 * @return void
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Creates the plugin page and a submenu item in WP Appearance menu.
@@ -190,11 +190,6 @@ class OneClickDemoImport {
 					'wp_customize_on'     => apply_filters( 'tutormate_enable_wp_customize_save_hooks', true ),
 					'theme_screenshot'    => $theme->get_screenshot(),
 					'theme_version'       => $theme->get( 'Version' ),
-					'plugin_progress'     => esc_html__( 'Installing / Activating Required Plugins...', 'tutormate' ),
-					'content_progress'    => esc_html__( 'Importing Demo Content...', 'tutormate' ),
-					'widgets_progress'    => esc_html__( 'Importing Menus/Widgets...', 'tutormate' ),
-					'customizer_progress' => esc_html__( 'Importing Customizer Settings...', 'tutormate' ),
-					'all_done_progress'   => esc_html__( 'Import Complete!', 'tutormate' ),
 				)
 			);
 		}
@@ -261,7 +256,7 @@ class OneClickDemoImport {
 					$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
 
 					// Add `overwrite_package` option true to force update.
-					$installed = $upgrader->install( $api->download_link , array( 'overwrite_package' => true ) );
+					$installed = $upgrader->install( $api->download_link );
 
 					if ( $installed ) {
 						$activate = activate_plugin( $plugin['path'], '', false, true );

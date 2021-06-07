@@ -193,7 +193,7 @@ class DemoImport {
 			try {
 
 				$results    = wp_remote_get( $this->endpoint );
-				$packs_list = json_decode( $results['body'], true );
+				$packs_list = ! is_wp_error( $results ) ? json_decode( $results['body'], true ) : array();
 
 				if ( is_array( $packs_list ) || ! empty( $packs_list ) ) {
 					set_transient( 'tutorstarter_packs', $packs_list, 1 * HOUR_IN_SECONDS );
@@ -246,26 +246,27 @@ class DemoImport {
 	public function assign_defaults( $selected_import ) {
 		// Assign menus to their locations.
 		$primary   = get_term_by( 'name', 'Primary', 'nav_menu' );
-		$secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
+		//$secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
 
 		set_theme_mod(
 			'nav_menu_locations',
 			array(
 				'primary'   => $primary->term_id,
-				'secondary' => $secondary->term_id,
 			)
 		);
 
-		if ( 'Starter' === $selected_import['import_file_name'] ) {
-			// Set header logo in customizer.
-			set_theme_mod( 'custom_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
-			set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+		// Set header logo in customizer.
+		set_theme_mod( 'custom_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+		set_theme_mod( 'retina_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header@2x.png' );
+		set_theme_mod( 'transparent_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+		set_theme_mod( 'retina_trans_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white@2x.png' );
 
-			// Set footer logo in customizer.
-			set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
-			set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
-		}
-
+		// Set footer logo in customizer.
+		set_theme_mod( 'footer_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white.png' );
+		set_theme_mod( 'footer_retina_logo', get_template_directory_uri() . '/assets/dist/images/tutor-white@2x.png' );
+		set_theme_mod( 'footer_logo_trans', get_template_directory_uri() . '/assets/dist/images/tutor-header.png' );
+		set_theme_mod( 'footer_retina_trans_logo', get_template_directory_uri() . '/assets/dist/images/tutor-header@2x.png' );
+		
 		// Assign front page.
 		$front_page_id = get_page_by_title( $selected_import['import_file_name'] );
 		$blog_page_id  = get_page_by_title( 'News' );
@@ -273,6 +274,10 @@ class DemoImport {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $front_page_id->ID );
 		update_option( 'page_for_posts', $blog_page_id->ID );
+
+		// Forcefully run the tutor init hook, just in case.
+		deactivate_plugins( 'tutor/tutor.php' );
+		activate_plugin( 'tutor/tutor.php' );
 	}
 
 	/**
