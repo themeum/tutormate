@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin Name: Tutor Mate
- * Plugin URI: https://www.themeum.com/tutormate
- * Description: Companion plugin for Tutor Starter theme.
+ * Plugin Name: TutorMate
+ * Description: Companion demo importer plugin for TutorStarter theme.
  * Version: 1.0.0
  * Author: Themeum
- * Author URI: http://www.themeum.com
- * License: GPL3
- * License URI: http://www.gnu.org/licenses/gpl.html
+ * Author URI: https://www.themeum.com
+ * License: GNU General Public License v3 or later
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: tutormate
  */
 
@@ -96,11 +95,16 @@ class TUTORMATE_Plugin {
 	}
 }
 
-// Instantiate the plugin class.
-$tutormate_plugin = new TUTORMATE_Plugin();
+// Check if TutorStarter is active.
+$theme = wp_get_theme();
+
+if ( 'TutorStarter' === $theme->get( 'Name' ) ) :
+	// Instantiate the plugin class.
+	$tutormate_plugin = new TUTORMATE_Plugin();
+endif;
 
 // Require the demo importer class.
-if ( class_exists( 'TUTORMATE\\DemoImport' ) ) :
+if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'TutorStarter' === $theme->get( 'Name' ) ) :
 	$demo_import = new TUTORMATE\DemoImport();
 	$demo_import->register();
 endif;
