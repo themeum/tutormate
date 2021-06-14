@@ -107,7 +107,7 @@ class DemoImport {
             'base'  => 'tutor-lms-elementor-addons',
             'slug'  => 'tutor-lms-elementor-addons',
             'path'  => 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php',
-            'title' => esc_html__( 'Tutor Elementor Addon', 'tutormate' ),
+            'title' => esc_html__( 'Tutor LMS Elementor Addons', 'tutormate' ),
             'src'   => 'repo',
             'state' => PluginCheck::check_status( 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php' ),
         );

@@ -536,7 +536,7 @@ input[type=search i]::-webkit-search-cancel-button {
 }
 
 .modal-content .pluginstatus {
-  flex: 0.7;
+  flex: 0.8;
   padding: 30px;
   background: #f3f3f3;
   border-left: 1px solid #e8e8e8;
