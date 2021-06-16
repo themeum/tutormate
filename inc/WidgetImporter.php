@@ -10,6 +10,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 class WidgetImporter {
 	/**
 	 * Import widgets from WIE or JSON file.

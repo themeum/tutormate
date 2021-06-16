@@ -8,6 +8,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Import Action class
  */

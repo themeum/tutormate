@@ -10,6 +10,8 @@ namespace TUTORMATE;
 use function plugins_api;
 use function activate_plugin;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * OneClickDemoImport class.
  */
@@ -170,7 +172,7 @@ class OneClickDemoImport {
 		// Enqueue the scripts only on the plugin page.
 		if ( $this->plugin_page === $hook || ( 'admin.php' === $hook && $this->plugin_page_setup['menu_slug'] === esc_attr( $_GET['import'] ) ) ) {
 			
-			wp_enqueue_style('tutormate-style', TUTORMATE_URL . 'assets/css/app.css', array(), 'all');
+			wp_enqueue_style('tutormate-style', TUTORMATE_URL . 'assets/css/app.min.css', array(), 'all');
 
 			wp_enqueue_script( 'tutormate-demo-importer', TUTORMATE_URL . 'assets/js/demo-importer.js' , array( 'wp-element', 'wp-components', 'wp-i18n', 'wp-api' ), TUTORMATE_VERSION, true );
 
@@ -206,7 +208,7 @@ class OneClickDemoImport {
 		}
 		// Get selected file index or set it to 0.
 		$selected_index = ! empty ( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
-		$selected_plugin = $_POST['plugin'];
+		$selected_plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
 		$info = $this->import_files[ $selected_index ];
 
 		$plugin = null;

@@ -10,6 +10,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Customizer Imoport class
  */

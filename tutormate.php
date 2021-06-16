@@ -5,6 +5,10 @@
  * Version: 1.0.0
  * Author: Themeum
  * Author URI: https://www.themeum.com
+ * Tags: demo, import, content, data
+ * Requires at least: 5.3
+ * Tested up to: 5.7.2
+ * Requires PHP: 7.0
  * License: GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: tutormate
@@ -98,13 +102,13 @@ class TUTORMATE_Plugin {
 // Check if TutorStarter is active.
 $theme = wp_get_theme();
 
-if ( 'TutorStarter' === $theme->get( 'Name' ) ) :
+if ( 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	// Instantiate the plugin class.
 	$tutormate_plugin = new TUTORMATE_Plugin();
 endif;
 
 // Require the demo importer class.
-if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'TutorStarter' === $theme->get( 'Name' ) ) :
+if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	$demo_import = new TUTORMATE\DemoImport();
 	$demo_import->register();
 endif;

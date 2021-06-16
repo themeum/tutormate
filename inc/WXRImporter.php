@@ -9,6 +9,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 class WXRImporter extends \AwesomeMotive\WPContentImporter2\WXRImporter {
 	/**
 	 * Constructor method.

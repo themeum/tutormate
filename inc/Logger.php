@@ -7,6 +7,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 class Logger extends \AwesomeMotive\WPContentImporter2\WPImporterLoggerCLI {
 	/**
 	 * Variable for front-end error display.

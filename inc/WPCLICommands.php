@@ -9,6 +9,8 @@ namespace TUTORMATE;
 
 use WP_CLI;
 
+defined( 'ABSPATH' ) || exit;
+
 class WPCLICommands extends \WP_CLI_Command {
 
 	/**

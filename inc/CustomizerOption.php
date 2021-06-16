@@ -11,6 +11,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Customizer Option class
  */

@@ -1,7 +1,7 @@
 === TutorMate ===
 Contributors: themeum
 Donate link: https://www.themeum.com
-Tags: demo importer
+Tags: demo, import, content, data
 Requires at least: 5.3
 Tested up to: 5.7.2
 Requires PHP: 7.0
@@ -13,8 +13,6 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 TutorMate is a companion demo importer plugin for TutorStarter theme. For this plugin to work properly it is recommended to install and activate TutorStarter theme first.
 
-== What you can do with Tutor LMS Elementor Addons ==
-
 == Prerequisite ==
 
 TutorStarter theme needs to be installed and activated in order to use TutorMate demo importer plugin.
@@ -23,7 +21,7 @@ TutorStarter theme needs to be installed and activated in order to use TutorMate
 
 = Minimum Requirements =
 
-* PHP version 5.6.0 or greater (PHP 7.2 or greater is recommended)
+* PHP version 7.0 or greater (PHP 7.2 or greater is recommended)
 * MySQL version 5.0 or greater (MySQL 5.6 or greater is recommended)
 
 = Automatic installation =
@@ -43,7 +41,3 @@ The WordPress codex contains [instructions on how to do this here](https://codex
 = 1.0.0
 
 * Initial Release
-
-== Upgrade Notice ==
-
-Nothing here

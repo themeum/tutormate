@@ -7,6 +7,8 @@
 
 namespace TUTORMATE;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Downloader class
  */
