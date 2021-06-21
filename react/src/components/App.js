@@ -276,7 +276,7 @@ function App() {
 								</figure>
 								<div className="actions">
 									<div>
-										<a className="preview-url btn btn-light" href={preview_url} target="__blank">{__('Preview', 'tutormate')}</a>
+										<a className="preview-url btn btn-light" href={preview_url} target="_blank">{__('Preview', 'tutormate')}</a>
 										<button className="btn btn-primary primary-btn" onClick={() => toggleModalState()}>
 											<span onClick={() => getClickedItem(builders, index, notice)}>{__('Import', 'tutormate')}</span>
 										</button>
@@ -301,7 +301,7 @@ function App() {
 				<header>
 					<div className="header-top">
 						<div className="logo-version">
-							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} srcset={`${tutormate.tutormate_url}assets/images/logo@2x.png 2x`} alt="tutor starter logo"/>
+							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} srcSet={`${tutormate.tutormate_url}assets/images/logo@2x.png 2x`} alt="tutor starter logo"/>
 							<span>&nbsp; v{tutormate.theme_version}</span>
 						</div>
 						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate')}</p>

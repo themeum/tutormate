@@ -38,6 +38,6 @@ The WordPress codex contains [instructions on how to do this here](https://codex
 
 == Changelog ==
 
-= 1.0.0
+= 1.0.0 (https://github.com/themeum/tutormate)
 
 * Initial Release

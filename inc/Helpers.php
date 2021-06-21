@@ -64,7 +64,6 @@ class Helpers {
 			'content'    => '',
 			'widgets'    => '',
 			'customizer' => '',
-			'redux'      => '',
 		);
 		$downloader = new Downloader();
 
@@ -128,47 +127,6 @@ class Helpers {
 			if ( file_exists( $import_file_info['local_import_customizer_file'] ) ) {
 				$downloaded_files['customizer'] = $import_file_info['local_import_customizer_file'];
 			}
-		}
-
-		// ----- Set Redux file paths -----
-		// Get Redux import file as well. If defined!
-		if ( ! empty( $import_file_info['import_redux'] ) && is_array( $import_file_info['import_redux'] ) ) {
-			$redux_items = array();
-
-			// Setup filename paths to save the Redux content.
-			foreach ( $import_file_info['import_redux'] as $index => $redux_item ) {
-				$redux_filename = apply_filters( 'tutormate_downloaded_redux_file_prefix', 'demo-redux-import-file_' ) . $index . '-' . self::$demo_import_start_time . apply_filters( 'tutormate_downloaded_redux_file_suffix_and_file_extension', '.json' );
-
-				// Download the Redux import file.
-				$file_path = $downloader->download_file( $redux_item['file_url'], $redux_filename );
-
-				// Return from this function if there was an error.
-				if ( is_wp_error( $file_path ) ) {
-					return $file_path;
-				}
-
-				$redux_items[] = array(
-					'option_name' => $redux_item['option_name'],
-					'file_path'   => $file_path,
-				);
-			}
-
-			// Download the Redux import file.
-			$downloaded_files['redux'] = $redux_items;
-		}
-		else if ( ! empty( $import_file_info['local_import_redux'] ) ) {
-
-			$redux_items = array();
-
-			// Setup filename paths to save the Redux content.
-			foreach ( $import_file_info['local_import_redux'] as $redux_item ) {
-				if ( file_exists( $redux_item['file_path'] ) ) {
-					$redux_items[] = $redux_item;
-				}
-			}
-
-			// Download the Redux import file.
-			$downloaded_files['redux'] = $redux_items;
 		}
 
 		return $downloaded_files;
@@ -416,7 +374,6 @@ class Helpers {
 			'content'    => '',
 			'widgets'    => '',
 			'customizer' => '',
-			'redux'      => '',
 		);
 
 		// Upload settings to disable form and type testing for AJAX uploads.
@@ -432,19 +389,15 @@ class Helpers {
 
 		// Handle demo file uploads.
 		$content_file_info = isset( $_FILES['content_file'] ) ?
-			wp_handle_upload( $_FILES['content_file'], $upload_overrides ) :
+			wp_handle_upload( sanitize_text_field( $_FILES['content_file'] ), $upload_overrides ) :
 			$file_not_provided_error;
 
 		$widget_file_info = isset( $_FILES['widget_file'] ) ?
-			wp_handle_upload( $_FILES['widget_file'], $upload_overrides ) :
+			wp_handle_upload( sanitize_text_field( $_FILES['widget_file'] ), $upload_overrides ) :
 			$file_not_provided_error;
 
 		$customizer_file_info = isset( $_FILES['customizer_file'] ) ?
-			wp_handle_upload( $_FILES['customizer_file'], $upload_overrides ) :
-			$file_not_provided_error;
-
-		$redux_file_info = isset( $_FILES['customizer_file'] ) ?
-			wp_handle_upload( $_FILES['redux_file'], $upload_overrides ) :
+			wp_handle_upload( sanitize_text_field( $_FILES['customizer_file'] ), $upload_overrides ) :
 			$file_not_provided_error;
 
 		// Process content import file.
@@ -498,37 +451,6 @@ class Helpers {
 			);
 		}
 
-		// Process Redux import file.
-		if ( $redux_file_info && ! isset( $redux_file_info['error'] ) ) {
-			if ( isset( $_POST['redux_option_name'] ) && empty( $_POST['redux_option_name'] ) ) {
-				// Write error to log file and send an AJAX response with the error.
-				self::log_error_and_send_ajax_response(
-					esc_html__( 'Missing Redux option name! Please also enter the Redux option name!', 'tutormate' ),
-					$log_file_path,
-					esc_html__( 'Upload files', 'tutormate' )
-				);
-			}
-
-			// Set uploaded Redux file.
-			$selected_import_files['redux'] = array(
-				array(
-					'option_name' => $_POST['redux_option_name'],
-					'file_path'   => $redux_file_info['file'],
-				),
-			);
-		}
-		else {
-			// Add this error to log file.
-			$log_added = self::append_to_file(
-				sprintf(
-					__( 'Redux file was not uploaded. Error: %s', 'tutormate' ),
-					$redux_file_info['error']
-				),
-				$log_file_path,
-				esc_html__( 'Upload files' , 'tutormate' )
-			);
-		}
-
 		// Add this message to log file.
 		$log_added = self::append_to_file(
 			__( 'The import files were successfully uploaded!', 'tutormate' ) . self::import_file_info( $selected_import_files ),
@@ -546,13 +468,6 @@ class Helpers {
 	 * @param array $selected_import_files array of selected import files.
 	 */
 	public static function import_file_info( $selected_import_files ) {
-		$redux_file_string = '';
-
-		if ( ! empty( $selected_import_files['redux'] ) ) {
-			$redux_file_string = array_reduce( $selected_import_files['redux'], function( $string, $item ) {
-				return sprintf( '%1$s%2$s -> %3$s %4$s', $string, $item['option_name'], $item['file_path'], PHP_EOL );
-			}, '' );
-		}
 
 		return PHP_EOL .
 		sprintf(
@@ -560,13 +475,12 @@ class Helpers {
 			ini_get( 'max_execution_time' )
 		) . PHP_EOL .
 		sprintf(
-			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$sWidget file = %4$s%1$sCustomizer file = %5$s%1$sRedux files:%1$s%6$s', 'tutormate' ),
+			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$sWidget file = %4$s%1$sCustomizer', 'tutormate' ),
 			PHP_EOL,
 			get_site_url(),
 			empty( $selected_import_files['content'] ) ? esc_html__( 'not defined!', 'tutormate' ) : $selected_import_files['content'],
 			empty( $selected_import_files['widgets'] ) ? esc_html__( 'not defined!', 'tutormate' ) : $selected_import_files['widgets'],
 			empty( $selected_import_files['customizer'] ) ? esc_html__( 'not defined!', 'tutormate' ) : $selected_import_files['customizer'],
-			empty( $redux_file_string ) ? esc_html__( 'not defined!', 'tutormate' ) : $redux_file_string
 		);
 	}
 
@@ -595,7 +509,6 @@ class Helpers {
 	public static function set_demo_import_start_time() {
 		self::$demo_import_start_time = date( apply_filters( 'tutormate_date_format_for_file_names', 'Y-m-d__H-i-s' ) );
 	}
-
 
 	/**
 	 * Get the category list of all categories used in the predefined demo imports array.

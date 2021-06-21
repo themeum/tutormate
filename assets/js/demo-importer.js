@@ -1331,7 +1331,7 @@ function App() {
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "preview-url btn btn-light",
         href: preview_url,
-        target: "__blank"
+        target: "_blank"
       }, __('Preview', 'tutormate')), /*#__PURE__*/React.createElement("button", {
         className: "btn btn-primary primary-btn",
         onClick: function onClick() {
@@ -1364,7 +1364,7 @@ function App() {
     className: "logo-version"
   }, /*#__PURE__*/React.createElement("img", {
     src: "".concat(tutormate.tutormate_url, "assets/images/tutor-starter-logo.png"),
-    srcset: "".concat(tutormate.tutormate_url, "assets/images/logo@2x.png 2x"),
+    srcSet: "".concat(tutormate.tutormate_url, "assets/images/logo@2x.png 2x"),
     alt: "tutor starter logo"
   }), /*#__PURE__*/React.createElement("span", null, "\xA0 v", tutormate.theme_version)), /*#__PURE__*/React.createElement("p", null, __('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate'))), /*#__PURE__*/React.createElement("div", {
     className: "nav-container"
@@ -1559,8 +1559,8 @@ var Installation = function Installation(_ref) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
   }, /*#__PURE__*/React.createElement("path", {
-    "fill-rule": "evenodd",
-    "clip-rule": "evenodd",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
     d: "M24 41C33.3888 41 41 33.3888 41 24C41 14.6112 33.3888 7 24 7C14.6112 7 7 14.6112 7 24C7 33.3888 14.6112 41 24 41ZM15.5663 24.8555C15.6107 24.9627 15.6747 25.0607 15.7552 25.1443L21.7787 31.1456C21.8582 31.2383 21.9567 31.3128 22.0675 31.3641C22.3046 31.462 22.5708 31.462 22.8079 31.3641C22.9187 31.3128 23.0172 31.2383 23.0967 31.1456L33.7628 20.535C33.8432 20.4514 33.9073 20.3535 33.9516 20.2463C34.0401 20.0074 34.0401 19.7447 33.9516 19.5058C33.9082 19.3981 33.844 19.3 33.7628 19.217L32.4226 17.9138C32.3442 17.8238 32.2476 17.7514 32.1391 17.7016C32.0305 17.6518 31.9126 17.6257 31.7932 17.6251C31.666 17.6235 31.5399 17.6487 31.423 17.6991C31.3103 17.7509 31.2085 17.8238 31.1231 17.9138L22.4451 26.5919L18.4023 22.5416C18.3145 22.451 18.2102 22.3781 18.095 22.3269C17.9784 22.2757 17.8521 22.2504 17.7247 22.2529C17.6073 22.2532 17.4912 22.2785 17.3841 22.3269C17.2729 22.3758 17.1742 22.4492 17.0954 22.5416L15.7552 23.8263C15.674 23.9093 15.6098 24.0074 15.5663 24.1151C15.4779 24.354 15.4779 24.6166 15.5663 24.8555Z",
     fill: "#24A148"
   })), /*#__PURE__*/React.createElement("h3", null, __('Import Successful!', 'tutormate'))), /*#__PURE__*/React.createElement("p", null, __('Bingo! Your demo site is ready. Check how it looks.', 'tutormate'))) : /*#__PURE__*/React.createElement("div", {

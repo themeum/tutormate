@@ -40,13 +40,12 @@ class WPCLICommands extends \WP_CLI_Command {
 
 		foreach ( $this->tutormate->import_files as $index => $import_file ) {
 			WP_CLI::log( sprintf(
-				'%d -> %s [content: %s, widgets: %s, customizer: %s, redux: %s]',
+				'%d -> %s [content: %s, widgets: %s, customizer: %s]',
 				$index,
 				$import_file['import_file_name'],
 				empty( $import_file['import_file_url'] ) && empty( $import_file['local_import_file'] ) ? 'no' : 'yes',
 				empty( $import_file['import_widget_file_url'] ) && empty( $import_file['local_import_widget_file'] ) ? 'no' : 'yes',
 				empty( $import_file['import_customizer_file_url'] ) && empty( $import_file['local_import_customizer_file'] ) ? 'no' : 'yes',
-				empty( $import_file['import_redux'] ) && empty( $import_file['local_import_redux'] ) ? 'no' : 'yes'
 			) );
 		}
 	}

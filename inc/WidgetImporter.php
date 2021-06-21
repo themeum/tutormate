@@ -57,7 +57,6 @@ class WidgetImporter {
 
 	}
 
-
 	/**
 	 * Imports widgets from a json file.
 	 *
@@ -101,7 +100,6 @@ class WidgetImporter {
 
 		return json_decode( $data );
 	}
-
 
 	/**
 	 * Import widget JSON data
@@ -298,7 +296,6 @@ class WidgetImporter {
 		// Return results.
 		return apply_filters( 'tutormate_widget_import_results', $results );
 	}
-
 
 	/**
 	 * Available widgets.

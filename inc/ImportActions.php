@@ -25,7 +25,6 @@ class ImportActions {
 		// After content import.
 		add_action( 'tutormate_after_content_import_execution', array( $this, 'before_widget_import_action' ), 10, 3 );
 		add_action( 'tutormate_after_content_import_execution', array( $this, 'widgets_import' ), 20, 3 );
-		add_action( 'tutormate_after_content_import_execution', array( $this, 'redux_import' ), 30, 3 );
 
 		// Customizer import.
 		add_action( 'tutormate_customizer_import_execution', array( $this, 'customizer_import' ), 10, 1 );
@@ -73,19 +72,6 @@ class ImportActions {
 	public function widgets_import( $selected_import_files, $import_files, $selected_index ) {
 		if ( ! empty( $selected_import_files['widgets'] ) ) {
 			WidgetImporter::import( $selected_import_files['widgets'] );
-		}
-	}
-
-	/**
-	 * Execute the Redux import.
-	 *
-	 * @param array $selected_import_files Actual selected import files (content, widgets, customizer, redux).
-	 * @param array $import_files          The filtered import files defined in `tutormate_import_files` filter.
-	 * @param int   $selected_index        Selected index of import.
-	 */
-	public function redux_import( $selected_import_files, $import_files, $selected_index ) {
-		if ( ! empty( $selected_import_files['redux'] ) ) {
-			ReduxImporter::import( $selected_import_files['redux'] );
 		}
 	}
 
