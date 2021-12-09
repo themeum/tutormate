@@ -3,9 +3,9 @@ Contributors: themeum
 Donate link: https://www.themeum.com
 Tags: demo, import, content, data
 Requires at least: 5.3
-Tested up to: 5.7.2
+Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,10 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+
+= 1.0.1 =
+Improvements: Improved Demo Import Process
+Update: Added Compatibility with WordPress 5.8
 
 = 1.0.0 (https://github.com/themeum/tutormate)
 
