@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TutorMate
  * Description: Companion demo importer plugin for TutorStarter theme.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Themeum
  * Author URI: https://www.themeum.com
  * Tags: demo, import, content, data
@@ -54,9 +54,9 @@ class TUTORMATE_Plugin {
 
 			// Register WP CLI commands
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
-				WP_CLI::add_command( 'tutormate init', array( 'TUTORMATE\DemoImport', 'import_theme_demo' ) );
 				WP_CLI::add_command( 'tutormate list', array( 'TUTORMATE\WPCLICommands', 'list_predefined' ) );
 				WP_CLI::add_command( 'tutormate import', array( 'TUTORMATE\WPCLICommands', 'import' ) );
+				WP_CLI::add_command( 'tutormate widget', array( 'TUTORMATE\WPCLICommands', 'set_nav_menu_widgets' ) );
 			}
 		}
 	}

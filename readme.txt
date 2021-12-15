@@ -5,7 +5,7 @@ Tags: demo, import, content, data
 Requires at least: 5.3
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+
+= 1.0.2 =
+Update: Improved Demo Import Procedures
 
 = 1.0.1 =
 Improvements: Improved Demo Import Process

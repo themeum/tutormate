@@ -293,4 +293,52 @@ class WPCLICommands extends \WP_CLI_Command {
 			Helpers::append_to_file( $message, $this->tutormate->log_file_path, $action );
 		}
 	}
+
+	/**
+	 * Set menus in nav menu widgets
+	 */
+	public function set_nav_menu_widgets() {
+		$active_nav_widgets = maybe_unserialize( get_option( 'widget_nav_menu' ) );
+		$updated_options = array();
+
+		if ( is_array( $active_nav_widgets ) && ! empty( $active_nav_widgets ) ) {
+			foreach ( $active_nav_widgets as $nav_widget ) {
+				
+				switch ( $nav_widget['title'] ) {
+					case 'Quick Links':
+						$footer_1 = array(
+							'title'    => 'Quick Links',
+							'nav_menu' => get_term_by( 'name', 'Footer 1', 'nav_menu' )->term_id
+						);
+						$footer_1_ext = array(
+							'title'    => 'Quick Links',
+							'nav_menu' => get_term_by( 'name', 'Footer 1', 'nav_menu' )->term_id
+						);
+						array_push( $updated_options, $footer_1 );
+						array_push( $updated_options, $footer_1_ext );
+						break;
+
+					case 'Resources':
+						$footer_2 = array(
+							'title'    => 'Resources',
+							'nav_menu' => get_term_by( 'name', 'Footer 2', 'nav_menu' )->term_id
+						);
+						array_push( $updated_options, $footer_2 );
+						break;
+
+					case 'Support':
+						$footer_3 = array(
+							'title'    => 'Support',
+							'nav_menu' => get_term_by( 'name', 'Footer 3', 'nav_menu' )->term_id
+						);
+						array_push( $updated_options, $footer_3 );
+						break;
+				}
+			}
+			
+			$updated_options['_multiwidget'] = 1;
+			update_option( 'widget_nav_menu', $updated_options, true );
+			WP_CLI::log( __( 'Success, all widgets are set!', 'tutormate' ) );
+		}
+	}
 }
