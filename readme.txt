@@ -3,9 +3,9 @@ Contributors: themeum
 Donate link: https://www.themeum.com
 Tags: demo, import, content, data
 Requires at least: 5.3
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,12 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+
+= 1.0.3 =
+Update: Added WordPress 5.9 Compatibility
+Update: Improved Demo Import Functionality and Performance
+Fix: Logo was not Importing Issue
+Fix: Fixed Console Errors
 
 = 1.0.2 =
 Update: Improved Demo Import Procedures

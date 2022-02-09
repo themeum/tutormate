@@ -1,22 +1,21 @@
 const { __ } = wp.i18n;
-const { useState } = wp.element;
+const { useState, useEffect } = wp.element;
 
 import Installation from './Installation';
 import RadioField from './RadioField';
 
 let importFiles = tutormate.import_files;
-const allCategories = ["all", ...new Set( importFiles.map( ( item ) => item.categories ).flat() )];
+const allCategories = ["all", ...new Set(importFiles.map((item) => item.categories).flat())];
 const elementorPlugins = builderplugins.elementor_plugins;
 const gutenbergPlugins = builderplugins.gutenberg_plugins;
 
 function App() {
-	
+
 	const [fetching, setFetching] = useState(false);
 	const [percentage, setPercentage] = useState(0);
 	const [importCompleted, setImportCompleted] = useState(false);
 	const [selectedDemo, setSelectedDemo] = useState(0);
 	const [builderList, setBuilderList] = useState([]);
-	const [clickedItem, setClickedItem] = useState([]);
 	const [modalState, setModalState] = useState(false);
 	const [builder, setBuilder] = useState('gutenberg');
 	const [selectedIndex, setSelectedIndex] = useState(0);
@@ -26,59 +25,62 @@ function App() {
 	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
 
-	let builderOptions = builderList.length > 0 && builderList.map( item => {
+	let builderOptions = builderList.length > 0 && builderList.map(item => {
 		return { label: item.toUpperCase(), value: item };
-	} );
+	});
 
 	const toggleModalState = () => {
-		setModalState( !modalState );
+		setModalState(!modalState);
 	};
 
-	const visitSite = () => {
-
-	}
-
-	const filterItems = ( category ) => {
-		if ( 'all' === category ) {
-			setListItems( importFiles );
+	const filterItems = (category) => {
+		if ('all' === category) {
+			setListItems(importFiles);
 			return;
 		}
-		const newItems = importFiles.filter( ( item ) => item.categories.includes( category ) );
-		setListItems( newItems );
+		const newItems = importFiles.filter((item) => item.categories.includes(category));
+		setListItems(newItems);
 	};
 
-	const searchResult = ( e ) => {
+	const searchResult = (e) => {
 		const inputValue = e.target.value.trim().toLowerCase();
-		const newItems = importFiles.filter( ( item ) => item.import_file_name.toLowerCase().includes( inputValue ) );
-		setListItems( newItems );
+		const newItems = importFiles.filter((item) => item.import_file_name.toLowerCase().includes(inputValue));
+		setListItems(newItems);
 	};
 
-	const getClickedItem = ( builders, index, notice ) => {
-		setSelectedIndex( index );
-		setBuilderList( builders );
-		setDemoNotice( notice );
+	const getClickedItem = (builders, index, notice) => {
+		setSelectedIndex(index);
+		setBuilderList(builders);
+		setDemoNotice(notice);
+		toggleModalState();
 	};
 
-	const selectedBuilder = ( builder ) => {
-		setBuilder( builder );
-
-		let builderData = new FormData();
-		builderData.append( 'action', 'tutormate_builder_data' );
-		builderData.append( 'security', tutormate.ajax_nonce );
-		builderData.append( 'builder', builder );
-		doAjax( builderData );
+	const setBuilderPlugins = (plugins) => {
+		useEffect(() => {
+			setPlugins(plugins);
+		}, [])
 	}
 
-	const pluginInstall = async ( selected, builder, plugins ) => {
-		setSelectedDemo( selected );
-		setModalState( !modalState );
-		setFetching( true );
-		
-		let pluginArray = plugins.length > 0 && plugins.map( plugin => {
-				return plugin.slug;
-			} );
+	const selectedBuilder = (builder) => {
+		setBuilder(builder);
 
-		plugins.forEach(({title, state}) => {
+		let builderData = new FormData();
+		builderData.append('action', 'tutormate_builder_data');
+		builderData.append('security', tutormate.ajax_nonce);
+		builderData.append('builder', builder);
+		installationAjax(builderData);
+	}
+
+	const pluginInstall = async (selected, builder, plugins) => {
+		setSelectedDemo(selected);
+		setModalState(!modalState);
+		setFetching(true);
+
+		let pluginArray = plugins.length > 0 && plugins.map(plugin => {
+			return plugin.slug;
+		});
+
+		plugins.forEach(({ title, state }) => {
 			setPluginInfo((prevInfo) => ({
 				...prevInfo,
 				[title]: {
@@ -91,8 +93,8 @@ function App() {
 
 		const selectedPlugins = pluginArray;
 		let totalPlugins = selectedPlugins.length;
-		let increment = Math.ceil(60/totalPlugins);
-		for ( let i = 0; i < selectedPlugins.length; i++ ) {
+		let increment = Math.ceil(60 / totalPlugins);
+		for (let i = 0; i < selectedPlugins.length; i++) {
 			const currentPluginName = selectedPlugins[i];
 			const currentPlugin = plugins.find(plugin => plugin.slug === currentPluginName);
 
@@ -113,7 +115,7 @@ function App() {
 				installing: true,
 				plugin: currentPluginName
 			});
-			
+
 			const responseData = await res.json();
 
 			if (responseData.status === 'success') {
@@ -133,17 +135,17 @@ function App() {
 				});
 			} else if (responseData.status === 'error') {
 				totalPlugins -= 1;
-				increment = Math.ceil(60/totalPlugins);
+				increment = Math.ceil(60 / totalPlugins);
 			}
 		}
 
-		setPercentage( 65 );
+		setPercentage(65);
 		let contentData = new FormData();
-		contentData.append( 'action', 'tutormate_import_demo_data' );
-		contentData.append( 'security', tutormate.ajax_nonce );
-		contentData.append( 'selected', selectedIndex );
-		contentData.append( 'builder', builder );
-		doAjax( contentData );
+		contentData.append('action', 'tutormate_import_demo_data');
+		contentData.append('security', tutormate.ajax_nonce);
+		contentData.append('selected', selectedIndex);
+		contentData.append('builder', builder);
+		doAjax(contentData);
 	}
 
 	const installationAjax = async (data) => {
@@ -156,43 +158,43 @@ function App() {
 		});
 	}
 
-	const doAjax = ( data ) => {
+	const doAjax = (data) => {
 		let request = new XMLHttpRequest();
-		request.open( "POST", tutormate.ajax_url );   
-		request.onreadystatechange = function() {
-			if ( this.readyState == 4 && this.status == 200 ) {
-				let response = JSON.parse( this.responseText );
-				if ( 'undefined' !== response.status && 'newAJAX' === response.status ) {
-					setPercentage( 75 );
+		request.open("POST", tutormate.ajax_url);
+		request.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let response = JSON.parse(this.responseText);
+				if ('undefined' !== response.status && 'newAJAX' === response.status) {
+					setPercentage(75);
 					let contentData = new FormData();
-					contentData.append( 'action', 'tutormate_import_demo_data' );
-					contentData.append( 'security', tutormate.ajax_nonce );
-					contentData.append( 'selected', selectedIndex );
-					contentData.append( 'builder', builder );
-					doAjax( contentData );
-				} else if ( 'undefined' !== response.status && 'customizerAJAX' === response.status ) {
-					setPercentage( 85 );
+					contentData.append('action', 'tutormate_import_demo_data');
+					contentData.append('security', tutormate.ajax_nonce);
+					contentData.append('selected', selectedIndex);
+					contentData.append('builder', builder);
+					doAjax(contentData);
+				} else if ('undefined' !== response.status && 'customizerAJAX' === response.status) {
+					setPercentage(85);
 					let customizerData = new FormData();
-					customizerData.append( 'action', 'tutormate_import_customizer_data' );
-					customizerData.append( 'security', tutormate.ajax_nonce );
-					customizerData.append( 'wp_customize', 'on' );
-					doAjax( customizerData );
-					setPercentage( 100 );
-				} else if ( 'undefined' !== response.status && 'afterAllImportAJAX' === response.status ) {
+					customizerData.append('action', 'tutormate_import_customizer_data');
+					customizerData.append('security', tutormate.ajax_nonce);
+					customizerData.append('wp_customize', 'on');
+					doAjax(customizerData);
+					setPercentage(100);
+				} else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
 					let afterImportData = new FormData();
-					afterImportData.append( 'action', 'tutormate_after_import_data' );
-					afterImportData.append( 'security', tutormate.ajax_nonce );
-					doAjax( afterImportData );
+					afterImportData.append('action', 'tutormate_after_import_data');
+					afterImportData.append('security', tutormate.ajax_nonce);
+					doAjax(afterImportData);
 					setTimeout(() => {
-						setFetching( false );
+						setFetching(false);
 					}, 3000);
-					setImportCompleted( true );
+					setImportCompleted(true);
 				}
 			} else {
-				console.log( 'In Progress.' );
+				console.log('In Progress.');
 			}
-		};      
-		request.send( data );
+		};
+		request.send(data);
 	}
 
 	// Component - PopupModal
@@ -205,16 +207,16 @@ function App() {
 							<h3>{__('Select Your Preferred Builder', 'tutormate')}</h3>
 						</div>
 						<div className="radio-container">
-							<RadioField 
+							<RadioField
 								selected={builder}
 								options={builderOptions}
 								selectedBuilder={selectedBuilder}
 							/>
 						</div>
-						{demoNotice && <div className="notices"><span style={{fontWeight: 'bold'}}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{__html:demoNotice}}/></div>}
+						{demoNotice && <div className="notices"><span style={{ fontWeight: 'bold' }}>{__('Important: ', 'tutormate')}</span><span dangerouslySetInnerHTML={{ __html: demoNotice }} /></div>}
 						<div className="modal-footer">
 							<button className="btn btn-outline" onClick={() => toggleModalState()}>
-								Cancel
+								{__('Cancel', 'tutormate')}
 							</button>
 							<button className="btn btn-primary import-now" onClick={() => pluginInstall(selectedIndex, builder, plugins)}>{__('Import Now', 'tutormate')}</button>
 						</div>
@@ -226,15 +228,15 @@ function App() {
 						<p>
 							{__('The following plugins will be installed and activated for this demo if not already available:', 'tutormate')}
 						</p>
-						
+
 						{'elementor' === builder &&
 							elementorPlugins && elementorPlugins.map((item, index) => {
-								setPlugins( elementorPlugins )
+								setBuilderPlugins(elementorPlugins);
 								return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 							})}
 						{'gutenberg' === builder &&
 							gutenbergPlugins && gutenbergPlugins.map((item, index) => {
-								setPlugins( gutenbergPlugins )
+								setBuilderPlugins(gutenbergPlugins);
 								return (<div className={`${item.state}`} key={index}><strong>{item.title}</strong> <span>{item.state}</span></div>)
 							})}
 					</div>
@@ -255,9 +257,9 @@ function App() {
 								<div className="header">
 									<div className="title">{import_file_name}</div>
 									<div className="icons">
-										{builders.map( (builder, index) => builder === 'gutenberg' ? 
-											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon"/>) : 
-											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon"/>) )
+										{builders.map((builder, index) => builder === 'gutenberg' ?
+											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon" />) :
+											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon" />))
 										}
 									</div>
 								</div>
@@ -277,8 +279,8 @@ function App() {
 								<div className="actions">
 									<div>
 										<a className="preview-url btn btn-light" href={preview_url} target="_blank">{__('Preview', 'tutormate')}</a>
-										<button className="btn btn-primary primary-btn" onClick={() => toggleModalState()}>
-											<span onClick={() => getClickedItem(builders, index, notice)}>{__('Import', 'tutormate')}</span>
+										<button className="btn btn-primary primary-btn" onClick={() => getClickedItem(builders, index, notice)}>
+											<span>{__('Import', 'tutormate')}</span>
 										</button>
 									</div>
 								</div>
@@ -286,36 +288,36 @@ function App() {
 						);
 					})
 				) : (
-						<li className="no-list-found">{__('Nothing Found', 'tutormate')}</li>
-					)}
+					<li className="no-list-found">{__('Nothing Found', 'tutormate')}</li>
+				)}
 			</ul>
 		);
 	};
-	
+
 	return (
 		<div className="demo-importer-ui">
 
-			<PopupModal clickedItem={ clickedItem } selectedIndex={ selectedIndex } />
-			{ fetching  && <Installation percentage={ percentage } plugins={plugins} pluginInfo={pluginInfo}/> }
+			<PopupModal selectedIndex={selectedIndex} />
+			{fetching && <Installation percentage={percentage} plugins={plugins} pluginInfo={pluginInfo} />}
 			<div className="demo-importer-wrapper">
 				<header>
 					<div className="header-top">
 						<div className="logo-version">
-							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} srcSet={`${tutormate.tutormate_url}assets/images/logo@2x.png 2x`} alt="tutor starter logo"/>
+							<img src={`${tutormate.tutormate_url}assets/images/tutor-starter-logo.png`} srcSet={`${tutormate.tutormate_url}assets/images/logo@2x.png 2x`} alt="tutor starter logo" />
 							<span>&nbsp; v{tutormate.theme_version}</span>
 						</div>
 						<p>{__('Tutor LMS comes with a revolutionary drag & drop system to create resourceful courses. Tutor Starter is designed around enhancing your Tutor LMS experience.', 'tutormate')}</p>
 					</div>
 					<div className="nav-container">
 						<div className="nav-filter">
-							{ categories.map( ( category, index ) => (
+							{categories.map((category, index) => (
 								<button
 									type="button"
 									className="filter-btn"
-									key={ index }
-									onClick={ () => filterItems( category ) }
+									key={index}
+									onClick={() => filterItems(category)}
 								>
-									<span>{ category }</span>
+									<span>{category}</span>
 								</button>
 							))}
 						</div>
@@ -327,12 +329,12 @@ function App() {
 								placeholder="Search for starter packs…"
 								onChange={searchResult}
 							/>
-							<img src={`${tutormate.tutormate_url}assets/images/search-icon.png`} style={{width: '14px', height: '14px'}} alt="icon"/>
+							<img src={`${tutormate.tutormate_url}assets/images/search-icon.png`} style={{ width: '14px', height: '14px' }} alt="icon" />
 						</div>
 					</div>
 				</header>
 
-				<ListItems listItems={ listItems } />
+				<ListItems listItems={listItems} />
 			</div>
 		</div>
 	);
