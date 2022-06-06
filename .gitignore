@@ -13,3 +13,4 @@ assets/dist/.DS_Store
 package-lock.json
 assets/js/*
 assets/css/*
+assets/mix-manifest.json

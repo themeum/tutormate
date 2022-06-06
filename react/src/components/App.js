@@ -64,7 +64,7 @@ function App() {
 			
 			Promise.allSettled(promises)
 				.then(()=>{
-					console.log('all downloaded')
+					console.log('All downloaded')
 					setPercentage(100);
 					setTimeout(() => setFetching(false) , 3000);
 				})
