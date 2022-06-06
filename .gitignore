@@ -11,6 +11,6 @@ assets/dist/.DS_Store
 *.sqlite
 
 package-lock.json
-assets/js/*
-assets/css/*
+assets/js/*.js
+assets/css/*.css
 assets/mix-manifest.json

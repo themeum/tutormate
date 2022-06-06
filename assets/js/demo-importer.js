@@ -1046,7 +1046,7 @@ function App() {
                 console.log("total attachment: ".concat(rows.length));
                 console.log('downloading...');
                 Promise.allSettled(promises).then(function () {
-                  console.log('all downloaded');
+                  console.log('All downloaded');
                   setPercentage(100);
                   setTimeout(function () {
                     return setFetching(false);

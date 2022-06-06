@@ -229,7 +229,6 @@ function App() {
 					customizerData.append('security', tutormate.ajax_nonce);
 					customizerData.append('wp_customize', 'on');
 					doAjax(customizerData);
-					// setPercentage(100);
 				} else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
 					let afterImportData = new FormData();
 					afterImportData.append('action', 'tutormate_after_import_data');
