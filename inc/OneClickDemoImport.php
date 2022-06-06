@@ -616,7 +616,7 @@ class OneClickDemoImport {
 
 		// Importer options array.
 		$importer_options = apply_filters( 'tutormate_importer_options', array(
-			'fetch_attachments' => true,
+			'fetch_attachments' => false,
 		) );
 
 		// Logger options for the logger used in the importer.

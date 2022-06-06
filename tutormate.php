@@ -112,4 +112,6 @@ endif;
 if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	$demo_import = new TUTORMATE\DemoImport();
 	$demo_import->register();
+
+	new \TUTORMATE\MediaDownloader();
 endif;

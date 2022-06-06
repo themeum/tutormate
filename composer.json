@@ -15,18 +15,10 @@
 			"homepage": "https://themeum.com"
 		}
 	],
-	"repositories": [
-		{
-		  "type": "vcs",
-		  "url":  "https://github.com/awesomemotive/WordPress-Importer.git"
-		}
-	],
-	"require": {
-        "awesomemotive/wp-content-importer-v2": "^3.0.3"
-    },
 	"autoload": {
 		"psr-4": {
-			"TUTORMATE\\": "inc/"
+			"TUTORMATE\\": "inc/",
+			"AwesomeMotive\\WPContentImporter2\\" : "lib/awesomemotive/src/"
 		}
 	}
 }
