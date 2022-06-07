@@ -615,6 +615,8 @@ class OneClickDemoImport {
 		$import_actions->register_hooks();
 
 		// Importer options array.
+		// fetch_attachments default false
+		// @since 1.0.4
 		$importer_options = apply_filters( 'tutormate_importer_options', array(
 			'fetch_attachments' => false,
 		) );

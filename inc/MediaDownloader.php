@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Class MediaDownloader
+ * @since 1.0.4
  */
 class MediaDownloader {
 

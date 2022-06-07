@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TutorMate
  * Description: Companion demo importer plugin for TutorStarter theme.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Themeum
  * Author URI: https://www.themeum.com
  * Tags: demo, import, content, data
