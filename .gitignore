@@ -11,4 +11,5 @@ assets/dist/.DS_Store
 *.sqlite
 
 package-lock.json
+composer.lock
 assets/mix-manifest.json
