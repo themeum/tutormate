@@ -24,6 +24,82 @@ function App() {
 	const [categories, setCategories] = useState(allCategories);
 	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
+	
+	useEffect(() => {
+		if(importCompleted){
+			bulkImageDownload()
+		}
+	}, [importCompleted])
+
+	// Fetch the attachment list from server
+	// @since 1.0.4
+	const fetchAttachments = async ()=>{
+		let security = tutormate.ajax_nonce;
+		let res = await fetch(tutormate.ajax_url+'?action=tutormate_attachments&security='+security)
+		return res.json();
+	}
+
+	// @since 1.0.4
+	const bulkImageDownload = async() => {
+		let promises = [Promise.resolve(1)];
+		let security = tutormate.ajax_nonce;
+		let base_url = tutormate.ajax_url + '?action=tutormate_download_attachment&security='+security;
+		
+		let res = await fetchAttachments()
+
+		if( res.success ) {
+			// _thumbnail_id update for each post which related to attachment record
+			let update_meta_task = fetch(base_url+'&update_meta=true');
+			promises.push(update_meta_task)
+			
+			let rows = res.data
+			rows.forEach(function(row){
+				if(row.data.post_type === 'attachment'){
+					let target_url = `${base_url}&media_id=${row.data.post_id}`;
+					let async_task = fetch(target_url)
+					promises.push(async_task);
+				}
+			})
+
+			console.log(`total attachment: ${rows.length}`)
+			console.log('downloading...')
+			
+			let already_done = percentage;
+			let target_percent = 100 - already_done; // 85
+			let current = 0;
+			let total_request = promises.length
+
+			let calculate_percent = ()=>{
+				current++;
+				let percent = (target_percent/total_request) * current;
+				let completed = Math.round(already_done+percent);
+				// console.log(`Status: ${current}/${total_request}`)
+				// console.log('completed: ' + completed)
+				setPercentage(completed);
+			}
+			
+			promises.forEach((p)=>{
+				p.then(()=> calculate_percent() )
+					.catch(()=> calculate_percent() )
+			});
+
+			Promise.allSettled(promises)
+				.then(()=>{
+					console.log('All downloaded')
+					// 85 to 100
+					setPercentage(100);
+					setImportCompleted(false)
+					setTimeout(() => {
+						setFetching(false)
+						setPercentage(0)
+					} , 3000);
+				})
+				.catch((err)=> console.log(err))
+		}
+	}
+
+	
+
 
 	let builderOptions = builderList.length > 0 && builderList.map(item => {
 		return { label: item.toUpperCase(), value: item };
@@ -179,15 +255,11 @@ function App() {
 					customizerData.append('security', tutormate.ajax_nonce);
 					customizerData.append('wp_customize', 'on');
 					doAjax(customizerData);
-					setPercentage(100);
 				} else if ('undefined' !== response.status && 'afterAllImportAJAX' === response.status) {
 					let afterImportData = new FormData();
 					afterImportData.append('action', 'tutormate_after_import_data');
 					afterImportData.append('security', tutormate.ajax_nonce);
 					doAjax(afterImportData);
-					setTimeout(() => {
-						setFetching(false);
-					}, 3000);
 					setImportCompleted(true);
 				}
 			} else {

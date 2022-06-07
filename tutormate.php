@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TutorMate
  * Description: Companion demo importer plugin for TutorStarter theme.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Themeum
  * Author URI: https://www.themeum.com
  * Tags: demo, import, content, data
@@ -112,4 +112,6 @@ endif;
 if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	$demo_import = new TUTORMATE\DemoImport();
 	$demo_import->register();
+
+	new \TUTORMATE\MediaDownloader();
 endif;
