@@ -10,6 +10,10 @@ assets/dist/.DS_Store
 *.sql
 *.sqlite
 
+languages/*
+!languages/.gitkeep
+
 package-lock.json
 composer.lock
 assets/mix-manifest.json
+assets/js/demo-importer.js
