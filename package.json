@@ -11,7 +11,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "makepot": "wp i18n make-pot --exclude='react,dist,node_modules,vendor' . languages/tutormate.pot",
     "bundle": "dir-archiver --src . --dest ../tutormate.zip --exclude .DS_Store .ds_store .keep .eslintrc.json .eslintignore .git .gitattributes .github .gitignore phpcs.xml README.md composer.lock node_modules package-lock.json package.json webpack.mix.js sass react",
-    "build":"npm run prod && npm run makepot && npm run bundle",
+    "build": "npm run prod && npm run makepot && npm run bundle",
     "lint": "eslint \"./**/*.js\""
   },
   "devDependencies": {
