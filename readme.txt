@@ -49,6 +49,10 @@ Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter 
 
 == Changelog ==
 
+= 1.0.4 =
+Fix: Demo Data import was taking long time
+Fix: Demo Data was being imported with incomplete contents
+
 = 1.0.3 =
 Update: Added WordPress 5.9 Compatibility
 Update: Improved Demo Import Functionality and Performance
