@@ -3,9 +3,9 @@ Contributors: themeum
 Donate link: https://www.themeum.com
 Tags: demo, import, content, data
 Requires at least: 5.3
-Tested up to: 6.0
+Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,8 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+= 1.0.5 =
+Update: Added WordPress 6.3 Compatibility
 
 = 1.0.4 =
 Fix: Demo Data import was taking long time
