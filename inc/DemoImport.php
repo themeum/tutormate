@@ -20,57 +20,73 @@ class DemoImport {
 	 * @var string
 	 */
 	private $endpoint = 'https://api.tutorlms.com/wp-json/restapi/v1/tutorpacks';
-	
+
 	/**
 	 * Public builder
-	 * 
+	 *
 	 * @var string
 	 */
-	public $builder = 'gutenberg';
-    
-    /**
-     * Public Woocommerce plugin config
-     * 
-     * @var array
-     */
-    public $woocommerce = array();
+	public $builder = 'droip';
 
-    /**
-     * Public Tutor LMS plugin config
-     * 
-     * @var array
-     */
+	/**
+	 * Public Woocommerce plugin config
+	 *
+	 * @var array
+	 */
+	public $woocommerce = array();
+
+	/**
+	 * Public Tutor LMS plugin config
+	 *
+	 * @var array
+	 */
 	public $tutor_lms = array();
-	
+
+	/**
+	 * Public Droip plugin config
+	 *
+	 * @var array
+	 */
+	public $droip = array();
+
 	/**
 	 * Public Tutor Elementor Addon
+	 *
+	 * @var array
 	 */
 	public $tutor_elementor = array();
 
-    /**
-     * Public Qubely plugin config
-     * 
-     * @var array
-     */
-    public $qubely = array();
+	/**
+	 * Public Qubely plugin config
+	 *
+	 * @var array
+	 */
+	public $qubely = array();
 
-    /**
-     * Public Elementor plugin config
-     * 
-     * @var array
-     */
+	/**
+	 * Public Elementor plugin config
+	 *
+	 * @var array
+	 */
 	public $elementor = array();
 
 	/**
+	 * Public is_droip
+	 *
+	 * @var array
+	 */
+	public $is_droip = array();
+
+	/**
 	 * Public is_gutenberg
-	 * 
+	 *
 	 * @var array
 	 */
 	public $is_gutenberg = array();
 
 	/**
 	 * Public is elementor
-	 * 
+	 *
 	 * @var array
 	 */
 	public $is_elementor = array();
@@ -84,51 +100,60 @@ class DemoImport {
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_tutormate_builder_data', array( $this, 'receive_builder_data' ) );
 		add_filter( 'tutormate_enable_wp_customize_save_hooks', array( $this, 'save_customizer_data' ) );
-        
-        $this->woocommerce = array(
-            'base'  => 'woocommerce',
-            'slug'  => 'woocommerce',
-            'path'  => 'woocommerce/woocommerce.php',
-            'title' => esc_html__( 'WooCommerce', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'woocommerce/woocommerce.php' ),
-        );
 
-        $this->tutor_lms = array(
-            'base'  => 'tutor',
-            'slug'  => 'tutor',
-            'path'  => 'tutor/tutor.php',
-            'title' => esc_html__( 'Tutor LMS', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'tutor/tutor.php' ),
+		$this->woocommerce = array(
+			'base'  => 'woocommerce',
+			'slug'  => 'woocommerce',
+			'path'  => 'woocommerce/woocommerce.php',
+			'title' => esc_html__( 'WooCommerce', 'tutormate' ),
+			'src'   => 'repo',
+			'state' => PluginCheck::check_status( 'woocommerce/woocommerce.php' ),
 		);
-		
-        $this->tutor_elementor = array(
-            'base'  => 'tutor-lms-elementor-addons',
-            'slug'  => 'tutor-lms-elementor-addons',
-            'path'  => 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php',
-            'title' => esc_html__( 'Tutor LMS Elementor Addons', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php' ),
-        );
 
-        $this->qubely = array(
-            'base'  => 'qubely',
-            'slug'  => 'qubely',
-            'path'  => 'qubely/qubely.php',
-            'title' => esc_html__( 'Qubely', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'qubely/qubely.php' ),
-        );
+		$this->tutor_lms = array(
+			'base'  => 'tutor',
+			'slug'  => 'tutor',
+			'path'  => 'tutor/tutor.php',
+			'title' => esc_html__( 'Tutor LMS', 'tutormate' ),
+			'src'   => 'repo',
+			'state' => PluginCheck::check_status( 'tutor/tutor.php' ),
+		);
+		// https://droip.s3.amazonaws.com/dist/droip-builds/droip-1.1.1.zip
+		$this->droip = array(
+			'base'  => 'droip',
+			'slug'  => 'droip',
+			'path'  => 'droip/droip.php',
+			'title' => esc_html__( 'Droip', 'tutormate' ),
+			'src'   => 'thirdparty',
+			'state' => PluginCheck::check_status( 'droip/droip.php' ),
+		);
 
-        $this->elementor = array(
-            'base'  => 'elementor',
-            'slug'  => 'elementor',
-            'path'  => 'elementor/elementor.php',
-            'title' => esc_html__( 'Elementor', 'tutormate' ),
-            'src'   => 'repo',
-            'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
-        );
+		$this->tutor_elementor = array(
+			'base'  => 'tutor-lms-elementor-addons',
+			'slug'  => 'tutor-lms-elementor-addons',
+			'path'  => 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php',
+			'title' => esc_html__( 'Tutor LMS Elementor Addons', 'tutormate' ),
+			'src'   => 'repo',
+			'state' => PluginCheck::check_status( 'tutor-lms-elementor-addons/tutor-lms-elementor-addons.php' ),
+		);
+
+		$this->qubely = array(
+			'base'  => 'qubely',
+			'slug'  => 'qubely',
+			'path'  => 'qubely/qubely.php',
+			'title' => esc_html__( 'Qubely', 'tutormate' ),
+			'src'   => 'repo',
+			'state' => PluginCheck::check_status( 'qubely/qubely.php' ),
+		);
+
+		$this->elementor = array(
+			'base'  => 'elementor',
+			'slug'  => 'elementor',
+			'path'  => 'elementor/elementor.php',
+			'title' => esc_html__( 'Elementor', 'tutormate' ),
+			'src'   => 'repo',
+			'state' => PluginCheck::check_status( 'elementor/elementor.php' ),
+		);
 	}
 
 	/**
@@ -136,6 +161,17 @@ class DemoImport {
 	 */
 	public function receive_builder_data() {
 		return true;
+	}
+
+	/**
+	 * Elementor plugins
+	 */
+	public function droip_plugins() {
+		return $this->is_droip = array(
+			$this->tutor_lms,
+			$this->droip,
+			$this->woocommerce,
+		);
 	}
 
 	/**
@@ -168,8 +204,11 @@ class DemoImport {
 		if ( ! isset( $_GET['page'] ) || 'tutorstarter-demo-import' !== $_GET['page'] ) {
 			return;
 		}
-		wp_localize_script('tutormate-demo-importer', 'builderplugins',
+		wp_localize_script(
+			'tutormate-demo-importer',
+			'builderplugins',
 			array(
+				'droip_plugins'     => $this->droip_plugins(),
 				'elementor_plugins' => $this->elementor_plugins(),
 				'gutenberg_plugins' => $this->gutenberg_plugins(),
 			)
@@ -181,14 +220,43 @@ class DemoImport {
 	 *
 	 * @return array $demo_list list of demos
 	 */
+	public function builder_plugin_list() {
+		if ( 'elementor' === $this->builder ) {
+			return $this->elementor_plugins();
+		} elseif ( 'gutenberg' === $this->builder ) {
+			return $this->gutenberg_plugins();
+		} else {
+			return $this->droip_plugins();
+		}
+	}
+
+
+	// public function import_file_selection( $packs, $builder_name = '', $content_type = '' ) {
+	// $gen = $builder_name . '_' . $content_type;
+	// if ( $builder_name == 'elementor' ) {
+	// return $gen;
+	// } elseif ( $builder_name == 'droip' ) {
+	// return $gen;
+	// } else {
+	// return $packs['content'];
+	// }
+	// }
+
+	/**
+	 * Handles Theme Demo Imports for Content, Customizer and Widgets
+	 *
+	 * @return array $demo_list list of demos
+	 */
 	public function import_theme_demo() {
 
+		// $bb = $_POST['builder'];
+
 		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
-		
+
 		$demo_list  = array();
 		$packs_list = get_transient( 'tutorstarter_packs' );
 
-		if ( is_admin() && false === $packs_list ) {
+		if ( is_admin() && ! $packs_list ) {
 
 			try {
 
@@ -208,27 +276,37 @@ class DemoImport {
 
 			foreach ( $packs_list as $packs ) {
 
+				array_push( $packs['builders'], array( 'slug' => 'droip' ) );
+				// $packs['droip_content']    = 'https://api.tutorlms.com/wp-content/uploads/2022/03/elementorsinglecourse-content.xml';
+				// $packs['droip_widget']     = 'https://api.tutorlms.com/wp-content/uploads/2021/07/elementor-singlecourse-widgets.wie';
+				// $packs['droip_customizer'] = 'https://api.tutorlms.com/wp-content/uploads/2021/07/elementor-singlecourse-customizer.dat';
+				$packs['droip_content']    = 'https://tutor-templates.test/wp-content/uploads/tutortemplates.WordPress.2024-09-12.xml';
+				$packs['droip_widget']     = 'https://tutor-templates.test/wp-content/uploads/tutor-templates.test-widgets.wie';
+				$packs['droip_customizer'] = 'https://tutor-templates.test/wp-content/uploads/owl-export.dat';
+
 				$category_list = array();
 				foreach ( $packs['categories'] as $category ) {
 					array_push( $category_list, $category['name'] );
 				}
-				
+
 				$builder_list = array();
 				foreach ( $packs['builders'] as $builder ) {
 					array_push( $builder_list, $builder['slug'] );
 				}
+				// unset( $builder_list[1] );
+				// array_push( $builder_list, 'droip' );
 
 				$list = array(
 					'import_file_name'           => $packs['name'],
 					'categories'                 => $category_list,
-					'import_file_url'            => 'elementor' === $this->builder ? $packs['elementor_content'] : $packs['content'],
-					'import_widget_file_url'     => 'elementor' === $this->builder ? $packs['elementor_widget'] : $packs['widget'],
-					'import_customizer_file_url' => 'elementor' === $this->builder ? $packs['elementor_customizer'] : $packs['customizer'],
+					'import_file_url'            => 'droip' === $this->builder ? $packs['droip_content'] : $packs['content'],
+					'import_widget_file_url'     => 'droip' === $this->builder ? $packs['droip_widget'] : $packs['widget'],
+					'import_customizer_file_url' => 'droip' === $this->builder ? $packs['droip_customizer'] : $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
 					'builders'                   => $builder_list,
-					'plugins'                    => 'elementor' === $this->builder ? $this->elementor_plugins() : $this->gutenberg_plugins(),
+					'plugins'                    => $this->builder_plugin_list(),
 					'preview_url'                => $packs['preview_url'],
-					'notice'                     => $packs['notices']
+					'notice'                     => $packs['notices'],
 				);
 
 				array_push( $demo_list, $list );
@@ -245,16 +323,16 @@ class DemoImport {
 	 */
 	public function assign_defaults( $selected_import ) {
 		// Assign menus to their locations.
-		$primary   = get_term_by( 'name', 'Primary', 'nav_menu' );
-		//$secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
+		$primary = get_term_by( 'name', 'Primary', 'nav_menu' );
+		// $secondary = get_term_by( 'name', 'Footer', 'nav_menu' );
 
 		set_theme_mod(
 			'nav_menu_locations',
 			array(
-				'primary'   => $primary->term_id,
+				'primary' => $primary->term_id,
 			)
 		);
-		
+
 		// Assign front page.
 		$front_page_id = get_page_by_title( $selected_import['import_file_name'] );
 		$blog_page_id  = get_page_by_title( 'News' );
@@ -272,7 +350,7 @@ class DemoImport {
 
 	/**
 	 * Save customizer data
-	 * 
+	 *
 	 * @return bool true
 	 */
 	public function save_customizer_data() {
