@@ -14,6 +14,8 @@
  * Text Domain: tutormate
  */
 
+use TutorLMSDroip\Helper;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -22,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'init', 'tutormate_language_load' );
 
 function tutormate_language_load() {
-	load_plugin_textdomain( 'tutormate', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'tutormate', false, basename( __DIR__ ) . '/languages' );
 }
 
 /**
@@ -34,15 +36,14 @@ class TUTORMATE_Plugin {
 	 * Constructor for this class.
 	 */
 	public function __construct() {
-		
+
 		/**
 		 * Display admin error message if PHP version is older than 5.3.2.
 		 * Otherwise execute the main plugin class.
 		 */
 		if ( version_compare( phpversion(), '5.3.2', '<' ) ) {
 			add_action( 'admin_notices', array( $this, 'old_php_admin_error_notice' ) );
-		}
-		else {
+		} else {
 			// Set plugin constants.
 			$this->set_plugin_constants();
 
@@ -80,6 +81,7 @@ class TUTORMATE_Plugin {
 		// Path/URL to root of this plugin, with trailing slash.
 		if ( ! defined( 'TUTORMATE_PATH' ) ) {
 			define( 'TUTORMATE_PATH', plugin_dir_path( __FILE__ ) );
+			define( 'TEMPLATE_LIST_ENDPOINT', 'http://template-import.test/wp-content/plugins/droip-layouts.json' );
 		}
 		if ( ! defined( 'TUTORMATE_URL' ) ) {
 			define( 'TUTORMATE_URL', plugin_dir_url( __FILE__ ) );
@@ -115,3 +117,25 @@ if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 
 
 	new \TUTORMATE\MediaDownloader();
 endif;
+
+
+
+
+add_action( 'init', 'my_custom_function' );
+function my_custom_function() {
+	if ( isset( $_GET['test'] ) ) {
+		// $obj = json_decode( $obj, true );
+		// echo '<pre>';
+		// print_r( $obj );
+		// echo '</pre>';
+		// die;
+		$obj = file_get_contents( TEMPLATE_LIST_ENDPOINT );
+		$obj = json_decode( $obj, true );
+		echo '<pre>';
+		print_r( $obj );
+		echo '</pre>';
+		die;
+		// Helper::upload_layout_pack( $obj );
+		// var_dump( Helper::upload_layout_pack( $obj ) );
+	}
+}

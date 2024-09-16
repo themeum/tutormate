@@ -195,8 +195,6 @@ function App() {
 
 			const responseData = await res.json();
 
-			// return 0;
-
 			if (responseData.status === 'success') {
 				setPercentage((val) => {
 					val = Math.min(60, val + increment);
@@ -224,9 +222,26 @@ function App() {
 		contentData.append('security', tutormate.ajax_nonce);
 		contentData.append('selected', selectedIndex);
 		contentData.append('builder', builder);
-		console.log('selectedIndex ', selectedIndex);
-		console.log('builderrrr ', builder);
-		doAjax(contentData);
+		if ('droip' === builder) {
+			let droipAjaxCall = new FormData();
+			droipAjaxCall.append('action', 'import_droip_template');
+			droipAjaxCall.append('security', tutormate.ajax_nonce);
+			droipAjaxCall.append('selected', selectedIndex);
+			droipAjaxCall.append('builder', builder);
+			let driopImportResponse = await fetch(tutormate.ajax_url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: new URLSearchParams(droipAjaxCall),
+			});
+			if (driopImportResponse.ok) {
+				setPercentage(100);
+				setImportCompleted(false);
+			}
+		} else {
+			doAjax(contentData);
+		}
 	};
 
 	const installationAjax = async (data) => {

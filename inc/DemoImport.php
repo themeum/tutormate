@@ -7,6 +7,8 @@
 
 namespace TUTORMATE;
 
+use TutorLMSDroip\Helper;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -19,14 +21,15 @@ class DemoImport {
 	 *
 	 * @var string
 	 */
-	private $endpoint = 'https://api.tutorlms.com/wp-json/restapi/v1/tutorpacks';
+	// private $endpoint = 'https://api.tutorlms.com/wp-json/restapi/v1/tutorpacks';
+	private $endpoint = TEMPLATE_LIST_ENDPOINT;
 
 	/**
 	 * Public builder
 	 *
 	 * @var string
 	 */
-	public $builder = 'droip';
+	public $builder = 'gutenberg';
 
 	/**
 	 * Public Woocommerce plugin config
@@ -91,6 +94,24 @@ class DemoImport {
 	 */
 	public $is_elementor = array();
 
+
+	public function import_droip_template() {
+		$selected_index = $_POST['selected'];
+		$builder        = $_POST['builder'];
+
+		if ( 'droip' === $builder ) {
+			$template_json  = file_get_contents( TEMPLATE_LIST_ENDPOINT );
+			$template_list  = json_decode( $template_json, true );
+			$droip_template = $template_list[ $selected_index ];
+			$is_import      = Helper::upload_layout_pack( $droip_template );
+			if ( $is_import ) {
+				return wp_send_json_success( array( 'message', 'droip template download successfull' ) );
+			} else {
+				return wp_send_json_error( array( 'message', 'Something went wrong' ) );
+			}
+		}
+	}
+
 	/**
 	 * Register Hooks of the Importer Plugin
 	 */
@@ -100,6 +121,8 @@ class DemoImport {
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutormate_admin_enqueue_scripts' ) );
 		add_action( 'wp_ajax_tutormate_builder_data', array( $this, 'receive_builder_data' ) );
 		add_filter( 'tutormate_enable_wp_customize_save_hooks', array( $this, 'save_customizer_data' ) );
+
+		add_action( 'wp_ajax_import_droip_template', array( $this, 'import_droip_template' ) );
 
 		$this->woocommerce = array(
 			'base'  => 'woocommerce',
@@ -170,7 +193,6 @@ class DemoImport {
 		return $this->is_droip = array(
 			$this->tutor_lms,
 			$this->droip,
-			$this->woocommerce,
 		);
 	}
 
@@ -225,7 +247,7 @@ class DemoImport {
 			return $this->elementor_plugins();
 		} elseif ( 'gutenberg' === $this->builder ) {
 			return $this->gutenberg_plugins();
-		} else {
+		} elseif ( 'droip' === $this->builder ) {
 			return $this->droip_plugins();
 		}
 	}
@@ -248,9 +270,7 @@ class DemoImport {
 	 * @return array $demo_list list of demos
 	 */
 	public function import_theme_demo() {
-
-		// $bb = $_POST['builder'];
-
+		// gutenberg
 		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
 
 		$demo_list  = array();
@@ -275,15 +295,6 @@ class DemoImport {
 		if ( is_array( $packs_list ) || ! empty( $packs_list ) ) {
 
 			foreach ( $packs_list as $packs ) {
-
-				array_push( $packs['builders'], array( 'slug' => 'droip' ) );
-				// $packs['droip_content']    = 'https://api.tutorlms.com/wp-content/uploads/2022/03/elementorsinglecourse-content.xml';
-				// $packs['droip_widget']     = 'https://api.tutorlms.com/wp-content/uploads/2021/07/elementor-singlecourse-widgets.wie';
-				// $packs['droip_customizer'] = 'https://api.tutorlms.com/wp-content/uploads/2021/07/elementor-singlecourse-customizer.dat';
-				$packs['droip_content']    = 'https://tutor-templates.test/wp-content/uploads/tutortemplates.WordPress.2024-09-12.xml';
-				$packs['droip_widget']     = 'https://tutor-templates.test/wp-content/uploads/tutor-templates.test-widgets.wie';
-				$packs['droip_customizer'] = 'https://tutor-templates.test/wp-content/uploads/owl-export.dat';
-
 				$category_list = array();
 				foreach ( $packs['categories'] as $category ) {
 					array_push( $category_list, $category['name'] );
@@ -293,25 +304,28 @@ class DemoImport {
 				foreach ( $packs['builders'] as $builder ) {
 					array_push( $builder_list, $builder['slug'] );
 				}
-				// unset( $builder_list[1] );
-				// array_push( $builder_list, 'droip' );
 
 				$list = array(
 					'import_file_name'           => $packs['name'],
 					'categories'                 => $category_list,
-					'import_file_url'            => 'droip' === $this->builder ? $packs['droip_content'] : $packs['content'],
-					'import_widget_file_url'     => 'droip' === $this->builder ? $packs['droip_widget'] : $packs['widget'],
-					'import_customizer_file_url' => 'droip' === $this->builder ? $packs['droip_customizer'] : $packs['customizer'],
 					'import_preview_image_url'   => $packs['preview_image'],
 					'builders'                   => $builder_list,
 					'plugins'                    => $this->builder_plugin_list(),
 					'preview_url'                => $packs['preview_url'],
+					'import_file_url'            => isset( $packs['builder_type'] ) ? '' : ( 'elementor' === $this->builder ? $packs['elementor_content'] : $packs['content'] ),
+					'import_widget_file_url'     => isset( $packs['builder_type'] ) ? '' : ( 'elementor' === $this->builder ? $packs['elementor_widget'] : $packs['widget'] ),
+					'import_customizer_file_url' => isset( $packs['builder_type'] ) ? '' : ( ' elementor' === $this->builder ? $packs['elementor_customizer'] : $packs['customizer'] ),
 					'notice'                     => $packs['notices'],
 				);
 
 				array_push( $demo_list, $list );
 			}
 		}
+
+		// echo '<pre>';
+		// print_r( $demo_list );
+		// echo '</pre>';
+		// die;
 
 		return $demo_list;
 	}
