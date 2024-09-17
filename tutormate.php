@@ -117,25 +117,3 @@ if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 
 
 	new \TUTORMATE\MediaDownloader();
 endif;
-
-
-
-
-add_action( 'init', 'my_custom_function' );
-function my_custom_function() {
-	if ( isset( $_GET['test'] ) ) {
-		// $obj = json_decode( $obj, true );
-		// echo '<pre>';
-		// print_r( $obj );
-		// echo '</pre>';
-		// die;
-		$obj = file_get_contents( TEMPLATE_LIST_ENDPOINT );
-		$obj = json_decode( $obj, true );
-		echo '<pre>';
-		print_r( $obj );
-		echo '</pre>';
-		die;
-		// Helper::upload_layout_pack( $obj );
-		// var_dump( Helper::upload_layout_pack( $obj ) );
-	}
-}

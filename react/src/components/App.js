@@ -17,15 +17,13 @@ function App() {
 	const [selectedDemo, setSelectedDemo] = useState(0);
 	const [builderList, setBuilderList] = useState([]);
 	const [modalState, setModalState] = useState(false);
-	const [builder, setBuilder] = useState('droip');
+	const [builder, setBuilder] = useState('elementor');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
 	const [demoNotice, setDemoNotice] = useState('');
 	const [categories, setCategories] = useState(allCategories);
 	const [pluginInfo, setPluginInfo] = useState({});
 	const [plugins, setPlugins] = useState([]);
-
-	// console.log('importFiles ', importFiles);
 
 	useEffect(() => {
 		if (importCompleted) {
@@ -75,9 +73,6 @@ function App() {
 				current++;
 				let percent = (target_percent / total_request) * current;
 				let completed = Math.round(already_done + percent);
-				// console.log(`Status: ${current}/${total_request}`)
-				// console.log('completed: ' + completed)
-				setPercentage(completed);
 			};
 
 			promises.forEach((p) => {
@@ -349,16 +344,6 @@ function App() {
 									</div>
 								);
 							})}
-						{'gutenberg' === builder &&
-							gutenbergPlugins &&
-							gutenbergPlugins.map((item, index) => {
-								setBuilderPlugins(gutenbergPlugins);
-								return (
-									<div className={`${item.state}`} key={index}>
-										<strong>{item.title}</strong> <span>{item.state}</span>
-									</div>
-								);
-							})}
 					</div>
 				</div>
 			</div>
@@ -433,7 +418,14 @@ function App() {
 	return (
 		<div className="demo-importer-ui">
 			<PopupModal selectedIndex={selectedIndex} />
-			{fetching && <Installation percentage={percentage} plugins={plugins} pluginInfo={pluginInfo} />}
+			{fetching && (
+				<Installation
+					percentage={percentage}
+					plugins={plugins}
+					pluginInfo={pluginInfo}
+					toggleModalState={toggleModalState}
+				/>
+			)}
 			<div className="demo-importer-wrapper">
 				<header>
 					<div className="header-top">

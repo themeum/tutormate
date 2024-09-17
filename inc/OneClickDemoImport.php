@@ -227,17 +227,6 @@ class OneClickDemoImport {
 			}
 		}
 
-		// if ( $plugin['slug'] === 'tutor' || $plugin['slug'] === 'droip' ) {
-		// 	$install = false;
-		// 	wp_send_json(
-		// 		array(
-		// 			'plugin_name' => $plugin['title'],
-		// 			'message' => 'Plugin not found!',
-		// 			'status'  => 'error',
-		// 		)
-		// 	);
-		// }
-
 		if ( ! empty( $plugin ) ) {
 
 			if ( ! function_exists( 'plugins_api' ) ) {
@@ -427,7 +416,6 @@ class OneClickDemoImport {
 				)
 			);
 		}
-
 
 		wp_send_json(
 			array(

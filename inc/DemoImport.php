@@ -95,23 +95,6 @@ class DemoImport {
 	public $is_elementor = array();
 
 
-	public function import_droip_template() {
-		$selected_index = $_POST['selected'];
-		$builder        = $_POST['builder'];
-
-		if ( 'droip' === $builder ) {
-			$template_json  = file_get_contents( TEMPLATE_LIST_ENDPOINT );
-			$template_list  = json_decode( $template_json, true );
-			$droip_template = $template_list[ $selected_index ];
-			$is_import      = Helper::upload_layout_pack( $droip_template );
-			if ( $is_import ) {
-				return wp_send_json_success( array( 'message', 'droip template download successfull' ) );
-			} else {
-				return wp_send_json_error( array( 'message', 'Something went wrong' ) );
-			}
-		}
-	}
-
 	/**
 	 * Register Hooks of the Importer Plugin
 	 */
@@ -141,7 +124,7 @@ class DemoImport {
 			'src'   => 'repo',
 			'state' => PluginCheck::check_status( 'tutor/tutor.php' ),
 		);
-		// https://droip.s3.amazonaws.com/dist/droip-builds/droip-1.1.1.zip
+
 		$this->droip = array(
 			'base'  => 'droip',
 			'slug'  => 'droip',
@@ -253,16 +236,22 @@ class DemoImport {
 	}
 
 
-	// public function import_file_selection( $packs, $builder_name = '', $content_type = '' ) {
-	// $gen = $builder_name . '_' . $content_type;
-	// if ( $builder_name == 'elementor' ) {
-	// return $gen;
-	// } elseif ( $builder_name == 'droip' ) {
-	// return $gen;
-	// } else {
-	// return $packs['content'];
-	// }
-	// }
+	public function import_droip_template() {
+		$selected_index = $_POST['selected'];
+		$builder        = $_POST['builder'];
+
+		if ( 'droip' === $builder ) {
+			$template_json  = file_get_contents( TEMPLATE_LIST_ENDPOINT );
+			$template_list  = json_decode( $template_json, true );
+			$droip_template = $template_list[ $selected_index ];
+			$is_import      = Helper::upload_layout_pack( $droip_template );
+			if ( $is_import ) {
+				return wp_send_json_success( array( 'message', 'droip template download successfully' ) );
+			} else {
+				return wp_send_json_error( array( 'message', 'Something went wrong' ) );
+			}
+		}
+	}
 
 	/**
 	 * Handles Theme Demo Imports for Content, Customizer and Widgets
@@ -270,8 +259,8 @@ class DemoImport {
 	 * @return array $demo_list list of demos
 	 */
 	public function import_theme_demo() {
-		// gutenberg
-		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
+
+		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'elementor';
 
 		$demo_list  = array();
 		$packs_list = get_transient( 'tutorstarter_packs' );
@@ -306,26 +295,22 @@ class DemoImport {
 				}
 
 				$list = array(
-					'import_file_name'           => $packs['name'],
-					'categories'                 => $category_list,
-					'import_preview_image_url'   => $packs['preview_image'],
-					'builders'                   => $builder_list,
-					'plugins'                    => $this->builder_plugin_list(),
-					'preview_url'                => $packs['preview_url'],
-					'import_file_url'            => isset( $packs['builder_type'] ) ? '' : ( 'elementor' === $this->builder ? $packs['elementor_content'] : $packs['content'] ),
-					'import_widget_file_url'     => isset( $packs['builder_type'] ) ? '' : ( 'elementor' === $this->builder ? $packs['elementor_widget'] : $packs['widget'] ),
-					'import_customizer_file_url' => isset( $packs['builder_type'] ) ? '' : ( ' elementor' === $this->builder ? $packs['elementor_customizer'] : $packs['customizer'] ),
-					'notice'                     => $packs['notices'],
+					'import_file_name'         => $packs['name'],
+					'categories'               => $category_list,
+					'import_preview_image_url' => $packs['preview_image'],
+					'builders'                 => $builder_list,
+					'plugins'                  => $this->builder_plugin_list(),
+					'preview_url'              => $packs['preview_url'],
+					'notice'                   => $packs['notices'],
 				);
-
+				if ( 'elementor' === $builder_list[0] ) {
+					$list['import_file_url']            = $packs['elementor_content'];
+					$list['import_widget_file_url']     = $packs['elementor_widget'];
+					$list['import_customizer_file_url'] = $packs['elementor_customizer'];
+				}
 				array_push( $demo_list, $list );
 			}
 		}
-
-		// echo '<pre>';
-		// print_r( $demo_list );
-		// echo '</pre>';
-		// die;
 
 		return $demo_list;
 	}

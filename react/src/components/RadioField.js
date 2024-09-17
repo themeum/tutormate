@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
+
 const RadioField = ({ selected, options, selectedBuilder }) => {
 	const updateRadioValue = (event) => {
 		event.preventDefault();
 		const radioInput = event.target.value;
 		selectedBuilder(radioInput);
 	};
+
+	useEffect(() => {
+		options && options.filter((item) => selectedBuilder(item.value));
+	}, []);
 
 	return (
 		<div className="radio-field-wrapper">

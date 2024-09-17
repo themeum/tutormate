@@ -1,6 +1,7 @@
 const { __ } = wp.i18n;
+import { useState, useEffect } from 'react';
 
-const Installation = ({ percentage, pluginInfo }) => {
+const Installation = ({ percentage, pluginInfo, toggleModalState }) => {
 	const SVGLoader = () => {
 		if (100 !== percentage) {
 			return (
@@ -86,7 +87,7 @@ const Installation = ({ percentage, pluginInfo }) => {
 	};
 
 	return (
-		<div className="installation-screen modal-wrapper active">
+		<div className={`installation-screen modal-wrapper active`}>
 			<div className="modal-content">
 				{percentage === 100 ? (
 					<div className="heading">
@@ -167,14 +168,29 @@ const Installation = ({ percentage, pluginInfo }) => {
 							<div className={percentage === 100 ? 'title' : 'title-notactive'}>Demo Content</div>
 						</div>
 					</div>
-					<button className={`btn btn-primary ${percentage === 100 ? 'complete' : 'inactive'}`}>
-						<a
-							href={percentage === 100 ? tutormate.site_url : '#'}
-							target={percentage === 100 ? '_blank' : '_self'}
+					<div className={`d-flex`} style={{ alignItems: 'center', marginTop: '20px' }}>
+						<button
+							className={`btn btn-primary mt-0 ${percentage === 100 ? 'complete' : 'inactive'}`}
+							style={{ marginTop: '0px' }}
 						>
-							{__('View Your Site', 'tutormate')}
-						</a>
-					</button>
+							<a
+								href={percentage === 100 ? tutormate.site_url : '#'}
+								target={percentage === 100 ? '_blank' : '_self'}
+							>
+								{__('View Your Site', 'tutormate')}
+							</a>
+						</button>
+						{/* {percentage === 100 && (
+							<button
+								onClick={() => {
+									setInstallationModalActive(false);
+								}}
+								className={`btn btn-outline`}
+							>
+								{__('Close', 'tutormate')}
+							</button>
+						)} */}
+					</div>
 				</div>
 			</div>
 		</div>
