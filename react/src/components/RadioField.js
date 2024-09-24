@@ -26,7 +26,11 @@ const RadioField = ({ selected, options, selectedBuilder }) => {
 						/>
 						<label htmlFor={option.value}>
 							{option.value === 'droip' ? (
-								<img src={`${tutormate.tutormate_url}/assets/images/droip-icon.png`} alt="icon" />
+								<img
+									src={`${tutormate.tutormate_url}/assets/images/droip-icon.webp`}
+									alt="icon"
+									style={{ width: '20px', height: '20px' }}
+								/>
 							) : (
 								<img src={`${tutormate.tutormate_url}/assets/images/${option.value}.png`} alt="icon" />
 							)}

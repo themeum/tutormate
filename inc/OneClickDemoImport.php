@@ -208,8 +208,6 @@ class OneClickDemoImport {
 	public function install_plugins_individual_ajax_callback() {
 		Helpers::verify_ajax_call();
 
-		// return wp_send_json( $_POST );
-
 		if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['selected'] ) ) {
 			wp_send_json_error();
 		}

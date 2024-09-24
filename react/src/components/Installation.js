@@ -1,7 +1,7 @@
 const { __ } = wp.i18n;
 import { useState, useEffect } from 'react';
 
-const Installation = ({ percentage, pluginInfo, toggleModalState }) => {
+const Installation = ({ percentage, pluginInfo, setFetching }) => {
 	const SVGLoader = () => {
 		if (100 !== percentage) {
 			return (
@@ -180,16 +180,16 @@ const Installation = ({ percentage, pluginInfo, toggleModalState }) => {
 								{__('View Your Site', 'tutormate')}
 							</a>
 						</button>
-						{/* {percentage === 100 && (
+						{percentage === 100 && (
 							<button
 								onClick={() => {
-									setInstallationModalActive(false);
+									setFetching(false);
 								}}
 								className={`btn btn-outline`}
 							>
 								{__('Close', 'tutormate')}
 							</button>
-						)} */}
+						)}
 					</div>
 				</div>
 			</div>

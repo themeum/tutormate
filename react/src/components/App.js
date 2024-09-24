@@ -365,8 +365,9 @@ function App() {
 										{builders.map((builder, index) =>
 											builder === 'droip' ? (
 												<img
+													style={{ width: '21px', height: '21px' }}
 													key={index}
-													src={`${tutormate.tutormate_url}/assets/images/droip-icon.png`}
+													src={`${tutormate.tutormate_url}/assets/images/droip-icon.webp`}
 													alt="icon"
 												/>
 											) : (
@@ -423,7 +424,7 @@ function App() {
 					percentage={percentage}
 					plugins={plugins}
 					pluginInfo={pluginInfo}
-					toggleModalState={toggleModalState}
+					setFetching={setFetching}
 				/>
 			)}
 			<div className="demo-importer-wrapper">
@@ -445,7 +446,8 @@ function App() {
 						</p>
 					</div>
 					<div className="nav-container">
-						<div className="nav-filter">
+						<h4>Tutor Starter Templates</h4>
+						{/* <div className="nav-filter">
 							{categories.map((category, index) => (
 								<button
 									type="button"
@@ -470,7 +472,7 @@ function App() {
 								style={{ width: '14px', height: '14px' }}
 								alt="icon"
 							/>
-						</div>
+						</div> */}
 					</div>
 				</header>
 
