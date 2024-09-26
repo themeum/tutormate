@@ -1,278 +1,279 @@
 .installation-screen {
-    .modal-content {
-        display: flex;
-        flex-direction: column;
-        max-width: 410px;
-        width: 400px;
-        max-height: 410px;
-        height: auto;
+	.modal-content {
+		display: flex;
+		flex-direction: column;
+		max-width: 410px;
+		width: 400px;
+		max-height: 410px;
+		height: auto;
 
-        .heading {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 20px;
-            background: #cbe9d5;
-            border-radius: 6px;
-            margin: 15px;
-            margin-bottom: 30px;
-            animation: fadeIn .4s linear;
+		.heading {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: center;
+			padding: 20px;
+			background: #cbe9d5;
+			border-radius: 6px;
+			margin: 15px;
+			margin-bottom: 30px;
+			animation: fadeIn 0.4s linear;
 
-            p {
-                color: #075a2a;
-                text-align: left;
-                padding-left: 50px;
-                margin-left: 8px;
-                font-weight: 300;
-            }
+			p {
+				color: #075a2a;
+				text-align: left;
+				padding-left: 50px;
+				margin-left: 8px;
+				font-weight: 300;
+			}
 
-            .success-heading {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
+			.success-heading {
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
 
-                h3 {
-                    margin-left: 10px;
-                    color: #075a2a;
-                    font-size: 20px;
-                    font-weight: 500;
-                }
-            }
-        }
-    }
-    .modal-head h4 {
-        margin-top: 20px;
-        padding: 0 15px;
-    }
-    .modal-body {
-        margin-top: -10px;
-        padding-top: 0;
-        padding-bottom: 27px;
+				h3 {
+					margin-left: 10px;
+					color: #075a2a;
+					font-size: 20px;
+					font-weight: 500;
+				}
+			}
+		}
+	}
+	.modal-head h4 {
+		margin-top: 20px;
+		padding: 0 15px;
+	}
+	.modal-body {
+		margin-top: -10px;
+		padding-top: 0;
+		padding-bottom: 27px;
 
-        .complete {
-            width: 150px;
-            margin-top: 30px;
-            padding: 8px 10px;
-            background-color: #1973aa;
-            a {
-                color: #ffffff;
-                text-decoration: none;
-                font-weight: 400;
-            }
-        }
+		.complete {
+			width: 150px;
+			margin-top: 30px;
+			padding: 8px 10px;
+			background-color: #1973aa;
+			a {
+				color: #ffffff;
+				text-decoration: none;
+				font-weight: 400;
+			}
+		}
 
-        .inactive {
-            background-color: rgba(87, 88, 110, 0.4);
-            width: 150px;
-            margin-top: 30px;
-            padding: 8px 10px;
-            cursor: not-allowed;
-            transition: 0.3s linear;
+		.inactive {
+			background-color: rgba(87, 88, 110, 0.4);
+			width: 150px;
+			margin-top: 30px;
+			padding: 8px 10px;
+			cursor: not-allowed;
+			transition: 0.3s linear;
 
-            a {
-                cursor: not-allowed;
-                color: #ffffff;
-                text-decoration: none;
-                font-weight: 400;
-            }
-        }
-    }
+			a {
+				cursor: not-allowed;
+				color: #ffffff;
+				text-decoration: none;
+				font-weight: 400;
+			}
+		}
+	}
 }
 
 .installation-status {
-    display: flex;
-    align-items: center;
-    margin-bottom: 23px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 23px;
 
-    .progress-status {
-        background: #1973aa;
-    }
+	.progress-status {
+		background: #1973aa;
+	}
 
-    .progress {
-        position: relative;
-        overflow: hidden;
-        box-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);
-        background: #e3e7ec;
-        height: 8px;
-        border-radius: 5px;
-        width: 100%;
-        margin-bottom: 0;
-    }
+	.progress {
+		position: relative;
+		overflow: hidden;
+		box-shadow: inset 0px 0px 2px 1px rgb(0 0 0 / 5%);
+		background: #e3e7ec;
+		height: 8px;
+		border-radius: 5px;
+		width: 100%;
+		margin-bottom: 0;
+	}
 
-    .progress-status {
-        border-radius: 20px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        height: 100%;
-        width: 0;
-        transition: 0.2s linear;
-        background: #1973aa;
-    }
+	.progress-status {
+		border-radius: 20px;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		height: 100%;
+		width: 0;
+		transition: 0.2s linear;
+		background: #1973aa;
+	}
 
-    .percentage {
-        margin-left: 8px;
-        font-size: 12px;
-    }
+	.percentage {
+		margin-left: 8px;
+		font-size: 12px;
+	}
 }
 
 .plugin-item,
 .demo-content {
-    display: flex;
-    align-items: center;
-    .title {
-        margin-left: 5px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #1d2427;
-    }
-    .title-notactive {
-        margin-left: 5px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #707172;
-    }
-    &:not(:last-child) {
-        margin-bottom: 11px;
-    }
-    .plugin-not-installed {
-        margin-right: -5px;
-        font-size: 18px;
-        color: red;
-        vertical-align: middle;
-        display: inline-block;
-    }
+	display: flex;
+	align-items: center;
+	.title {
+		margin-left: 5px;
+		font-size: 14px;
+		font-weight: 500;
+		color: #1d2427;
+	}
+	.title-notactive {
+		margin-left: 5px;
+		font-size: 14px;
+		font-weight: 500;
+		color: #707172;
+	}
+	&:not(:last-child) {
+		margin-bottom: 11px;
+	}
+	.plugin-not-installed {
+		margin-right: -5px;
+		font-size: 18px;
+		color: red;
+		vertical-align: middle;
+		display: inline-block;
+	}
 
-    // Circle Progressbar
-    svg#svg-circle {
-        --dashArr: 44;
-        width: 16px;
-        height: 16px;
-        circle:not(.circle-full) {
-            position: absolute;
-            fill: none;
-            stroke-width: 2;
-            transform: translate(1px, -1px) rotate(-90deg);
-            transform-origin: center center;
-            stroke-dasharray: var(--dashArr);
-        }
+	// Circle Progressbar
+	svg#svg-circle {
+		--dashArr: 44;
+		width: 16px;
+		height: 16px;
+		circle:not(.circle-full) {
+			position: absolute;
+			fill: none;
+			stroke-width: 2;
+			transform: translate(1px, -1px) rotate(-90deg);
+			transform-origin: center center;
+			stroke-dasharray: var(--dashArr);
+		}
 
-        circle.bg {
-            stroke-dashoffset: 0;
-            stroke: #e3e7ec;
-        }
+		circle.bg {
+			stroke-dashoffset: 0;
+			stroke: #e3e7ec;
+		}
 
-        circle.fg {
-            stroke-dashoffset: calc(
-                var(--dashArr) - (var(--dashArr) * 30) / 100
-            );
-            stroke: #5fac23;
-            // animation: spinning 1.5s linear infinite;
-            // animation-delay: 1s;
-        }
+		circle.fg {
+			stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
+			stroke: #5fac23;
+			// animation: spinning 1.5s linear infinite;
+			// animation-delay: 1s;
+		}
 
-        circle.circle-full {
-            transform: translate(1px, 1px);
-        }
+		circle.circle-full {
+			transform: translate(1px, 1px);
+		}
 
-        path.check-mark {
-            transform: translate(0px, 1px);
-            animation: scaleDown 0.5s ease-in-out;
-        }
-    }
+		path.check-mark {
+			transform: translate(0px, 1px);
+			animation: scaleDown 0.5s ease-in-out;
+		}
+	}
 }
 
 // Circle Progressbar
 svg.svg-circle-solo {
-    --dashArr: 44;
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
+	--dashArr: 44;
+	width: 16px;
+	height: 16px;
+	margin-left: 5px;
 
-    circle.bg {
-        stroke-dashoffset: 0;
-        stroke: #e3e7ec;
-    }
+	circle.bg {
+		stroke-dashoffset: 0;
+		stroke: #e3e7ec;
+	}
 
-    circle.fg {
-        stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
-        stroke: #5fac23;
-    }
+	circle.fg {
+		stroke-dashoffset: calc(var(--dashArr) - (var(--dashArr) * 30) / 100);
+		stroke: #5fac23;
+	}
 
-    circle.circle-full {
-        transform: translate(1px, 1px);
-    }
+	circle.circle-full {
+		transform: translate(1px, 1px);
+	}
 
-    path.check-mark {
-        transform: translate(0px, 1px);
-        animation: scaleDown 0.5s ease-in-out;
-    }
+	path.check-mark {
+		transform: translate(0px, 1px);
+		animation: scaleDown 0.5s ease-in-out;
+	}
 }
 
 @keyframes scaleDown {
-    from {
-        transform: translate(0px, 1px) scale(2.5);
-        transform-origin: center center;
-    }
-    to {
-        transform: translate(0px, 1px) scale(1);
-        transform-origin: center center;
-    }
+	from {
+		transform: translate(0px, 1px) scale(2.5);
+		transform-origin: center center;
+	}
+	to {
+		transform: translate(0px, 1px) scale(1);
+		transform-origin: center center;
+	}
 }
 
 // Spinner
 svg.svg-spinner {
-    animation: rotate 2s linear infinite;
-    width: 14px;
-    height: 14px;
+	animation: rotate 2s linear infinite;
+	width: 14px;
+	height: 14px;
 
-    & .path {
-        stroke: #60ac23;
-        stroke-linecap: round;
-        animation: dash 1.5s ease-in-out infinite;
-    }
+	& .path {
+		stroke: #60ac23;
+		stroke-linecap: round;
+		animation: dash 1.5s ease-in-out infinite;
+	}
 }
 
 // Spinner Alone
 svg.svg-spinner-solo {
-    animation: rotate 2s linear infinite;
-    width: 14px;
-    height: 14px;
-    margin-left: 5px;
+	animation: rotate 2s linear infinite;
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
 
-    & .path {
-        stroke: #60ac23;
-        stroke-linecap: round;
-        animation: dash 1.5s ease-in-out infinite;
-    }
+	& .path {
+		stroke: #60ac23;
+		stroke-linecap: round;
+		animation: dash 1.5s ease-in-out infinite;
+	}
 }
 
 @keyframes rotate {
-    100% {
-        transform: rotate(360deg);
-    }
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 @keyframes dash {
-    0% {
-        stroke-dasharray: 1, 150;
-        stroke-dashoffset: 0;
-    }
-    50% {
-        stroke-dasharray: 90, 150;
-        stroke-dashoffset: -35;
-    }
-    100% {
-        stroke-dasharray: 90, 150;
-        stroke-dashoffset: -124;
-    }
+	0% {
+		stroke-dasharray: 1, 150;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -35;
+	}
+	100% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -124;
+	}
 }
 
-
 @keyframes fadeIn {
-    from { opacity: 0;}
-    to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

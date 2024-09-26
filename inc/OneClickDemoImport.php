@@ -134,13 +134,16 @@ class OneClickDemoImport {
 	 * Creates the plugin page and a submenu item in WP Appearance menu.
 	 */
 	public function create_plugin_page() {
-		$this->plugin_page_setup = apply_filters( 'tutormate_plugin_page_setup', array(
-			'parent_slug' => 'tutorstarter',
-			'page_title'  => esc_html__( 'Tutor Starter Demo Import' , 'tutormate' ),
-			'menu_title'  => esc_html__( 'Starter Sites' , 'tutormate' ),
-			'capability'  => 'import',
-			'menu_slug'   => 'tutorstarter-demo-import',
-		) );
+		$this->plugin_page_setup = apply_filters(
+			'tutormate_plugin_page_setup',
+			array(
+				'parent_slug' => 'tutorstarter',
+				'page_title'  => esc_html__( 'Tutor Starter Demo Import', 'tutormate' ),
+				'menu_title'  => esc_html__( 'Starter Sites', 'tutormate' ),
+				'capability'  => 'import',
+				'menu_slug'   => 'tutorstarter-demo-import',
+			)
+		);
 
 		$this->plugin_page = add_submenu_page(
 			$this->plugin_page_setup['parent_slug'],
@@ -168,30 +171,32 @@ class OneClickDemoImport {
 	 * @param string $hook holds info on which admin page you are currently loading.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
-		
+
 		// Enqueue the scripts only on the plugin page.
 		if ( $this->plugin_page === $hook || ( 'admin.php' === $hook && $this->plugin_page_setup['menu_slug'] === esc_attr( $_GET['import'] ) ) ) {
-			
-			wp_enqueue_style('tutormate-style', TUTORMATE_URL . 'assets/css/app.min.css', array(), 'all');
 
-			wp_enqueue_script( 'tutormate-demo-importer', TUTORMATE_URL . 'assets/js/demo-importer.js' , array( 'wp-element', 'wp-components', 'wp-i18n', 'wp-api' ), TUTORMATE_VERSION, true );
+			wp_enqueue_style( 'tutormate-style', TUTORMATE_URL . 'assets/css/app.min.css', array(), 'all' );
 
-			wp_enqueue_style('tutormate-google-font', '//fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"', array(), 'all');
+			wp_enqueue_script( 'tutormate-demo-importer', TUTORMATE_URL . 'assets/js/demo-importer.js', array( 'wp-element', 'wp-components', 'wp-i18n', 'wp-api' ), TUTORMATE_VERSION, true );
+
+			wp_enqueue_style( 'tutormate-google-font', '//fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"', array(), 'all' );
 
 			// Get theme data.
 			$theme = wp_get_theme();
 
-			wp_localize_script( 'tutormate-demo-importer', 'tutormate',
+			wp_localize_script(
+				'tutormate-demo-importer',
+				'tutormate',
 				array(
-					'site_url'            => home_url(),
-					'admin_url'           => admin_url(),
-					'tutormate_url'		  => TUTORMATE_URL,
-					'ajax_url'            => admin_url( 'admin-ajax.php' ),
-					'ajax_nonce'          => wp_create_nonce( 'tutormate-ajax-verification' ),
-					'import_files'        => $this->import_files,
-					'wp_customize_on'     => apply_filters( 'tutormate_enable_wp_customize_save_hooks', true ),
-					'theme_screenshot'    => $theme->get_screenshot(),
-					'theme_version'       => $theme->get( 'Version' ),
+					'site_url'         => home_url(),
+					'admin_url'        => admin_url(),
+					'tutormate_url'    => TUTORMATE_URL,
+					'ajax_url'         => admin_url( 'admin-ajax.php' ),
+					'ajax_nonce'       => wp_create_nonce( 'tutormate-ajax-verification' ),
+					'import_files'     => $this->import_files,
+					'wp_customize_on'  => apply_filters( 'tutormate_enable_wp_customize_save_hooks', true ),
+					'theme_screenshot' => $theme->get_screenshot(),
+					'theme_version'    => $theme->get( 'Version' ),
 				)
 			);
 		}
@@ -207,15 +212,15 @@ class OneClickDemoImport {
 			wp_send_json_error();
 		}
 		// Get selected file index or set it to 0.
-		$selected_index = ! empty ( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
+		$selected_index  = ! empty( $_POST['selected'] ) ? absint( $_POST['selected'] ) : 0;
 		$selected_plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
-		$info = $this->import_files[ $selected_index ];
+		$info            = $this->import_files[ $selected_index ];
 
 		$plugin = null;
 
 		for ( $i = 0; $i < count( $info['plugins'] ); $i++ ) {
-			if ( $info['plugins'][$i]['slug'] === $selected_plugin ) {
-				$plugin = $info['plugins'][$i];
+			if ( $info['plugins'][ $i ]['slug'] === $selected_plugin ) {
+				$plugin = $info['plugins'][ $i ];
 				break;
 			}
 		}
@@ -223,36 +228,102 @@ class OneClickDemoImport {
 		if ( ! empty( $plugin ) ) {
 
 			if ( ! function_exists( 'plugins_api' ) ) {
-				require_once ( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 			}
 			if ( ! class_exists( 'WP_Upgrader' ) ) {
-				require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
 
-			if ( 'not installed' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
-			
-			
+			if ( 'thirdparty' == $plugin['src'] ) {
+
+				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+				if ( 'not installed' === $plugin['state'] ) {
+					$upgrader   = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
+					$plugin_url = 'https://droip.s3.amazonaws.com/dist/droip-builds/droip-1.1.1.zip';
+					// Add `overwrite_package` option true to force update.
+					$installed = $upgrader->install( $plugin_url );
+
+					if ( $installed ) {
+						$activate = activate_plugin( $plugin['path'], '', false, true );
+						wp_send_json(
+							array(
+								'plugin_name' => $plugin['title'],
+								'plugin_slug' => $plugin['slug'],
+								'status'      => 'success',
+							)
+						);
+
+						if ( is_wp_error( $activate ) ) {
+							$install = false;
+							wp_send_json(
+								array(
+									'plugin_name' => $plugin['title'],
+									'status'      => 'error',
+								)
+							);
+						}
+					} else {
+						$install = false;
+						wp_send_json(
+							array(
+								'message' => $plugin['title'] . ' is not installed!',
+								'status'  => 'error',
+							)
+						);
+					}
+				} elseif ( 'installed' === $plugin['state'] ) {
+					$activate = activate_plugin( $plugin['path'], '', false, true );
+
+					wp_send_json(
+						array(
+							'plugin_name' => $plugin['title'],
+							'plugin_slug' => $plugin['slug'],
+							'status'      => 'success',
+						)
+					);
+
+					if ( is_wp_error( $activate ) ) {
+						$install = false;
+						wp_send_json(
+							array(
+								'message' => $plugin['title'] . ' is not activated!',
+								'status'  => 'error',
+							)
+						);
+					}
+				} else {
+					wp_send_json(
+						array(
+							'plugin_name' => $plugin['title'],
+							'plugin_slug' => $plugin['slug'],
+							'status'      => 'success',
+						)
+					);
+				}
+			} elseif ( 'not installed' === $plugin['state'] && 'thirdparty' !== $plugin['src'] ) {
+
 				$api = plugins_api(
 					'plugin_information',
 					array(
-						'slug' => $plugin['slug'],
+						'slug'   => $plugin['slug'],
 						'fields' => array(
 							'short_description' => false,
-							'sections' => false,
-							'requires' => false,
-							'rating' => false,
-							'ratings' => false,
-							'downloaded' => false,
-							'last_updated' => false,
-							'added' => false,
-							'tags' => false,
-							'compatibility' => false,
-							'homepage' => false,
-							'donate_link' => false,
+							'sections'          => false,
+							'requires'          => false,
+							'rating'            => false,
+							'ratings'           => false,
+							'downloaded'        => false,
+							'last_updated'      => false,
+							'added'             => false,
+							'tags'              => false,
+							'compatibility'     => false,
+							'homepage'          => false,
+							'donate_link'       => false,
 						),
 					)
 				);
-	
+
 				if ( ! is_wp_error( $api ) ) {
 
 					$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
@@ -262,40 +333,94 @@ class OneClickDemoImport {
 
 					if ( $installed ) {
 						$activate = activate_plugin( $plugin['path'], '', false, true );
-						wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
 
 						if ( is_wp_error( $activate ) ) {
 							$install = false;
-							wp_send_json( array( 'plugin_name' => $plugin['title'], 'status' => 'error' ) );
+							wp_send_json(
+								array(
+									'plugin_name' => $plugin['title'],
+									'message'     => $plugin['title'] . ' plugin activation failed!',
+									'status'      => 'error',
+								)
+							);
 						}
+
+						wp_send_json(
+							array(
+								'plugin_name' => $plugin['title'],
+								'plugin_slug' => $plugin['slug'],
+								'status'      => 'success',
+							)
+						);
 					} else {
 						$install = false;
-						wp_send_json( array( 'message' => $plugin['title'] . ' is not installed!', 'status' => 'error' ) );
+						wp_send_json(
+							array(
+								'plugin_name' => $plugin['title'],
+								'message'     => $plugin['title'] . ' plugin installaiton failed!',
+								'status'      => 'error',
+							)
+						);
 					}
 				} else {
 					$install = false;
-					wp_send_json( array( 'message' => 'Something went wrong!', 'status' => 'error' ) );
+					wp_send_json(
+						array(
+							'plugin_name' => $plugin['title'],
+							'message'     => 'Something went wrong!',
+							'status'      => 'error',
+						)
+					);
 				}
-				
 			} elseif ( 'installed' === $plugin['state'] ) {
-				
+
 				$activate = activate_plugin( $plugin['path'], '', false, true );
-	
-				wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
-				
+
 				if ( is_wp_error( $activate ) ) {
 					$install = false;
-					wp_send_json( array( 'message' => $plugin['title'] . ' is not activated!', 'status' => 'error' ) );
+					wp_send_json(
+						array(
+							'plugin_name' => $plugin['title'],
+							'message'     => $plugin['title'] . ' is not activated!',
+							'status'      => 'error',
+						)
+					);
 				}
+
+				wp_send_json(
+					array(
+						'plugin_name' => $plugin['title'],
+						'plugin_slug' => $plugin['slug'],
+						'status'      => 'success',
+					)
+				);
+
 			} else {
-				wp_send_json( array( 'plugin_name' => $plugin['title'], 'plugin_slug' => $plugin['slug'], 'status' => 'success' ) );
+				wp_send_json(
+					array(
+						'plugin_name' => $plugin['title'],
+						'plugin_slug' => $plugin['slug'],
+						'status'      => 'success',
+					)
+				);
 			}
 		} else {
 			$install = false;
-			wp_send_json( array( 'message' => 'Plugin not found!', 'status' => 'error' ) );
+			wp_send_json(
+				array(
+					'plugin_name' => $plugin['title'],
+					'message'     => 'Plugin not found!',
+					'status'      => 'error',
+				)
+			);
 		}
 
-		wp_send_json( array( 'message' => 'All plugins are installed and activated', 'status' => 'ok' ) );
+		wp_send_json(
+			array(
+				'message' => 'All plugins are installed and activated',
+				'status'  => 'ok',
+			)
+		);
 	}
 
 	/**
@@ -306,6 +431,7 @@ class OneClickDemoImport {
 	 * 4). execute 'after content import' actions (before widget import WP action, widget import, customizer import, after import WP action)
 	 */
 	public function import_demo_data_ajax_callback() {
+
 		// Try to update PHP memory limit (so that it does not run out of it).
 		ini_set( 'memory_limit', apply_filters( 'tutormate_import_memory_limit', '350M' ) );
 
@@ -335,8 +461,7 @@ class OneClickDemoImport {
 
 				// Set the name of the import files, because we used the uploaded files.
 				$this->import_files[ $this->selected_index ]['import_file_name'] = esc_html__( 'Manually uploaded files', 'tutormate' );
-			}
-			elseif ( ! empty( $this->import_files[ $this->selected_index ] ) ) { // Use predefined import files from wp filter: tutormate_import_files.
+			} elseif ( ! empty( $this->import_files[ $this->selected_index ] ) ) { // Use predefined import files from wp filter: tutormate_import_files.
 
 				// Download the import files (content, widgets and customizer files).
 				$this->selected_import_files = Helpers::download_import_files( $this->import_files[ $this->selected_index ] );
@@ -358,10 +483,9 @@ class OneClickDemoImport {
 						$this->import_files[ $this->selected_index ]['import_file_name']
 					) . Helpers::import_file_info( $this->selected_import_files ),
 					$this->log_file_path,
-					esc_html__( 'Downloaded files' , 'tutormate' )
+					esc_html__( 'Downloaded files', 'tutormate' )
 				);
-			}
-			else {
+			} else {
 				// Send JSON Error response to the AJAX call.
 				wp_send_json( esc_html__( 'No import files specified!', 'tutormate' ) );
 			}
@@ -488,16 +612,15 @@ class OneClickDemoImport {
 				'</strong>',
 				'</p></div>'
 			);
-		}
-		else {
-			$response['message'] = $this->frontend_error_messages_display() . '<br>';
+		} else {
+			$response['message']  = $this->frontend_error_messages_display() . '<br>';
 			$response['message'] .= sprintf(
 				__( '%1$sThe demo import has finished, but there were some import errors.%2$sMore details about the errors can be found in this %3$s%5$slog file%6$s%4$s%7$s', 'tutormate' ),
 				'<div class="notice  notice-warning"><p>',
 				'<br>',
 				'<strong>',
 				'</strong>',
-				'<a href="' . Helpers::get_log_url( $this->log_file_path ) .'" target="_blank">',
+				'<a href="' . Helpers::get_log_url( $this->log_file_path ) . '" target="_blank">',
 				'</a>',
 				'</p></div>'
 			);
@@ -560,12 +683,12 @@ class OneClickDemoImport {
 		$lines = array();
 
 		if ( ! empty( $text ) ) {
-			$text = str_replace( '<br>', PHP_EOL, $text );
+			$text  = str_replace( '<br>', PHP_EOL, $text );
 			$lines = explode( PHP_EOL, $text );
 		}
 
 		foreach ( $lines as $line ) {
-			if ( ! empty( $line ) && ! in_array( $line , $this->frontend_error_messages ) ) {
+			if ( ! empty( $line ) && ! in_array( $line, $this->frontend_error_messages ) ) {
 				$this->frontend_error_messages[] = $line;
 			}
 		}
@@ -593,7 +716,7 @@ class OneClickDemoImport {
 	 * Load the plugin textdomain, so that translations can be made.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'tutormate', false, plugin_basename( dirname( dirname( __FILE__ ) ) ) . '/languages' );
+		load_plugin_textdomain( 'tutormate', false, plugin_basename( dirname( __DIR__ ) ) . '/languages' );
 	}
 
 	/**
@@ -617,14 +740,20 @@ class OneClickDemoImport {
 		// Importer options array.
 		// fetch_attachments default false
 		// @since 1.0.4
-		$importer_options = apply_filters( 'tutormate_importer_options', array(
-			'fetch_attachments' => false,
-		) );
+		$importer_options = apply_filters(
+			'tutormate_importer_options',
+			array(
+				'fetch_attachments' => false,
+			)
+		);
 
 		// Logger options for the logger used in the importer.
-		$logger_options = apply_filters( 'tutormate_logger_options', array(
-			'logger_min_level' => 'warning',
-		) );
+		$logger_options = apply_filters(
+			'tutormate_logger_options',
+			array(
+				'logger_min_level' => 'warning',
+			)
+		);
 
 		// Configure logger instance and set it to the importer.
 		$logger            = new Logger();
