@@ -1,5 +1,4 @@
 const RadioField = ({ selected, options, selectedBuilder }) => {
-
     const updateRadioValue = (event) => {
         event.preventDefault();
         const radioInput = event.target.value;
