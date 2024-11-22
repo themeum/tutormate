@@ -1,6 +1,6 @@
 {
 	"name": "tutor-mate",
-	"version": "1.0.0",
+	"version": "3.0.0",
 	"description": "Companion plugin for tutor Starter Theme",
 	"main": "index.js",
 	"scripts": {
@@ -10,8 +10,8 @@
 		"prod": "npm run production",
 		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"makepot": "wp i18n make-pot --exclude='react,dist,node_modules,vendor' . languages/tutormate.pot",
-		"bundle": "dir-archiver --src . --dest ../tutormate.zip --exclude .DS_Store .ds_store .keep .eslintrc.json .eslintignore .git .gitattributes .github .gitignore phpcs.xml README.md composer.lock node_modules package-lock.json package.json webpack.mix.js sass react",
-		"build": "npm run prod && npm run makepot && npm run bundle",
+		"bundle": "mkdir -p ../tutormate-temp/tutormate && rsync -av --exclude='.DS_Store' --exclude='.git*' --exclude='.keep' --exclude='.eslintrc.json' --exclude='.eslintignore' --exclude='.gitattributes' --exclude='.github' --exclude='.gitignore' --exclude='node_modules' --exclude='composer.json' --exclude='README.md' --exclude='phpcs.xml' --exclude='composer.lock' --exclude='mix-manifest.json' --exclude='assets/js/demo-importer.js.LICENSE.txt' --exclude='package-lock.json' --exclude='package.json' --exclude='webpack.mix.js' --exclude='sass' --exclude='react' ./ ../tutormate-temp/tutormate && cd ../tutormate-temp && zip -r ../tutormate.${npm_package_version}.zip tutormate && cd - && rm -rf ../tutormate-temp",
+		"build": "composer i --no-dev && npm run prod && npm run makepot && npm run bundle",
 		"lint": "eslint \"./**/*.js\""
 	},
 	"devDependencies": {

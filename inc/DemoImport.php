@@ -186,7 +186,7 @@ class DemoImport {
 		return $this->is_elementor = array(
 			$this->elementor,
 			$this->tutor_lms,
-			$this->woocommerce,
+			// $this->woocommerce,
 			$this->tutor_elementor,
 		);
 	}
@@ -215,7 +215,7 @@ class DemoImport {
 			array(
 				'droip_plugins'     => $this->droip_plugins(),
 				'elementor_plugins' => $this->elementor_plugins(),
-				'gutenberg_plugins' => $this->gutenberg_plugins(),
+				// 'gutenberg_plugins' => $this->gutenberg_plugins(),
 			)
 		);
 	}
@@ -261,7 +261,7 @@ class DemoImport {
 	public function import_theme_demo() {
 
 		$this->builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'elementor';
-
+		
 		$demo_list  = array();
 		$packs_list = get_transient( 'tutorstarter_packs' );
 
