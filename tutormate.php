@@ -47,12 +47,6 @@ class TUTORMATE_Plugin {
 			// Set plugin constants.
 			$this->set_plugin_constants();
 
-			// Composer autoloader.
-			require_once TUTORMATE_PATH . 'vendor/autoload.php';
-
-			// Instantiate the main plugin class *Singleton*.
-			$tutormate_demo_import = TUTORMATE\OneClickDemoImport::get_instance();
-
 			// Register WP CLI commands
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				WP_CLI::add_command( 'tutormate list', array( 'TUTORMATE\WPCLICommands', 'list_predefined' ) );
@@ -108,12 +102,4 @@ $theme = wp_get_theme();
 if ( 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	// Instantiate the plugin class.
 	$tutormate_plugin = new TUTORMATE_Plugin();
-endif;
-
-// Require the demo importer class.
-if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
-	$demo_import = new TUTORMATE\DemoImport();
-	$demo_import->register();
-
-	new \TUTORMATE\MediaDownloader();
 endif;
