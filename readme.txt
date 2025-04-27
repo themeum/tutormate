@@ -49,6 +49,9 @@ Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter 
 
 == Changelog ==
 
+= 3.0.1 =
+Update : Improved demo content import system for better accuracy and reliability.
+
 = 3.0.0 =
 Update : Removed WooCommerce dependency
 Update : Discontinued Gutenberg editor support
