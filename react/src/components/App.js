@@ -17,7 +17,7 @@ function App() {
 	const [selectedDemo, setSelectedDemo] = useState(0);
 	const [builderList, setBuilderList] = useState([]);
 	const [modalState, setModalState] = useState(false);
-	const [builder, setBuilder] = useState('gutenberg');
+	const [builder, setBuilder] = useState('elementor');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [listItems, setListItems] = useState(importFiles);
 	const [demoNotice, setDemoNotice] = useState('');
@@ -323,16 +323,14 @@ function App() {
 			<ul className="list-container">
 				{listItems.length > 0 ? (
 					listItems.map((item, index) => {
-						const { import_file_name, builders, import_preview_image_url, notice, preview_url } = item;
+						const { import_file_name, import_preview_image_url, notice, preview_url } = item;
+						const builders = ['elementor']; // previously spread from item above, which is from endpoint builders.  $endpoint = 'https://api.tutorlms.com/wp-json/restapi/v1/tutorpacks';
 						return (
 							<li className="single-item" key={index}>
 								<div className="header">
 									<div className="title">{import_file_name}</div>
 									<div className="icons">
-										{builders.map((builder, index) => builder === 'gutenberg' ?
-											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/qubely.png`} alt="icon" />) :
-											(<img key={index} src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon" />))
-										}
+										<img key={index} src={`${tutormate.tutormate_url}/assets/images/${builder}.png`} alt="icon" />
 									</div>
 								</div>
 								<figure className="thumbnail">

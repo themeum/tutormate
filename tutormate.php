@@ -2,17 +2,19 @@
 /**
  * Plugin Name: TutorMate
  * Description: Companion demo importer plugin for TutorStarter theme.
- * Version: 1.0.4
+ * Version: 3.0.1
  * Author: Themeum
  * Author URI: https://www.themeum.com
  * Tags: demo, import, content, data
  * Requires at least: 5.3
- * Tested up to: 6.0
+ * Tested up to: 6.8
  * Requires PHP: 7.0
  * License: GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: tutormate
  */
+
+use TutorLMSDroip\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'init', 'tutormate_language_load' );
 
 function tutormate_language_load() {
-	load_plugin_textdomain( 'tutormate', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'tutormate', false, basename( __DIR__ ) . '/languages' );
 }
 
 /**
@@ -34,23 +36,16 @@ class TUTORMATE_Plugin {
 	 * Constructor for this class.
 	 */
 	public function __construct() {
-		
+
 		/**
 		 * Display admin error message if PHP version is older than 5.3.2.
 		 * Otherwise execute the main plugin class.
 		 */
 		if ( version_compare( phpversion(), '5.3.2', '<' ) ) {
 			add_action( 'admin_notices', array( $this, 'old_php_admin_error_notice' ) );
-		}
-		else {
+		} else {
 			// Set plugin constants.
 			$this->set_plugin_constants();
-
-			// Composer autoloader.
-			require_once TUTORMATE_PATH . 'vendor/autoload.php';
-
-			// Instantiate the main plugin class *Singleton*.
-			$tutormate_demo_import = TUTORMATE\OneClickDemoImport::get_instance();
 
 			// Register WP CLI commands
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -80,6 +75,7 @@ class TUTORMATE_Plugin {
 		// Path/URL to root of this plugin, with trailing slash.
 		if ( ! defined( 'TUTORMATE_PATH' ) ) {
 			define( 'TUTORMATE_PATH', plugin_dir_path( __FILE__ ) );
+			define( 'TEMPLATE_LIST_ENDPOINT', 'http://template-import.test/wp-content/plugins/droip-layouts.json' );
 		}
 		if ( ! defined( 'TUTORMATE_URL' ) ) {
 			define( 'TUTORMATE_URL', plugin_dir_url( __FILE__ ) );
@@ -106,12 +102,4 @@ $theme = wp_get_theme();
 if ( 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
 	// Instantiate the plugin class.
 	$tutormate_plugin = new TUTORMATE_Plugin();
-endif;
-
-// Require the demo importer class.
-if ( class_exists( 'TUTORMATE\\DemoImport' ) && 'tutorstarter' === $theme->get( 'TextDomain' ) ) :
-	$demo_import = new TUTORMATE\DemoImport();
-	$demo_import->register();
-
-	new \TUTORMATE\MediaDownloader();
 endif;

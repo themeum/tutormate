@@ -10,244 +10,245 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1;
     opacity: 0;
 }
+
 .modal-wrapper.active {
-    z-index: 10;
-    opacity: 1;
-    .modal-content {
-        opacity: 1;
-        transform: translateY(0px);
-    }
+	z-index: 10;
+	opacity: 1;
+	.modal-content {
+		opacity: 1;
+		transform: translateY(0px);
+	}
 }
 
 /* Modal Content  */
 .modal-content {
-    display: flex;
-    max-width: 700px;
-    min-width: 320px;
-    max-height: 406px;
-    height: 350px;
-    background: #ffffff;
-    box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
-    border-radius: 10px;
-    // animation: fade 0.4s linear;
-    > [class^="modal-"] {
-        padding: 15px;
-    }
-    .close-btn {
-        border: none;
-        background: transparent;
-        color: #42526e;
-        font-size: 30px;
-        line-height: 0.6;
-        font-family: sans-serif;
-        font-weight: 300;
-        transform: rotate(45deg);
-        margin: -10px -10px 0 0;
-    }
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        padding: 30px;
-        text-align: center;
-        .components-radio-control {
-            text-align: left;
-        }
-        .components-radio-control__input[type="radio"] {
-            &:checked {
-                &::before {
-                    width: 2px;
-                    height: 2px;
-                    margin: 3px;
-                }
-            }
-        }
-        .components-base-control__label {
-            font-size: 18px;
-        }
-        p {
-            line-height: 1.5;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-    }
-    .notices {
-        padding: 10px 25px;
-        margin-left: 5px;
-    }
+	display: flex;
+	max-width: 700px;
+	min-width: 320px;
+	max-height: 406px;
+	height: 350px;
+	background: #ffffff;
+	box-shadow: 0px 0px 1px rgb(9 30 66 / 31%), 0px 4px 8px rgb(9 30 66 / 25%);
+	border-radius: 10px;
+	// animation: fade 0.4s linear;
+	> [class^='modal-'] {
+		padding: 15px;
+	}
+	.close-btn {
+		border: none;
+		background: transparent;
+		color: #42526e;
+		font-size: 30px;
+		line-height: 0.6;
+		font-family: sans-serif;
+		font-weight: 300;
+		transform: rotate(45deg);
+		margin: -10px -10px 0 0;
+	}
+	.modal-body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 30px;
+		text-align: center;
+		.components-radio-control {
+			text-align: left;
+		}
+		.components-radio-control__input[type='radio'] {
+			&:checked {
+				&::before {
+					width: 2px;
+					height: 2px;
+					margin: 3px;
+				}
+			}
+		}
+		.components-base-control__label {
+			font-size: 18px;
+		}
+		p {
+			line-height: 1.5;
+			margin-bottom: 5px;
+			text-align: left;
+		}
+	}
+	.notices {
+		padding: 10px 25px;
+		margin-left: 5px;
+	}
 
-    .pluginstatus {
-        flex: 0.8;
-        padding: 30px;
-        background: #f3f3f3;
-        border-left: 1px solid #e8e8e8;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        > div {
-            text-align: left;
-            font-weight: 500;
-            line-height: 1.61;
-            margin-bottom: 4px;
-            strong {
-                font-size: 14px;
-                color: #1d2427;
-                margin-right: 3px;
-                font-weight: 500;
-            }
-            span {
-                font-size: 12px;
-                opacity: 0.8;
-                text-transform: capitalize;
-            }
-            &.active:before,
-            &.installed:before {
-                font-family: "dashicons" !important;
-                font-size: 18px;
-                margin-right: 5px;
-                opacity: 0.8;
-            }
-            &.active {
-                // check-mark '\e90f'
-                &:before {
-                    content: "\f147";
-                    color: #5fac23;
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-                span {
-                    color: #5fac23;
-                }
-            }
-            &.not.installed {
-                // cross '\e914'
-                &:before {
-                    content: "\f335";
-                    font-size: 18px;
-                    color: #f44321;
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-                span {
-                    color: #f44321;
-                }
-            }
-            &.installed {
-                // warning '\e95f'
-                &:before {
-                    content: "\f14c";
-                    color: #ffb200;
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-                span {
-                    color: #ffb200;
-                }
-            }
-        }
-        > p {
-            margin-bottom: 16px;
-            font-size: 15px;
-            font-weight: 300;
-            line-height: 26px;
-        }
+	.pluginstatus {
+		flex: 0.8;
+		padding: 30px;
+		background: #f3f3f3;
+		border-left: 1px solid #e8e8e8;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		> div {
+			text-align: left;
+			font-weight: 500;
+			line-height: 1.61;
+			margin-bottom: 4px;
+			strong {
+				font-size: 14px;
+				color: #1d2427;
+				margin-right: 3px;
+				font-weight: 500;
+			}
+			span {
+				font-size: 12px;
+				opacity: 0.8;
+				text-transform: capitalize;
+			}
+			&.active:before,
+			&.installed:before {
+				font-family: 'dashicons' !important;
+				font-size: 18px;
+				margin-right: 5px;
+				opacity: 0.8;
+			}
+			&.active {
+				// check-mark '\e90f'
+				&:before {
+					content: '\f147';
+					color: #5fac23;
+					display: inline-block;
+					vertical-align: middle;
+				}
+				span {
+					color: #5fac23;
+				}
+			}
+			&.not.installed {
+				// cross '\e914'
+				&:before {
+					content: '\f335';
+					font-size: 18px;
+					color: #f44321;
+					display: inline-block;
+					vertical-align: middle;
+				}
+				span {
+					color: #f44321;
+				}
+			}
+			&.installed {
+				// warning '\e95f'
+				&:before {
+					content: '\f14c';
+					color: #ffb200;
+					display: inline-block;
+					vertical-align: middle;
+				}
+				span {
+					color: #ffb200;
+				}
+			}
+		}
+		> p {
+			margin-bottom: 16px;
+			font-size: 15px;
+			font-weight: 300;
+			line-height: 26px;
+		}
 
-        .pluginsheader {
-            h4 {
-                color: #161616;
-                font-size: 16px;
-                font-weight: 500;
-                margin: 0.5rem 0;
-            }
-        }
-    }
-    @media (max-width: 767px) {
-        max-height: unset;
-        height: auto;
-        flex-direction: column;
+		.pluginsheader {
+			h4 {
+				color: #161616;
+				font-size: 16px;
+				font-weight: 500;
+				margin: 0.5rem 0;
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		max-height: unset;
+		height: auto;
+		flex-direction: column;
 
-        .modal-head h3 {
-            font-size: 20px;
-        }
-        .modal-body,
-        .pluginstatus {
-            padding: 20px;
-        }
-        .modal-footer .btn.btn-outline,
-        .modal-footer .btn.import-now {
-            padding: 8px 17px;
-        }
-        .modal-footer .btn:not(:last-child) {
-            margin-right: 10px;
-        }
-        .pluginstatus {
-            border-bottom-left-radius: 10px;
-        }
-        .radio-field-item {
-            margin-bottom: 15px;
-        }
-    }
+		.modal-head h3 {
+			font-size: 20px;
+		}
+		.modal-body,
+		.pluginstatus {
+			padding: 20px;
+		}
+		.modal-footer .btn.btn-outline,
+		.modal-footer .btn.import-now {
+			padding: 8px 17px;
+		}
+		.modal-footer .btn:not(:last-child) {
+			margin-right: 10px;
+		}
+		.pluginstatus {
+			border-bottom-left-radius: 10px;
+		}
+		.radio-field-item {
+			margin-bottom: 15px;
+		}
+	}
 }
 
 .modal-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    text-align: left;
-    h3,
-    h4,
-    h5 {
-        margin: 0 0 1.5rem 0;
-        line-height: 1.69;
-        color: #161616;
-        font-weight: 400;
-    }
-    h3 {
-        font-size: 20px;
-    }
-    h4 {
-        font-size: 18px;
-    }
-    span {
-        font-size: 13px;
-        color: #82848c;
-        display: flex;
-        align-items: center;
-    }
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	text-align: left;
+	h3,
+	h4,
+	h5 {
+		margin: 0 0 1.5rem 0;
+		line-height: 1.69;
+		color: #161616;
+		font-weight: 400;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	h4 {
+		font-size: 18px;
+	}
+	span {
+		font-size: 13px;
+		color: #82848c;
+		display: flex;
+		align-items: center;
+	}
 }
 .modal-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    .btn {
-        &:not(:last-child) {
-            margin-right: 20px;
-        }
-    }
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	.btn {
+		&:not(:last-child) {
+			margin-right: 20px;
+		}
+	}
 }
 
 .installation-complete {
-    .modal-content {
-        min-width: 320px;
-        min-height: 230px;
-        .modal-body {
-            p {
-                text-align: center;
-            }
-            h3 {
-                font-size: 20px;
-                font-weight: 600;
-                margin-top: 5px;
-            }
-            p,
-            a {
-                color: rgb(37 39 50 / 55%);
-            }
-        }
-    }
-    .modal-head {
-        justify-content: flex-end;
-    }
+	.modal-content {
+		min-width: 320px;
+		min-height: 230px;
+		.modal-body {
+			p {
+				text-align: center;
+			}
+			h3 {
+				font-size: 20px;
+				font-weight: 600;
+				margin-top: 5px;
+			}
+			p,
+			a {
+				color: rgb(37 39 50 / 55%);
+			}
+		}
+	}
+	.modal-head {
+		justify-content: flex-end;
+	}
 }
