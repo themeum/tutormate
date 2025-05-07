@@ -5,7 +5,7 @@ Tags: demo, import, content, data
 Requires at least: 5.3
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+
+= 3.0.1 =
+Update : Remove old demo importer & added one click demo importer
 
 = 3.0.0 =
 Update : Removed WooCommerce dependency

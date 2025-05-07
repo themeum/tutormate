@@ -17,8 +17,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"TUTORMATE\\": "inc/",
-			"AwesomeMotive\\WPContentImporter2\\" : "lib/awesomemotive/src/"
+			"TUTORMATE\\": "inc/"
 		}
 	}
 }

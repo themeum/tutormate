@@ -8,17 +8,17 @@
 let mix = require('laravel-mix');
 
 mix.webpackConfig({
-	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM'
-	}
+	// externals: {
+	// 	'react': 'React',
+	// 	'react-dom': 'ReactDOM'
+	// }
 });
 
 mix.setPublicPath('./assets');
 
 // Compile assets
-mix.react('react/src/demo-importer.js', 'assets/js')
-.sass('react/src/sass/app.scss', 'assets/css/app.min.css')
+// mix.react('react/src/demo-importer.js', 'assets/js')
+// .sass('react/src/sass/app.scss', 'assets/css/app.min.css')
 
 // Add versioning to assets in production environment
 if (mix.inProduction()) {

@@ -1,8 +1,0 @@
-{
-  "name": "tutor-mate",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "web-vitals": "^0.2.4"
-  }
-}

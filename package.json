@@ -1,6 +1,6 @@
 {
 	"name": "tutor-mate",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Companion plugin for tutor Starter Theme",
 	"main": "index.js",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"prod": "npm run production",
 		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"makepot": "wp i18n make-pot --exclude='react,dist,node_modules,vendor' . languages/tutormate.pot",
-		"bundle": "mkdir -p ../tutormate-temp/tutormate && rsync -av --exclude='.DS_Store' --exclude='.git*' --exclude='.keep' --exclude='.eslintrc.json' --exclude='.eslintignore' --exclude='.gitattributes' --exclude='.github' --exclude='.gitignore' --exclude='node_modules' --exclude='composer.json' --exclude='README.md' --exclude='phpcs.xml' --exclude='composer.lock' --exclude='mix-manifest.json' --exclude='assets/js/demo-importer.js.LICENSE.txt' --exclude='package-lock.json' --exclude='package.json' --exclude='webpack.mix.js' --exclude='sass' --exclude='react' ./ ../tutormate-temp/tutormate && cd ../tutormate-temp && zip -r ../tutormate.${npm_package_version}.zip tutormate && cd - && rm -rf ../tutormate-temp",
+		"bundle": "wp dist-archive . ../tutormate-$(grep 'Version:' tutormate.php | awk '{print $3}').zip",
 		"build": "composer i --no-dev && npm run prod && npm run makepot && npm run bundle",
 		"lint": "eslint \"./**/*.js\""
 	},
@@ -31,8 +31,7 @@
 		"laravel-mix": "^5.0.9",
 		"resolve-url-loader": "^3.1.2",
 		"sass": "^1.30.0",
-		"sass-loader": "10.1.0",
-		"vue-template-compiler": "^2.6.12"
+		"sass-loader": "10.1.0"
 	},
 	"keywords": [
 		"wordpress",
