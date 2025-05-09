@@ -48,37 +48,38 @@ class DemoImporter {
 	 * @return array Array of demo import files.
 	 */
 	public function tutormate_demo_import_files() {
+
 		return array(
 			// Elementor.
 			array(
 				'import_file_name'             => 'University',
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/university/demo-content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/university/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'inc/demos/university/customizer.dat',
+				'local_import_file'            => TUTORMATE_PATH . 'demos/elementor/university/demo-content.xml',
+				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/university/widgets.wie',
+				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/university/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/university/tutormate-university-preview.png',
 				'preview_url'                  => 'https://preview.tutorlms.com/university',
 			),
 			array(
 				'import_file_name'             => 'Marketplace',
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/marketplace/demo-content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/marketplace/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/marketplace/customizer.dat',
+				'local_import_file'            => TUTORMATE_PATH . 'demos/elementor/marketplace/demo-content.xml',
+				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/marketplace/widgets.wie',
+				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/marketplace/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/marketplace/tutormate-marketplace-preview.png',
 				'preview_url'                  => 'https://preview.tutorlms.com/marketplace/',
 			),
 			array(
 				'import_file_name'             => 'Instructor',
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/instructor/demo-content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/instructor/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/instructor/customizer.dat',
+				'local_import_file'            => TUTORMATE_PATH . 'demos/elementor/instructor/demo-content.xml',
+				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/instructor/widgets.wie',
+				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/instructor/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/instructor/tutormate-instructor-preview.png',
 				'preview_url'                  => 'https://preview.tutorlms.com/instructor/',
 			),
 			array(
 				'import_file_name'             => 'Single Course',
-				'local_import_file'            => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/single-course/demo-content.xml',
-				'local_import_widget_file'     => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/single-course/widgets.wie',
-				'local_import_customizer_file' => trailingslashit( get_template_directory() ) . 'inc/demos/elementor/single-course/customizer.dat',
+				'local_import_file'            => TUTORMATE_PATH . 'demos/elementor/single-course/demo-content.xml',
+				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/single-course/widgets.wie',
+				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/single-course/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/single-course/tutormate-single-course-preview.png',
 				'preview_url'                  => 'https://preview.tutorlms.com/single-course/',
 			),
@@ -106,39 +107,40 @@ class DemoImporter {
 				'slug'     => 'elementor',  // Plugin slug - the same as on WordPress.org plugin repository.
 				'required' => true,         // If the plugin is required or not.
 			),
-			array( // A WordPress.org plugin repository example.
-				'name'     => 'WPForms',    // Name of the plugin.
-				'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
-				'required' => true,         // If the plugin is required or not.
-			),
+			// array( // A WordPress.org plugin repository example.
+			// 	'name'     => 'WPForms',    // Name of the plugin.
+			// 	'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
+			// 	'required' => true,         // If the plugin is required or not.
+			// ),
 		);
 
 		// Check if user is on the theme recommeneded plugins step and a demo was selected.
-		if ( isset( $_GET['step'] ) && 'import' === $_GET['step'] && isset( $_GET['import'] ) ) {
+		// if ( isset( $_GET['step'] ) && 'import' === $_GET['step'] && isset( $_GET['import'] ) ) {
 
-			// List of all plugins only used by second demo import [overwrite the list] ('import' number = 2).
-			if ( '0' === $_GET['import'] || '1' === $_GET['import'] || '2' === $_GET['import'] || '3' === $_GET['import'] ) {
-				$theme_plugins = array(
-					array( // A WordPress.org plugin repository example.
-						'name'     => 'Tutor LMS',  // Name of the plugin.
-						'slug'     => 'tutor',      // Plugin slug - the same as on WordPress.org plugin repository.
-						'required' => true,         // If the plugin is required or not.
-					),
-					array( // A WordPress.org plugin repository example.
-						'name'     => 'Elementor',  // Name of the plugin.
-						'slug'     => 'elementor',  // Plugin slug - the same as on WordPress.org plugin repository.
-						'required' => true,         // If the plugin is required or not.
-					),
-					array( // A WordPress.org plugin repository example.
-						'name'     => 'WPForms',    // Name of the plugin.
-						'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
-						'required' => true,         // If the plugin is required or not.
-					),
-				);
-			}
-		}
+		// List of all plugins only used by second demo import [overwrite the list] ('import' number = 2).
+		// if ( '0' === $_GET['import'] || '1' === $_GET['import'] || '2' === $_GET['import'] || '3' === $_GET['import'] ) {
+		// $theme_plugins = array(
+		// array( // A WordPress.org plugin repository example.
+		// 'name'     => 'Tutor LMS',  // Name of the plugin.
+		// 'slug'     => 'tutor',      // Plugin slug - the same as on WordPress.org plugin repository.
+		// 'required' => true,         // If the plugin is required or not.
+		// ),
+		// array( // A WordPress.org plugin repository example.
+		// 'name'     => 'Elementor',  // Name of the plugin.
+		// 'slug'     => 'elementor',  // Plugin slug - the same as on WordPress.org plugin repository.
+		// 'required' => true,         // If the plugin is required or not.
+		// ),
+		// array( // A WordPress.org plugin repository example.
+		// 'name'     => 'WPForms',    // Name of the plugin.
+		// 'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
+		// 'required' => true,         // If the plugin is required or not.
+		// ),
+		// );
+		// }
+		// }
 
-		return array_merge( $plugins, $theme_plugins );
+		// return array_merge( $plugins, $theme_plugins );
+		return $theme_plugins;
 	}
 
 

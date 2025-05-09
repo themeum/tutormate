@@ -18,6 +18,7 @@
  */
 
 use TUTORMATE\DemoImporter;
+use TUTORMATE\Enqueue;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -45,6 +46,8 @@ class TUTORMATE_Plugin {
 			require_once TUTORMATE_PATH . 'vendor/autoload.php';
 
 			new DemoImporter();
+			new Enqueue();
+
 		}
 	}
 
@@ -57,12 +60,13 @@ class TUTORMATE_Plugin {
 			esc_html__(
 				'The %2$sTutormate%3$s plugin requires %2$sPHP 5.3.2+%3$s to run properly. Please contact your hosting company and ask them to update the PHP version of your site to at least PHP 5.3.2.%4$s Your current version of PHP: %2$s%1$s%3$s',
 				'tutormate'
-			),
+			), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			phpversion(),
 			'<strong>',
 			'</strong>',
 			'<br>'
 		);
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		printf( '<div class="notice notice-error"><p>%1$s</p></div>', wp_kses_post( $message ) );
 	}
