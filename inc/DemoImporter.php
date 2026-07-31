@@ -57,7 +57,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/university/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/university/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/university/tutormate-university-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/university',
+				'preview_url'                  => 'https://tutorlms.io/university',
 			),
 			array(
 				'import_file_name'             => 'Marketplace',
@@ -65,7 +65,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/marketplace/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/marketplace/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/marketplace/tutormate-marketplace-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/marketplace/',
+				'preview_url'                  => 'https://tutorlms.io/marketplace',
 			),
 			array(
 				'import_file_name'             => 'Instructor',
@@ -73,7 +73,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/instructor/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/instructor/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/instructor/tutormate-instructor-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/instructor/',
+				'preview_url'                  => 'https://tutorlms.io/instructor',
 			),
 			array(
 				'import_file_name'             => 'Single Course',
@@ -81,7 +81,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/single-course/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/single-course/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/single-course/tutormate-single-course-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/single-course/',
+				'preview_url'                  => 'https://tutorlms.io/singlecourse',
 			),
 		);
 	}
