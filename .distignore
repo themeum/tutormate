@@ -17,6 +17,7 @@
 \*.zip
 phpcs.xml
 readme.md
+README.md
 composer.lock
 node_modules
 package-lock.json

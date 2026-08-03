@@ -40,31 +40,28 @@ jobs:
           sudo mv wp-cli.phar /usr/local/bin/wp
           wp --info
 
-      - name: Run php
-        run: php -v
+          - name: Run php
+            run: php -v
 
-      - name: Run composer
-        run: composer install
+          - name: Run composer
+            run: composer install
 
-      - name: Verify WP CLI installation
-        run: wp --info
+          - name: Verify WP CLI installation
+            run: wp --info
 
-      - name: Extract tutormate version number
-        id: get_version
-        run: |
-            version=$(grep -Po 'Version:\s*\K[\d.]+(?:-[\w]+)?' tutormate.php)
-            echo "Tutormate version: $version"
-            echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
+          - name: Extract tutormate version number
+            id: get_version
+            run: |
+              version=$(grep -Po 'Version:\s*\K[\d.]+(?:-[\w]+)?' tutormate.php)
+              echo "Tutormate version: $version"
+              echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
 
-      - name: Install WP-CLI dist-archive package
-        run: wp package install wp-cli/dist-archive-command
+          - name: Build Plugin
+            run: npm run build
 
-      - name: Build Plugin
-        run: npm run build
-
-      # - name: Create GitHub release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: ../tutormate-${{ env.VERSION_NUMBER }}.zip
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ../tutormate-${{ env.VERSION_NUMBER }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

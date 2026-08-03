@@ -10,7 +10,7 @@
 		"prod": "npm run production",
 		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"makepot": "wp i18n make-pot --exclude='react,dist,node_modules,vendor' . languages/tutormate.pot",
-		"bundle": "wp dist-archive . ../tutormate-$(grep 'Version:' tutormate.php | awk '{print $3}').zip",
+        "bundle": "VERSION=$(grep 'Version:' tutormate.php | awk '{print $3}') && PACKAGE_DIR=$(basename \"$PWD\") && STAGING_DIR=../build-package && rm -rf \"$STAGING_DIR\" && mkdir -p \"$STAGING_DIR/$PACKAGE_DIR\" && rsync -a ./ \"$STAGING_DIR/$PACKAGE_DIR/\" --exclude-from=.distignore && (cd \"$STAGING_DIR\" && zip -qr \"../${PACKAGE_DIR}-${VERSION}.zip\" \"$PACKAGE_DIR\") && rm -rf \"$STAGING_DIR\"",
 		"build": "composer i --no-dev && npm run prod && npm run makepot && npm run bundle",
 		"lint": "eslint \"./**/*.js\""
 	},
