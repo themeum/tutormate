@@ -59,9 +59,9 @@ jobs:
           - name: Build Plugin
             run: npm run build
 
-      # - name: Create GitHub release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: ../tutormate-${{ env.VERSION_NUMBER }}.zip
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: Create GitHub release
+            uses: softprops/action-gh-release@v1
+            with:
+              files: ../tutormate-${{ env.VERSION_NUMBER }}.zip
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
