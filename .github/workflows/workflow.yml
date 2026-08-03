@@ -56,6 +56,9 @@ jobs:
             echo "Tutormate version: $version"
             echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
 
+      - name: Install WP-CLI dist-archive package
+        run: wp package install wp-cli/dist-archive-command
+
       - name: Build Plugin
         run: npm run build
 
