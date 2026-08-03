@@ -49,11 +49,11 @@ jobs:
       - name: Verify WP CLI installation
         run: wp --info
 
-      - name: Extract version number
+      - name: Extract tutormate version number
         id: get_version
         run: |
-            version=$(wp --info | grep "WP CLI Version" | awk '{print $3}')
-            echo "WP CLI version: $version"
+            version=$(grep -Po 'Version:\s*\K[\d.]+(?:-[\w]+)?' tutormate.php)
+            echo "Tutormate version: $version"
             echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
 
       - name: Build Plugin
