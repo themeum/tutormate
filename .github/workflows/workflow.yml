@@ -1,8 +1,8 @@
-name: Deploy to SVN
+name: Deploy to SVN 
 on:
   push:
-    branches:
-      - test-workflow
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
