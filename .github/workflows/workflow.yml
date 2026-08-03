@@ -2,7 +2,7 @@ name: Deploy to SVN
 on:
   push:
     branches:
-      - workflow
+      - test-workflow
 
 permissions:
   contents: write
