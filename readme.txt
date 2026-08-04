@@ -51,7 +51,7 @@ Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter 
 
 = 3.0.2 =
 Fix: Update demo import files and preview url
-Update: Added github workflow to deploy
+Update: Added github workflow to deploy to SVN
 
 = 3.0.1 =
 Update : Remove old demo importer & added one click demo importer
