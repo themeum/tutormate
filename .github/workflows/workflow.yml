@@ -56,17 +56,17 @@ jobs:
       - name: Build Plugin
         run: npm run build
 
-      - name: WordPress Plugin Deploy
-        id: deploy
-        continue-on-error: true
-        uses: 10up/action-wordpress-plugin-deploy@stable
-        with:
-          dry-run: true
-          generate-zip: true
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: tutormate
+      # - name: WordPress Plugin Deploy
+      #   id: deploy
+      #   continue-on-error: true
+      #   uses: 10up/action-wordpress-plugin-deploy@stable
+      #   with:
+      #     dry-run: true
+      #     generate-zip: true
+      #   env:
+      #     SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      #     SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      #     SLUG: tutormate
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
