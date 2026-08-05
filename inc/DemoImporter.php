@@ -102,7 +102,7 @@ class DemoImporter {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				min-height: 40px;
+				min-height: 60px;
 			}
 			@media (min-width: 1120px) {
 				.ocdi__gl-item {
