@@ -23,6 +23,7 @@ class DemoImporter {
 		add_filter( 'ocdi/register_plugins', array( $this, 'tutormate_register_plugins' ) );
 		add_action( 'ocdi/after_import', array( $this, 'tutormate_after_import_setup' ) );
 		add_action( 'tgmpa_register', array( $this, 'tutormate_register_required_plugins' ) );
+		add_action( 'admin_head', array( $this, 'tutormate_demo_import_button_styles' ) );
 	}
 
 	/**
@@ -57,7 +58,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/university/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/university/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/university/tutormate-university-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/university',
+				'preview_url'                  => 'https://tutorlms.io/university',
 			),
 			array(
 				'import_file_name'             => 'Marketplace',
@@ -65,7 +66,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/marketplace/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/marketplace/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/marketplace/tutormate-marketplace-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/marketplace/',
+				'preview_url'                  => 'https://tutorlms.io/marketplace',
 			),
 			array(
 				'import_file_name'             => 'Instructor',
@@ -73,7 +74,7 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/instructor/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/instructor/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/instructor/tutormate-instructor-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/instructor/',
+				'preview_url'                  => 'https://tutorlms.io/instructor',
 			),
 			array(
 				'import_file_name'             => 'Single Course',
@@ -81,9 +82,39 @@ class DemoImporter {
 				'local_import_widget_file'     => TUTORMATE_PATH . 'demos/elementor/single-course/widgets.wie',
 				'local_import_customizer_file' => TUTORMATE_PATH . 'demos/elementor/single-course/customizer.dat',
 				'import_preview_image_url'     => TUTORMATE_URL . 'demos/elementor/single-course/tutormate-single-course-preview.png',
-				'preview_url'                  => 'https://preview.tutorlms.com/single-course/',
+				'preview_url'                  => 'https://tutorlms.io/singlecourse',
 			),
 		);
+	}
+
+	/**
+	 * Fix demo card button layout for the OCDI preview/import actions.
+	 *
+	 * @return void
+	 */
+	public function tutormate_demo_import_button_styles() {
+		if ( ! isset( $_GET['page'] ) || 'tutormate-demo-import' !== sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) {
+				return;
+		}
+		?>
+		<style>
+			.ocdi__gl-item-footer {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 60px;
+			}
+			@media (min-width: 1120px) {
+				.ocdi__gl-item {
+					-webkit-box-flex: 0;
+					-ms-flex: 0 0 calc(33.33% - 30px);
+					flex: 0 0 calc(33.33% - 30px);
+					margin-bottom: 30px;
+					margin-right: 30px;
+				}
+			}
+		</style>
+		<?php
 	}
 
 	/**
@@ -107,39 +138,8 @@ class DemoImporter {
 				'slug'     => 'elementor',  // Plugin slug - the same as on WordPress.org plugin repository.
 				'required' => true,         // If the plugin is required or not.
 			),
-			// array( // A WordPress.org plugin repository example.
-			// 	'name'     => 'WPForms',    // Name of the plugin.
-			// 	'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
-			// 	'required' => true,         // If the plugin is required or not.
-			// ),
 		);
 
-		// Check if user is on the theme recommeneded plugins step and a demo was selected.
-		// if ( isset( $_GET['step'] ) && 'import' === $_GET['step'] && isset( $_GET['import'] ) ) {
-
-		// List of all plugins only used by second demo import [overwrite the list] ('import' number = 2).
-		// if ( '0' === $_GET['import'] || '1' === $_GET['import'] || '2' === $_GET['import'] || '3' === $_GET['import'] ) {
-		// $theme_plugins = array(
-		// array( // A WordPress.org plugin repository example.
-		// 'name'     => 'Tutor LMS',  // Name of the plugin.
-		// 'slug'     => 'tutor',      // Plugin slug - the same as on WordPress.org plugin repository.
-		// 'required' => true,         // If the plugin is required or not.
-		// ),
-		// array( // A WordPress.org plugin repository example.
-		// 'name'     => 'Elementor',  // Name of the plugin.
-		// 'slug'     => 'elementor',  // Plugin slug - the same as on WordPress.org plugin repository.
-		// 'required' => true,         // If the plugin is required or not.
-		// ),
-		// array( // A WordPress.org plugin repository example.
-		// 'name'     => 'WPForms',    // Name of the plugin.
-		// 'slug'     => 'wpforms-lite',   // Plugin slug - the same as on WordPress.org plugin repository.
-		// 'required' => true,         // If the plugin is required or not.
-		// ),
-		// );
-		// }
-		// }
-
-		// return array_merge( $plugins, $theme_plugins );
 		return $theme_plugins;
 	}
 

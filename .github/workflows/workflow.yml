@@ -1,0 +1,76 @@
+name: Deploy to SVN 
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  Deploy-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+            node-version: '22.16.0'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml
+
+      - name: Install WP CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp-cli.phar
+          php wp-cli.phar --info
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+
+      - name: Run php
+        run: php -v
+
+      - name: Run composer
+        run: composer install
+
+      - name: Verify WP CLI installation
+        run: wp --info
+
+      - name: Extract tutormate version number
+        id: get_version
+        run: |
+          version=$(grep -Po 'Version:\s*\K[\d.]+(?:-[\w]+)?' tutormate.php)
+          echo "Tutormate version: $version"
+          echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
+
+      - name: Build Plugin
+        run: npm run build
+
+      - name: WordPress Plugin Deploy
+        id: deploy
+        continue-on-error: true
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          dry-run: false
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: tutormate
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ../tutormate-${{ env.VERSION_NUMBER }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

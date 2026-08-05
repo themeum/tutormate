@@ -2,12 +2,12 @@
 /**
  * Plugin Name: TutorMate
  * Description: Companion demo importer plugin for TutorStarter theme.
- * Version: 3.0.1
+ * Version: 3.0.2
  * Author: Themeum
  * Author URI: https://www.themeum.com
  * Tags: demo, import, content, data
  * Requires at least: 5.3
- * Tested up to: 6.7
+ * Tested up to: 7.0
  * Requires PHP: 7.0
  * License: GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,13 +60,13 @@ class TUTORMATE_Plugin {
 			esc_html__(
 				'The %2$sTutormate%3$s plugin requires %2$sPHP 5.3.2+%3$s to run properly. Please contact your hosting company and ask them to update the PHP version of your site to at least PHP 5.3.2.%4$s Your current version of PHP: %2$s%1$s%3$s',
 				'tutormate'
-			), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			), // phpcs:ignore
 			phpversion(),
 			'<strong>',
 			'</strong>',
 			'<br>'
 		);
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		// phpcs:ignore
 
 		printf( '<div class="notice notice-error"><p>%1$s</p></div>', wp_kses_post( $message ) );
 	}

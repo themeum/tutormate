@@ -3,9 +3,9 @@ Contributors: themeum
 Donate link: https://www.themeum.com
 Tags: demo, import, content, data
 Requires at least: 5.3
-Tested up to: 6.7
+Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,10 @@ You can get support by posting your issues on the support section of this plugin
 Yes! This plugin is absolutely free. However, the plugin requires Tutor Starter Theme to function.
 
 == Changelog ==
+
+= 3.0.2 =
+Fix: Update demo import files and preview url
+Update: Added github workflow to deploy to SVN
 
 = 3.0.1 =
 Update : Remove old demo importer & added one click demo importer
