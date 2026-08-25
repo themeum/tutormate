@@ -1,6 +1,6 @@
 {
 	"name": "tutor-mate",
-        "version": "3.0.3",
+    "version": "3.0.3",
 	"description": "Companion plugin for tutor Starter Theme",
 	"main": "index.js",
 	"scripts": {
